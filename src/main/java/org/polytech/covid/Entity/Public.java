@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,18 +8,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Medecin {
+public class Public {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_medecin;
+    private Integer id_personne;
 
     @OneToOne
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
     private Personne personne;
 
-    @OneToOne
-    @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
-    private Centre centre;
+    private Integer dose;
 
 }

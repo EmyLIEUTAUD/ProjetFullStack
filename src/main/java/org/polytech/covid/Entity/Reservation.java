@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import java.time.LocalDate;
 

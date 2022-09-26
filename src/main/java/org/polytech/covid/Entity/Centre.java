@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
