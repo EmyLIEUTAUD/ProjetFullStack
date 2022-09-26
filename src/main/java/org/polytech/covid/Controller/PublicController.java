@@ -1,6 +1,7 @@
 package org.polytech.covid.Controller;
 
 import org.polytech.covid.Dao.CentreDao;
+import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Service.RechercheCentreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ public class PublicController {
     private RechercheCentreService rechercheCentreService;
 
     @GetMapping(path = "/centers/{id}")
-    public List<CentreDao> rechercheCentreByVille(@PathVariable(value ="id") Integer idVille){
+    public List<Centre> rechercheCentreByVille(@PathVariable(value ="id") Integer idVille){
         return rechercheCentreService.rechercheCentreByVille(idVille);
     }
 
