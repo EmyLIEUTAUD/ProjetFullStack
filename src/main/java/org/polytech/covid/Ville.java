@@ -13,4 +13,25 @@ public class Ville {
     private Integer id_ville;
     private String nom;
 
+    public Ville(Integer id_ville, String nom) {
+        this.id_ville = id_ville;
+        this.nom = nom;
+    }
+
+    public Integer getId_ville() {
+        return id_ville;
+    }
+
+    public void setId_ville(Integer id_ville) {
+        this.id_ville = id_ville;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
 }
