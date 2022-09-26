@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Centre {
@@ -12,6 +14,9 @@ public class Centre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_centre;
     private String nom;
-    private Integer id_ville;
+
+    @OneToOne
+    @JoinColumn(name = "id_ville", referencedColumnName = "id_ville")
+    private Ville id_ville;
 
 }
