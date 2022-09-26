@@ -18,8 +18,8 @@ public class Reservation {
     private LocalDate date_reservation;
 
     @OneToOne
-    @JoinColumn(name = "id_personne", referencedColumnName = "identifiant")
-    private Personne id_personne;
+    @JoinColumn(name = "id_personne", referencedColumnName = "id_personne")
+    private Public id_personne;
 
     @OneToOne
     @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
