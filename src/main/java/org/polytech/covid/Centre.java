@@ -19,6 +19,7 @@ public class Centre {
     @JoinColumn(name = "id_ville", referencedColumnName = "id_ville")
     private Ville id_ville;
 
+    private Integer numAdresse;
     private String adresse;
     private String horairesLundi;
     private String horairesMardi;
@@ -28,12 +29,13 @@ public class Centre {
     private String horairesSamedi;
     private String horairesDimanche;
 
-    public Centre(Integer id_centre, String nom, Ville id_ville, String adresse, String horairesLundi,
-            String horairesMardi, String horairesMercredi, String horairesJeudi, String horairesVendredi,
-            String horairesSamedi, String horairesDimanche) {
+    public Centre(Integer id_centre, String nom, Ville id_ville, Integer numAdresse, String adresse,
+            String horairesLundi, String horairesMardi, String horairesMercredi, String horairesJeudi,
+            String horairesVendredi, String horairesSamedi, String horairesDimanche) {
         this.id_centre = id_centre;
         this.nom = nom;
         this.id_ville = id_ville;
+        this.numAdresse = numAdresse;
         this.adresse = adresse;
         this.horairesLundi = horairesLundi;
         this.horairesMardi = horairesMardi;
@@ -66,6 +68,14 @@ public class Centre {
 
     public void setId_ville(Ville id_ville) {
         this.id_ville = id_ville;
+    }
+
+    public Integer getNumAdresse() {
+        return numAdresse;
+    }
+
+    public void setNumAdresse(Integer numAdresse) {
+        this.numAdresse = numAdresse;
     }
 
     public String getAdresse() {
