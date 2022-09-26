@@ -18,4 +18,12 @@ public class Superadmin {
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
     private Personne personne;
 
+    @OneToOne
+    @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
+    private Centre id_centre;
+
+    @OneToOne
+    @JoinColumn(name = "id_ville", referencedColumnName = "id_ville")
+    private Ville id_ville;
+
 }
