@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,11 +8,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Admin {
+public class Medecin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_admin;
+    private Integer id_medecin;
 
     @OneToOne
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
@@ -22,18 +22,22 @@ public class Admin {
     @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
     private Centre centre;
 
-    public Admin(Integer id_admin, Personne personne, Centre centre) {
-        this.id_admin = id_admin;
+    public Medecin(Integer id_medecin, Personne personne, Centre centre) {
+        this.id_medecin = id_medecin;
         this.personne = personne;
         this.centre = centre;
     }
 
-    public Integer getId_admin() {
-        return id_admin;
+    public Medecin() {
+
     }
 
-    public void setId_admin(Integer id_admin) {
-        this.id_admin = id_admin;
+    public Integer getId_medecin() {
+        return id_medecin;
+    }
+
+    public void setId_medecin(Integer id_medecin) {
+        this.id_medecin = id_medecin;
     }
 
     public Personne getPersonne() {

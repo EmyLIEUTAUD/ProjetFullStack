@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,32 +8,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Medecin {
+public class Public {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_medecin;
+    private Integer id_personne;
 
     @OneToOne
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
     private Personne personne;
 
-    @OneToOne
-    @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
-    private Centre centre;
+    private Integer dose;
 
-    public Medecin(Integer id_medecin, Personne personne, Centre centre) {
-        this.id_medecin = id_medecin;
+    public Public(Integer id_personne, Personne personne, Integer dose) {
+        this.id_personne = id_personne;
         this.personne = personne;
-        this.centre = centre;
+        this.dose = dose;
     }
 
-    public Integer getId_medecin() {
-        return id_medecin;
+    public Integer getId_personne() {
+        return id_personne;
     }
 
-    public void setId_medecin(Integer id_medecin) {
-        this.id_medecin = id_medecin;
+    public void setId_personne(Integer id_personne) {
+        this.id_personne = id_personne;
     }
 
     public Personne getPersonne() {
@@ -44,12 +42,12 @@ public class Medecin {
         this.personne = personne;
     }
 
-    public Centre getCentre() {
-        return centre;
+    public Integer getDose() {
+        return dose;
     }
 
-    public void setCentre(Centre centre) {
-        this.centre = centre;
+    public void setDose(Integer dose) {
+        this.dose = dose;
     }
 
 }

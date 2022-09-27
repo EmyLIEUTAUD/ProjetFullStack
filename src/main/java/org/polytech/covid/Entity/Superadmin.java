@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +31,10 @@ public class Superadmin {
         this.personne = personne;
         this.id_centre = id_centre;
         this.id_ville = id_ville;
+    }
+
+    public Superadmin() {
+
     }
 
     public Integer getId_superadmin() {

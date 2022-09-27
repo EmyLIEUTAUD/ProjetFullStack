@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,6 +32,10 @@ public class Personne {
         this.telephone = telephone;
         this.adresse = adresse;
         this.role = role;
+    }
+
+    public Personne() {
+
     }
 
     public Integer getIdentifiant() {

@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +18,10 @@ public class Ville {
         this.nom = nom;
     }
 
+    public Ville() {
+
+    }
+
     public Integer getId_ville() {
         return id_ville;
     }
@@ -33,5 +37,4 @@ public class Ville {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
 }

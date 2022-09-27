@@ -1,4 +1,4 @@
-package org.polytech.covid;
+package org.polytech.covid.Entity;
 
 import java.time.LocalDate;
 
@@ -30,6 +30,10 @@ public class Reservation {
         this.date_reservation = date_reservation;
         this.id_personne = id_personne;
         this.id_centre = id_centre;
+    }
+
+    public Reservation() {
+
     }
 
     public Integer getId_reservation() {
