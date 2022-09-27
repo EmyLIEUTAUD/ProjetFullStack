@@ -10,9 +10,7 @@ public class Centre {
     private Integer id_centre;
     private String nom;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_ville", referencedColumnName = "id_ville")
-    private Ville id_ville;
+    private String ville;
 
     private Integer numAdresse;
     private String adresse;
@@ -24,12 +22,16 @@ public class Centre {
     private String horairesSamedi;
     private String horairesDimanche;
 
-    public Centre(Integer id_centre, String nom, Ville id_ville, Integer numAdresse, String adresse,
+    public Centre() {
+
+    }
+
+    public Centre(Integer id_centre, String nom, String ville, Integer numAdresse, String adresse,
             String horairesLundi, String horairesMardi, String horairesMercredi, String horairesJeudi,
             String horairesVendredi, String horairesSamedi, String horairesDimanche) {
         this.id_centre = id_centre;
         this.nom = nom;
-        this.id_ville = id_ville;
+        this.ville = ville;
         this.numAdresse = numAdresse;
         this.adresse = adresse;
         this.horairesLundi = horairesLundi;
@@ -57,12 +59,12 @@ public class Centre {
         this.nom = nom;
     }
 
-    public Ville getId_ville() {
-        return id_ville;
+    public String getVille() {
+        return ville;
     }
 
-    public void setId_ville(Ville id_ville) {
-        this.id_ville = id_ville;
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
     public Integer getNumAdresse() {

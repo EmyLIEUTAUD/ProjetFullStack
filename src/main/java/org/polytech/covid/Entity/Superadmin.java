@@ -22,15 +22,13 @@ public class Superadmin {
     @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
     private Centre id_centre;
 
-    @OneToOne
-    @JoinColumn(name = "id_ville", referencedColumnName = "id_ville")
-    private Ville id_ville;
+    private String ville;
 
-    public Superadmin(Integer id_superadmin, Personne personne, Centre id_centre, Ville id_ville) {
+    public Superadmin(Integer id_superadmin, Personne personne, Centre id_centre, String ville) {
         this.id_superadmin = id_superadmin;
         this.personne = personne;
         this.id_centre = id_centre;
-        this.id_ville = id_ville;
+        this.ville = ville;
     }
 
     public Superadmin() {
@@ -61,12 +59,12 @@ public class Superadmin {
         this.id_centre = id_centre;
     }
 
-    public Ville getId_ville() {
-        return id_ville;
+    public String getVille() {
+        return ville;
     }
 
-    public void setId_ville(Ville id_ville) {
-        this.id_ville = id_ville;
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
 }
