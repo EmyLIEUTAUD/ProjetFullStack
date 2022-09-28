@@ -12,3 +12,4 @@ clique droit sur covid-db > Generate ERD
 - Controller
 - Partie DAO
 - Importer les centres de vaccination COVID dans la bdd
+- Faire des tests unitaires
