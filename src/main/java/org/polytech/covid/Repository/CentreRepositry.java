@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CentreRepositry extends JpaRepository<Centre, Integer> {
 
-    @Query("select v from Centre where v.ville = :ville")
+    @Query("SELECT c FROM Centre c WHERE c.ville = :ville")
     List<Centre> findByVille(@Param("ville") String ville);
 
 }

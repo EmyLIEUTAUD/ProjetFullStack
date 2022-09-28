@@ -14,6 +14,7 @@ public class Centre {
 
     private Integer numAdresse;
     private String adresse;
+    private Integer cp;
     private String horairesLundi;
     private String horairesMardi;
     private String horairesMercredi;
@@ -26,7 +27,7 @@ public class Centre {
 
     }
 
-    public Centre(Integer id_centre, String nom, String ville, Integer numAdresse, String adresse,
+    public Centre(Integer id_centre, String nom, String ville, Integer numAdresse, String adresse, Integer cp,
             String horairesLundi, String horairesMardi, String horairesMercredi, String horairesJeudi,
             String horairesVendredi, String horairesSamedi, String horairesDimanche) {
         this.id_centre = id_centre;
@@ -34,6 +35,7 @@ public class Centre {
         this.ville = ville;
         this.numAdresse = numAdresse;
         this.adresse = adresse;
+        this.cp = cp;
         this.horairesLundi = horairesLundi;
         this.horairesMardi = horairesMardi;
         this.horairesMercredi = horairesMercredi;
@@ -81,6 +83,14 @@ public class Centre {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public Integer getCp() {
+        return cp;
+    }
+
+    public void setCp(Integer cp) {
+        this.cp = cp;
     }
 
     public String getHorairesLundi() {
