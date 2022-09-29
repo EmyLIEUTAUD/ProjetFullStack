@@ -18,9 +18,9 @@ public class PublicController {
     @Autowired
     private RechercheCentreService rechercheCentreService;
 
-    @GetMapping(path = "/centers/{id}")
-    public List<Centre> rechercheCentreByVille(@PathVariable(value ="id") Integer idVille){
-        return rechercheCentreService.rechercheCentreByVille(idVille);
+    @GetMapping(path = "/centers/{com_nom}")
+    public List<Centre> rechercheCentreByVille(@PathVariable(value ="com_nom") String com_nom){
+        return rechercheCentreService.rechercheCentreByVille(com_nom);
     }
 
 }

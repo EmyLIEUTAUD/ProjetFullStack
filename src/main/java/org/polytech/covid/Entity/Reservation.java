@@ -22,7 +22,7 @@ public class Reservation {
     private Public id_personne;
 
     @OneToOne
-    @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
+    @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre id_centre;
 
     public Reservation(Integer id_reservation, LocalDate date_reservation, Public id_personne, Centre id_centre) {

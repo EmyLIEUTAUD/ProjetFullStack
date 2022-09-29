@@ -19,7 +19,7 @@ public class Medecin {
     private Personne personne;
 
     @OneToOne
-    @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
+    @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre centre;
 
     public Medecin(Integer id_medecin, Personne personne, Centre centre) {

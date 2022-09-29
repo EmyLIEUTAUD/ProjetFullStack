@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CentreRepositry extends JpaRepository<Centre,Integer> {
-    List<Centre> findByVilleId(Integer villeId);
+    List<Centre> findByComnom(String nomcom);
 
 }
