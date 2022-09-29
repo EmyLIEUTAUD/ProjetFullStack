@@ -7,46 +7,29 @@ public class Centre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_centre;
+    private Integer gid;
     private String nom;
+    private String comnom;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_ville", referencedColumnName = "id_ville")
-    private Ville id_ville;
 
-    private Integer numAdresse;
-    private String adresse;
-    private String horairesLundi;
-    private String horairesMardi;
-    private String horairesMercredi;
-    private String horairesJeudi;
-    private String horairesVendredi;
-    private String horairesSamedi;
-    private String horairesDimanche;
 
-    public Centre(Integer id_centre, String nom, Ville id_ville, Integer numAdresse, String adresse,
-            String horairesLundi, String horairesMardi, String horairesMercredi, String horairesJeudi,
-            String horairesVendredi, String horairesSamedi, String horairesDimanche) {
-        this.id_centre = id_centre;
+    public Centre(Integer gid, String nom, String comnom) {
+        this.gid = gid;
         this.nom = nom;
-        this.id_ville = id_ville;
-        this.numAdresse = numAdresse;
-        this.adresse = adresse;
-        this.horairesLundi = horairesLundi;
-        this.horairesMardi = horairesMardi;
-        this.horairesMercredi = horairesMercredi;
-        this.horairesJeudi = horairesJeudi;
-        this.horairesVendredi = horairesVendredi;
-        this.horairesSamedi = horairesSamedi;
-        this.horairesDimanche = horairesDimanche;
+        this.comnom = comnom;
     }
 
-    public Integer getId_centre() {
-        return id_centre;
+    public Centre() {
+
+
     }
 
-    public void setId_centre(Integer id_centre) {
-        this.id_centre = id_centre;
+    public Integer getGid() {
+        return gid;
+    }
+
+    public void setGid(Integer gid) {
+        this.gid = gid;
     }
 
     public String getNom() {
@@ -57,12 +40,12 @@ public class Centre {
         this.nom = nom;
     }
 
-    public Ville getId_ville() {
-        return id_ville;
+    public String getComnom() {
+        return comnom;
     }
 
-    public void setId_ville(Ville id_ville) {
-        this.id_ville = id_ville;
+    public void setNomcom(String comnom) {
+        this.comnom = comnom;
     }
 
     public Integer getNumAdresse() {

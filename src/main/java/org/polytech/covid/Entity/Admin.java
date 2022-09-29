@@ -19,13 +19,17 @@ public class Admin {
     private Personne personne;
 
     @OneToOne
-    @JoinColumn(name = "id_centre", referencedColumnName = "id_centre")
+    @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre centre;
 
     public Admin(Integer id_admin, Personne personne, Centre centre) {
         this.id_admin = id_admin;
         this.personne = personne;
         this.centre = centre;
+    }
+
+    public Admin() {
+
     }
 
     public Integer getId_admin() {

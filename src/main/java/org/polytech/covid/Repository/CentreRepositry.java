@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface CentreRepositry extends JpaRepository<Centre, Integer> {
 
-    List<Centre> findByVilleId(Integer villeId);
+public interface CentreRepositry extends JpaRepository<Centre,Integer> {
+    List<Centre> findByComnom(String nomcom);
+
 
 }

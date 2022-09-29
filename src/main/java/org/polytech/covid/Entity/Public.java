@@ -26,6 +26,10 @@ public class Public {
         this.dose = dose;
     }
 
+    public Public() {
+
+    }
+
     public Integer getId_personne() {
         return id_personne;
     }
