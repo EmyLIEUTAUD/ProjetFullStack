@@ -10,17 +10,41 @@ public class Centre {
     private Integer gid;
     private String nom;
     private String comnom;
+    private Integer numAdresse;
+    private String adresse;
+    private Integer cp;
+    private String horairesLundi;
+    private String horairesMardi;
+    private String horairesMercredi;
+    private String horairesJeudi;
+    private String horairesVendredi;
+    private String horairesSamedi;
+    private String horairesDimanche;
 
-
-
-    public Centre(Integer gid, String nom, String comnom) {
-        this.gid = gid;
+    public Centre(String nom, String comnom) {
         this.nom = nom;
         this.comnom = comnom;
     }
 
-    public Centre() {
+    public Centre(Integer gid, String nom, String comnom, Integer numAdresse, String adresse, Integer cp,
+            String horairesLundi, String horairesMardi, String horairesMercredi, String horairesJeudi,
+            String horairesVendredi, String horairesSamedi, String horairesDimanche) {
+        this.gid = gid;
+        this.nom = nom;
+        this.comnom = comnom;
+        this.numAdresse = numAdresse;
+        this.adresse = adresse;
+        this.cp = cp;
+        this.horairesLundi = horairesLundi;
+        this.horairesMardi = horairesMardi;
+        this.horairesMercredi = horairesMercredi;
+        this.horairesJeudi = horairesJeudi;
+        this.horairesVendredi = horairesVendredi;
+        this.horairesSamedi = horairesSamedi;
+        this.horairesDimanche = horairesDimanche;
+    }
 
+    public Centre() {
 
     }
 
@@ -44,7 +68,7 @@ public class Centre {
         return comnom;
     }
 
-    public void setNomcom(String comnom) {
+    public void setComnom(String comnom) {
         this.comnom = comnom;
     }
 
@@ -62,6 +86,14 @@ public class Centre {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public Integer getCp() {
+        return cp;
+    }
+
+    public void setCp(Integer cp) {
+        this.cp = cp;
     }
 
     public String getHorairesLundi() {

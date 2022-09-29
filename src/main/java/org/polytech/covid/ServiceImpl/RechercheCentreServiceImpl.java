@@ -11,12 +11,12 @@ import java.util.List;
 @Service
 public class RechercheCentreServiceImpl implements RechercheCentreService {
 
-
-
     @Autowired
     private CentreRepositry centreRepositry;
-    public List<Centre> rechercheCentreByVille(String comnom){
+
+    public List<Centre> rechercheCentreByVille(String comnom) {
         List<Centre> listCentres = centreRepositry.findByComnom(comnom);
         return listCentres;
     }
+
 }

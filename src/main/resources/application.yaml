@@ -9,3 +9,7 @@ spring:
     hibernate.ddl-auto: create
   liquibase:
     enabled: false
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
