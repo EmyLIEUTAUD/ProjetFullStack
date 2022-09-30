@@ -10,7 +10,7 @@ public class Centre {
     private Integer gid;
     private String nom;
     private String comnom;
-    private Integer numAdresse;
+    private String numAdresse;
     private String adresse;
     private Integer cp;
     private String horairesLundi;
@@ -21,12 +21,24 @@ public class Centre {
     private String horairesSamedi;
     private String horairesDimanche;
 
-    public Centre(String nom, String comnom) {
+    public Centre(String nom, String comnom, String numAdresse, String adresse, Integer cp, String horairesLundi,
+            String horairesMardi, String horairesMercredi, String horairesJeudi, String horairesVendredi,
+            String horairesSamedi, String horairesDimanche) {
         this.nom = nom;
         this.comnom = comnom;
+        this.numAdresse = numAdresse;
+        this.adresse = adresse;
+        this.cp = cp;
+        this.horairesLundi = horairesLundi;
+        this.horairesMardi = horairesMardi;
+        this.horairesMercredi = horairesMercredi;
+        this.horairesJeudi = horairesJeudi;
+        this.horairesVendredi = horairesVendredi;
+        this.horairesSamedi = horairesSamedi;
+        this.horairesDimanche = horairesDimanche;
     }
 
-    public Centre(Integer gid, String nom, String comnom, Integer numAdresse, String adresse, Integer cp,
+    public Centre(Integer gid, String nom, String comnom, String numAdresse, String adresse, Integer cp,
             String horairesLundi, String horairesMardi, String horairesMercredi, String horairesJeudi,
             String horairesVendredi, String horairesSamedi, String horairesDimanche) {
         this.gid = gid;
@@ -72,11 +84,11 @@ public class Centre {
         this.comnom = comnom;
     }
 
-    public Integer getNumAdresse() {
+    public String getNumAdresse() {
         return numAdresse;
     }
 
-    public void setNumAdresse(Integer numAdresse) {
+    public void setNumAdresse(String numAdresse) {
         this.numAdresse = numAdresse;
     }
 

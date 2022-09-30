@@ -51,31 +51,27 @@ public class CSVHelper {
     public static List<Centre> csvToCentres(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                 CSVParser csvParser = new CSVParser(fileReader,
-                        CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
+                        CSVFormat.EXCEL.withDelimiter(';').withFirstRecordAsHeader().withIgnoreHeaderCase()
+                                .withTrim());) {
 
             List<Centre> centres = new ArrayList<Centre>();
 
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
-                System.out.println("J'ajoute le 1er centre");
-                /*
-                 * Centre centre = new Centre(
-                 * Integer.parseInt(csvRecord.get("gid")),
-                 * csvRecord.get("nom"),
-                 * csvRecord.get("com_nom"),
-                 * Integer.parseInt(csvRecord.get("adr_num")),
-                 * csvRecord.get("adr_voie"),
-                 * Integer.parseInt(csvRecord.get("com_cp")),
-                 * csvRecord.get("rdv_lundi"),
-                 * csvRecord.get("rdv_mardi"),
-                 * csvRecord.get("rdv_mercredi"),
-                 * csvRecord.get("rdv_jeudi"),
-                 * csvRecord.get("rdv_vendredi"),
-                 * csvRecord.get("rdv_samedi"),
-                 * csvRecord.get("rdv_dimanche"));
-                 */
-                Centre centre = new Centre(csvRecord.get("nom"), csvRecord.get("com_nom"));
+                Centre centre = new Centre(
+                        csvRecord.get("nom"),
+                        csvRecord.get("com_nom"),
+                        csvRecord.get("adr_num"),
+                        csvRecord.get("adr_voie"),
+                        Integer.parseInt(csvRecord.get("com_cp")),
+                        csvRecord.get("rdv_lundi"),
+                        csvRecord.get("rdv_mardi"),
+                        csvRecord.get("rdv_mercredi"),
+                        csvRecord.get("rdv_jeudi"),
+                        csvRecord.get("rdv_vendredi"),
+                        csvRecord.get("rdv_samedi"),
+                        csvRecord.get("rdv_dimanche"));
 
                 centres.add(centre);
             }
