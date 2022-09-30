@@ -1,6 +1,7 @@
 package org.polytech.covid.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Helper.CSVHelper;
@@ -8,12 +9,15 @@ import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.CentreRepositry;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CreerCentreService;
+import org.polytech.covid.Service.ModificerCentreService;
 import org.polytech.covid.Service.VoirCentresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,6 +91,22 @@ public class AdminController {
             return new ResponseEntity<>(_centre, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Autowired
+    private ModificerCentreService modificerCentreService;
+
+    @PutMapping("/centres/modifier/{gid}")
+    public ResponseEntity<Centre> updateCenter(@PathVariable("gid") Integer gid, @RequestBody Centre centre) {
+        Optional<Centre> centreData = centreRepository.findById(gid);
+
+        if (centreData.isPresent()) {
+            Centre _centre;
+            _centre = modificerCentreService.modifierCentre(centreData, centre);
+            return new ResponseEntity<>(centreRepository.save(_centre), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
