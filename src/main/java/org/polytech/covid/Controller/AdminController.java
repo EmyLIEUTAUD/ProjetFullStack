@@ -1,12 +1,19 @@
 package org.polytech.covid.Controller;
 
+import java.util.List;
+
+import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
+import org.polytech.covid.Repository.CentreRepositry;
 import org.polytech.covid.Service.CSVService;
+import org.polytech.covid.Service.VoirCentresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +45,49 @@ public class AdminController {
 
         message = "Please upload a csv file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
+    }
+
+    @Autowired
+    private VoirCentresService voirCentresService;
+
+    @Autowired
+    CentreRepositry centreRepository;
+
+    @GetMapping("/centres")
+    public List<Centre> voirCentres() {
+        return voirCentresService.voirCentres();
+    }
+
+    /*
+     * Données envoyées en JSON (remplir la partie de droite):
+     * {
+     * "nom":"",
+     * "comnom":"",
+     * "numAdresse":"",
+     * "adresse":"",
+     * "cp":"",
+     * "horairesLundi":"",
+     * "horairesMardi":"",
+     * "horairesMercredi":"",
+     * "horairesJeudi":"",
+     * "horairesVendredi":"",
+     * "horairesSamedi":"",
+     * "horairesDimanche":""
+     * }
+     */
+    @PostMapping("/centres/nouveau")
+    public ResponseEntity<Centre> createCenter(@RequestBody Centre centre) {
+        try {
+            Centre _centre = centreRepository
+                    .save(new Centre(centre.getNom(), centre.getComnom(), centre.getNumAdresse(), centre.getAdresse(),
+                            centre.getCp(),
+                            centre.getHorairesLundi(), centre.getHorairesMardi(), centre.getHorairesMercredi(),
+                            centre.getHorairesJeudi(), centre.getHorairesVendredi(), centre.getHorairesSamedi(),
+                            centre.getHorairesDimanche()));
+            return new ResponseEntity<>(_centre, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
