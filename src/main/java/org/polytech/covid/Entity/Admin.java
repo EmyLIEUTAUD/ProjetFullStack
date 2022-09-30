@@ -22,6 +22,11 @@ public class Admin {
     @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre centre;
 
+    public Admin(Personne personne, Centre centre) {
+        this.personne = personne;
+        this.centre = centre;
+    }
+
     public Admin(Integer id_admin, Personne personne, Centre centre) {
         this.id_admin = id_admin;
         this.personne = personne;

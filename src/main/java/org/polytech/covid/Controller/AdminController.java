@@ -3,12 +3,14 @@ package org.polytech.covid.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.CentreRepositry;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
+import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -110,6 +112,25 @@ public class AdminController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Autowired
+    private SuperAdminServices superAdminServices;
+
+    @GetMapping("/administrateurs")
+    public List<Admin> voirAdmins() {
+        return superAdminServices.voirAdmins();
+    }
+
+    @PostMapping("/administrateur/nouveau")
+    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+        try {
+            Admin _admin;
+            _admin = superAdminServices.creerAdmin(admin);
+            return new ResponseEntity<>(_admin, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
