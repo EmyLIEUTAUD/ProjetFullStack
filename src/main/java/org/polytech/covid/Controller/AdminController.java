@@ -7,6 +7,7 @@ import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.CentreRepositry;
 import org.polytech.covid.Service.CSVService;
+import org.polytech.covid.Service.CreerCentreService;
 import org.polytech.covid.Service.VoirCentresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,9 @@ public class AdminController {
         return voirCentresService.voirCentres();
     }
 
+    @Autowired
+    private CreerCentreService creerCentreService;
+
     /*
      * Données envoyées en JSON (remplir la partie de droite):
      * {
@@ -78,12 +82,8 @@ public class AdminController {
     @PostMapping("/centres/nouveau")
     public ResponseEntity<Centre> createCenter(@RequestBody Centre centre) {
         try {
-            Centre _centre = centreRepository
-                    .save(new Centre(centre.getNom(), centre.getComnom(), centre.getNumAdresse(), centre.getAdresse(),
-                            centre.getCp(),
-                            centre.getHorairesLundi(), centre.getHorairesMardi(), centre.getHorairesMercredi(),
-                            centre.getHorairesJeudi(), centre.getHorairesVendredi(), centre.getHorairesSamedi(),
-                            centre.getHorairesDimanche()));
+            Centre _centre;
+            _centre = creerCentreService.creerCentre(centre);
             return new ResponseEntity<>(_centre, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
