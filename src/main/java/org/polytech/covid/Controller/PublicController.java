@@ -1,13 +1,15 @@
 package org.polytech.covid.Controller;
 
 import org.polytech.covid.Entity.Centre;
+import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.RechercheCentreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -16,10 +18,19 @@ public class PublicController {
 
     @Autowired
     private RechercheCentreService rechercheCentreService;
+    @Autowired
+    private PersonneService personneService;
 
     @GetMapping(path = "/centres/{com_nom}")
     public List<Centre> rechercheCentreByVille(@PathVariable(value = "com_nom") String com_nom) {
         return rechercheCentreService.rechercheCentreByVille(com_nom);
+    }
+
+    @PostMapping(path = "/inscription")
+    public ResponseEntity<Personne> savePersonne(@RequestBody Personne personne, UriComponentsBuilder uriBuilder){
+        Personne savePersonne = personneService.save(personne);
+        URI uri = uriBuilder.path("/patient/{id}").buildAndExpand(personne.getIdentifiant()).toUri();
+        return ResponseEntity.created(uri).body(savePersonne);
     }
 
 }

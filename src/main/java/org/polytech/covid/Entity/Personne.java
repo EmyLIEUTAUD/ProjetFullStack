@@ -33,6 +33,15 @@ public class Personne {
 
     }
 
+    public Personne(String nom, String prenom, String mail, Integer telephone, String adresse, String role) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.role = role;
+    }
+
     public Integer getIdentifiant() {
         return identifiant;
     }
