@@ -1,0 +1,26 @@
+<!--<div>
+    <h2>{{center.name}}</h2> 
+    <h2 [title]="center.name">{{center.name | uppercase}}</h2>
+    <div>{{center.address}} <span> {{center.postalCode}} {{center.city}}</span></div>
+
+    <label for="name">Nom du centre:</label>
+    <input id="name" [(ngModel)]="center.name"/> importer FormsModule dans app.module pour utiliser ngModel-
+</div>
+
+
+<div *ngIf="isNameNotEmpty()">
+    <button (click)="clearName()">Clear Name </button>
+</div>
+-->
+
+
+<div class="detail/:id" *ngIf="center">
+    <div>
+        <h2>{{center.name | uppercase}}</h2>
+        <div>{{center.address}} 
+            <span> {{center.postalCode}} {{center.city}}</span>
+        </div>
+    </div>
+    <button (click)="delete()">Supprimer</button>
+</div>
+
