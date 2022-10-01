@@ -11,4 +11,6 @@ public interface CentreRepositry extends JpaRepository<Centre, Integer> {
 
     List<Centre> findByComnom(String nomcom);
 
+    List<Centre> findAll();
+
 }

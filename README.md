@@ -11,3 +11,4 @@ clique droit sur covid-db > Generate ERD
 *TODO*
 - Importer les centres de vaccination COVID dans la bdd
 - Faire des tests unitaires
+- regarder DTO

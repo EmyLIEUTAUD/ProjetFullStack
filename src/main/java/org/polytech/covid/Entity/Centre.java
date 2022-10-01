@@ -163,4 +163,14 @@ public class Centre {
     public void setHorairesDimanche(String horairesDimanche) {
         this.horairesDimanche = horairesDimanche;
     }
+
+    @Override
+    public String toString() {
+        return "Centre [adresse=" + adresse + ", comnom=" + comnom + ", cp=" + cp + ", gid=" + gid
+                + ", horairesDimanche=" + horairesDimanche + ", horairesJeudi=" + horairesJeudi + ", horairesLundi="
+                + horairesLundi + ", horairesMardi=" + horairesMardi + ", horairesMercredi=" + horairesMercredi
+                + ", horairesSamedi=" + horairesSamedi + ", horairesVendredi=" + horairesVendredi + ", nom=" + nom
+                + ", numAdresse=" + numAdresse + "]";
+    }
+
 }

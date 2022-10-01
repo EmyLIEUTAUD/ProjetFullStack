@@ -1,14 +1,9 @@
 package org.polytech.covid.Entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Personne {
@@ -36,6 +31,15 @@ public class Personne {
 
     public Personne() {
 
+    }
+
+    public Personne(String nom, String prenom, String mail, Integer telephone, String adresse, String role) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.role = role;
     }
 
     public Integer getIdentifiant() {
