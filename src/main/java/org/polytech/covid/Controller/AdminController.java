@@ -3,14 +3,14 @@ package org.polytech.covid.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.CentreRepositry;
 import org.polytech.covid.Service.CSVService;
-import org.polytech.covid.Service.CreerCentreService;
-import org.polytech.covid.Service.ModificerCentreService;
-import org.polytech.covid.Service.VoirCentresService;
+import org.polytech.covid.Service.CentreServices;
+import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,18 +54,15 @@ public class AdminController {
     }
 
     @Autowired
-    private VoirCentresService voirCentresService;
+    CentreRepositry centreRepository;
 
     @Autowired
-    CentreRepositry centreRepository;
+    CentreServices centreServices;
 
     @GetMapping("/centres")
     public List<Centre> voirCentres() {
-        return voirCentresService.voirCentres();
+        return centreServices.voirCentres();
     }
-
-    @Autowired
-    private CreerCentreService creerCentreService;
 
     /*
      * Données envoyées en JSON (remplir la partie de droite):
@@ -88,15 +85,12 @@ public class AdminController {
     public ResponseEntity<Centre> createCenter(@RequestBody Centre centre) {
         try {
             Centre _centre;
-            _centre = creerCentreService.creerCentre(centre);
+            _centre = centreServices.creerCentre(centre);
             return new ResponseEntity<>(_centre, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @Autowired
-    private ModificerCentreService modificerCentreService;
 
     @PutMapping("/centres/modifier/{gid}")
     public ResponseEntity<Centre> updateCenter(@PathVariable("gid") Integer gid, @RequestBody Centre centre) {
@@ -104,7 +98,7 @@ public class AdminController {
 
         if (centreData.isPresent()) {
             Centre _centre;
-            _centre = modificerCentreService.modifierCentre(centreData, centre);
+            _centre = centreServices.modifierCentre(centreData, centre);
             return new ResponseEntity<>(centreRepository.save(_centre), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -118,6 +112,25 @@ public class AdminController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Autowired
+    private SuperAdminServices superAdminServices;
+
+    @GetMapping("/administrateurs")
+    public List<Admin> voirAdmins() {
+        return superAdminServices.voirAdmins();
+    }
+
+    @PostMapping("/administrateur/nouveau")
+    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+        try {
+            Admin _admin;
+            _admin = superAdminServices.creerAdmin(admin);
+            return new ResponseEntity<>(_admin, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
