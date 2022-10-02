@@ -22,10 +22,7 @@ public class Superadmin {
     @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre id_centre;
 
-
-
-    public Superadmin(Integer id_superadmin, Personne personne, Centre id_centre) {
-        this.id_superadmin = id_superadmin;
+    public Superadmin(Personne personne, Centre id_centre) {
         this.personne = personne;
         this.id_centre = id_centre;
     }
@@ -57,7 +54,5 @@ public class Superadmin {
     public void setId_centre(Centre id_centre) {
         this.id_centre = id_centre;
     }
-
-
 
 }

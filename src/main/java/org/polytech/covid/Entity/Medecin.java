@@ -22,8 +22,7 @@ public class Medecin {
     @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre centre;
 
-    public Medecin(Integer id_medecin, Personne personne, Centre centre) {
-        this.id_medecin = id_medecin;
+    public Medecin(Personne personne, Centre centre) {
         this.personne = personne;
         this.centre = centre;
     }

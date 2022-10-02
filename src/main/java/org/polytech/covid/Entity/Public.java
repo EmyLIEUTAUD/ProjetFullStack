@@ -20,8 +20,7 @@ public class Public {
 
     private Integer dose;
 
-    public Public(Integer id_personne, Personne personne, Integer dose) {
-        this.id_personne = id_personne;
+    public Public(Personne personne, Integer dose) {
         this.personne = personne;
         this.dose = dose;
     }

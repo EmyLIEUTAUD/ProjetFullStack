@@ -38,24 +38,6 @@ public class Centre {
         this.horairesDimanche = horairesDimanche;
     }
 
-    public Centre(Integer gid, String nom, String comnom, String numAdresse, String adresse, Integer cp,
-            String horairesLundi, String horairesMardi, String horairesMercredi, String horairesJeudi,
-            String horairesVendredi, String horairesSamedi, String horairesDimanche) {
-        this.gid = gid;
-        this.nom = nom;
-        this.comnom = comnom;
-        this.numAdresse = numAdresse;
-        this.adresse = adresse;
-        this.cp = cp;
-        this.horairesLundi = horairesLundi;
-        this.horairesMardi = horairesMardi;
-        this.horairesMercredi = horairesMercredi;
-        this.horairesJeudi = horairesJeudi;
-        this.horairesVendredi = horairesVendredi;
-        this.horairesSamedi = horairesSamedi;
-        this.horairesDimanche = horairesDimanche;
-    }
-
     public Centre() {
 
     }

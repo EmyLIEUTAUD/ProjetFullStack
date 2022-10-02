@@ -25,8 +25,7 @@ public class Reservation {
     @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre id_centre;
 
-    public Reservation(Integer id_reservation, LocalDate date_reservation, Public id_personne, Centre id_centre) {
-        this.id_reservation = id_reservation;
+    public Reservation(LocalDate date_reservation, Public id_personne, Centre id_centre) {
         this.date_reservation = date_reservation;
         this.id_personne = id_personne;
         this.id_centre = id_centre;

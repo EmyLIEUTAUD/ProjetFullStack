@@ -25,8 +25,9 @@ public class PublicController {
     public List<Centre> rechercheCentreByVille(@PathVariable(value = "com_nom") String com_nom) {
         return centreServices.rechercheCentreByVille(com_nom);
     }
+
     @PostMapping(path = "/inscription")
-    public ResponseEntity<Personne> savePersonne(@RequestBody Personne personne, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<Personne> savePersonne(@RequestBody Personne personne, UriComponentsBuilder uriBuilder) {
         Personne savePersonne = personneService.save(personne);
         URI uri = uriBuilder.path("/patient/{id}").buildAndExpand(personne.getIdentifiant()).toUri();
         return ResponseEntity.created(uri).body(savePersonne);

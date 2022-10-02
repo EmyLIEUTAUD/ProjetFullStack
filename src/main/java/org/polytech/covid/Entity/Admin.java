@@ -27,12 +27,6 @@ public class Admin {
         this.centre = centre;
     }
 
-    public Admin(Integer id_admin, Personne personne, Centre centre) {
-        this.id_admin = id_admin;
-        this.personne = personne;
-        this.centre = centre;
-    }
-
     public Admin() {
 
     }

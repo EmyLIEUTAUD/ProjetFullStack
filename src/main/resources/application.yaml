@@ -5,7 +5,7 @@ spring:
     password: 'postgre'
   mvc:
     pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
+      matching-strategy: ant_path_matcher
   jpa:
     database-plateform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true

@@ -18,9 +18,8 @@ public class Personne {
     private String adresse;
     private String role;
 
-    public Personne(Integer identifiant, String nom, String prenom, String mail, Integer telephone, String adresse,
+    public Personne(String nom, String prenom, String mail, Integer telephone, String adresse,
             String role) {
-        this.identifiant = identifiant;
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
