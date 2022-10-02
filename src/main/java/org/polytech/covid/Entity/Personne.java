@@ -14,25 +14,15 @@ public class Personne {
     private String nom;
     private String prenom;
     private String mail;
-    private Integer telephone;
+    private String telephone;
     private String adresse;
     private String role;
-
-    public Personne(String nom, String prenom, String mail, Integer telephone, String adresse,
-            String role) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.telephone = telephone;
-        this.adresse = adresse;
-        this.role = role;
-    }
 
     public Personne() {
 
     }
 
-    public Personne(String nom, String prenom, String mail, Integer telephone, String adresse, String role) {
+    public Personne(String nom, String prenom, String mail, String telephone, String adresse, String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -73,11 +63,11 @@ public class Personne {
         this.mail = mail;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
