@@ -21,6 +21,7 @@ public class Centre {
     private String horairesSamedi;
     private String horairesDimanche;
 
+
     public Centre(String nom, String comnom, String numAdresse, String adresse, Integer cp, String horairesLundi,
             String horairesMardi, String horairesMercredi, String horairesJeudi, String horairesVendredi,
             String horairesSamedi, String horairesDimanche) {

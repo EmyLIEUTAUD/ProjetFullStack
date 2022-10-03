@@ -2,12 +2,7 @@ package org.polytech.covid.Entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Reservation {
@@ -17,18 +12,20 @@ public class Reservation {
     private Integer id_reservation;
     private LocalDate date_reservation;
 
-    @OneToOne
-    @JoinColumn(name = "id_personne", referencedColumnName = "id_personne")
-    private Public id_personne;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
+    private Personne personne;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "gid", referencedColumnName = "gid")
-    private Centre id_centre;
+    private Centre centre;
 
-    public Reservation(LocalDate date_reservation, Public id_personne, Centre id_centre) {
-        this.date_reservation = date_reservation;
-        this.id_personne = id_personne;
-        this.id_centre = id_centre;
+    public Personne getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
     }
 
     public Reservation() {
@@ -51,20 +48,12 @@ public class Reservation {
         this.date_reservation = date_reservation;
     }
 
-    public Public getId_personne() {
-        return id_personne;
+
+    public Centre getCentre() {
+        return centre;
     }
 
-    public void setId_personne(Public id_personne) {
-        this.id_personne = id_personne;
+    public void setCentre(Centre centre) {
+        this.centre = centre;
     }
-
-    public Centre getId_centre() {
-        return id_centre;
-    }
-
-    public void setId_centre(Centre id_centre) {
-        this.id_centre = id_centre;
-    }
-
 }
