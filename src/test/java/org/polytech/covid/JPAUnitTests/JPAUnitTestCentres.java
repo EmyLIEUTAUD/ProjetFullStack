@@ -74,7 +74,7 @@ public class JPAUnitTestCentres {
         }
 
         @Test
-        public void should_find_tutorial_by_id() {
+        public void should_find_centre_by_city() {
                 Centre centre1 = new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat", 54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
                                 "9h00-12h00/14h-18h", "8h00-13h00", "fermé");

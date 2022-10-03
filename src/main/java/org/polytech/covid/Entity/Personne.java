@@ -1,7 +1,5 @@
 package org.polytech.covid.Entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -16,7 +14,8 @@ public class Personne {
     private String telephone;
     private String adresse;
     private String role;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "personne")
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "personne")
     private Reservation reservation;
 
     public Reservation getReservation() {
