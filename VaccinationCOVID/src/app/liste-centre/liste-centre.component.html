@@ -1,23 +1,18 @@
-<h2>Recherche d'un centre de vaccination</h2>
-
-<ul> 
-    <li *ngFor="let aCenter of centers">
-        <!--<button
-        [ngStyle]="{'font-weight' : isSpecialCenter(aCenter) ? 'bold' : 'normal'}"
-        (click)="selectCenter(aCenter)">
-
-            {{aCenter.name}}
-        </button>-->
-         <a routerLink="/centers/detail/{{aCenter.id}}" >
-            {{aCenter.name}}
-
-        </a>
-
-    </li>
-</ul>
-<app-choix-centre [center]="selected" (deleted)="onDeleted($event)"></app-choix-centre>
-
+<div *ngFor="let aCenter of centers"
+    [ngClass]="selected==aCenter ? 'selected' : ''">
+    {{aCenter.name}}
+    <div *ngIf="VilleSelectionnee(aCenter.city)">
+        {{aCenter.name}}
+    </div>
+</div>
+{{test()}}
 <!--
+    <button (click)="selectCenter(aCenter)">
+        {{aCenter.name}} {{aCenter.city}}
+    </button>
+
+    <app-choix-centre [center]="selected" (deleted)="onDeleted($event)"></app-choix-centre>
+
     <div *ngIf="selected" class="detail">
     <h2>{{selected.name | uppercase}}</h2>
     <div>{{selected.address}} 

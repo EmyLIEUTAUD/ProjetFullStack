@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ChoixCentre } from './choix-centre/choix-centre';
@@ -8,14 +8,17 @@ import { ChoixCentre } from './choix-centre/choix-centre';
 })
 export class VaccinationCenterService {
 
-/*CENTERS: ChoixCentre[]=[
-    {id:1, name: "Hôpital central", address: "Rue lionnois", postalCode: "54000", city: "Nancy"},
-    {id:2, name: "Grand centre de vaccination", address: "45, avenue", postalCode: "54000", city: "Nancy"}
-  ]*/
+CENTERS: ChoixCentre[] = [
+    {id:1, name:"hopital central", city: "nancy", numAdresse: "2 rue", adresse: "3", cp: 5, horairesLundi: "a", horairesMardi: "a", horairesMercredi: "a", horairesJeudi: "a", horairesVendredi: "a", horairesSamedi: "a", horairesDimanche: "a"},
+    {id:2, name:"truc central", city: "nancy", numAdresse: "2 rue", adresse: "3", cp: 5, horairesLundi: "a", horairesMardi: "a", horairesMercredi: "a", horairesJeudi: "a", horairesVendredi: "a", horairesSamedi: "a", horairesDimanche: "a"},
+    {id:3, name:"machin central", city: "paris", numAdresse: "2 rue", adresse: "4", cp: 5, horairesLundi: "a", horairesMardi: "a", horairesMercredi: "a", horairesJeudi: "a", horairesVendredi: "a", horairesSamedi: "a", horairesDimanche: "a"},
+    {id:4, name:"chose central", city: "paris", numAdresse: "2 rue", adresse: "5", cp: 5, horairesLundi: "a", horairesMardi: "a", horairesMercredi: "a", horairesJeudi: "a", horairesVendredi: "a", horairesSamedi: "a", horairesDimanche: "a"}
+  ];
 
   constructor(private  httpClient: HttpClient) { }
 
   getAllVaccinationCenter() : Observable<ChoixCentre[]>{
-    return this.httpClient.get<ChoixCentre[]>("k");
+    console.log('service');
+    return this.httpClient.get<ChoixCentre[]>("*/public/centres/Nancy");
   }
 }
