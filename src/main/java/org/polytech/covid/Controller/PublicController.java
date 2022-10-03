@@ -21,13 +21,19 @@ public class PublicController {
     @Autowired
     private ReservationService reservationService;
 
+    @GetMapping("/centres")
+    public List<Centre> voirCentres() {
+        return centreServices.voirCentres();
+    }
+
     @GetMapping(path = "/centres/{com_nom}")
     public List<Centre> rechercheCentreByVille(@PathVariable(value = "com_nom") String com_nom) {
         return centreServices.rechercheCentreByVille(com_nom);
     }
 
     @PostMapping(path = "/inscription")
-    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation,
+            UriComponentsBuilder uriBuilder) {
         Reservation saveReservation = reservationService.save(reservation);
         URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(reservation.getId_reservation()).toUri();
         return ResponseEntity.created(uri).body(saveReservation);
