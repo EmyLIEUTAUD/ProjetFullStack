@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CentreRepositry extends JpaRepository<Centre, Integer> {
 
-    List<Centre> findByComnom(String nomcom);
+    List<Centre> findByComnomIgnoreCase(String nomcom);
 
     List<Centre> findAll();
 
