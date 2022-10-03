@@ -19,6 +19,6 @@ CENTERS: ChoixCentre[] = [
 
   getAllVaccinationCenter() : Observable<ChoixCentre[]>{
     console.log('service');
-    return this.httpClient.get<ChoixCentre[]>("*/public/centres/Nancy");
+    return this.httpClient.get<ChoixCentre[]>("public/centres/Nancy");
   }
 }
