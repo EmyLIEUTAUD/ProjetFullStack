@@ -62,7 +62,6 @@ public class AdminController {
     @Autowired
     CentreServices centreServices;
 
-    // @ApiOperation(value = "Afficher tous les centres de vaccination de France")
     @GetMapping("/centres")
     public List<Centre> voirCentres() {
         return centreServices.voirCentres();

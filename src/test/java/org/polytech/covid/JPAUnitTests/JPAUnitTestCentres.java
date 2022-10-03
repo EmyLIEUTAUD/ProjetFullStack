@@ -90,7 +90,7 @@ public class JPAUnitTestCentres {
                                 "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30");
                 entityManager.persist(centre3);
 
-                Iterable centres = centreRepository.findByComnom("Baccarat");
+                Iterable centres = centreRepository.findByComnomIgnoreCase("Baccarat");
 
                 assertThat(centres).hasSize(2).contains(centre1, centre2);
         }
