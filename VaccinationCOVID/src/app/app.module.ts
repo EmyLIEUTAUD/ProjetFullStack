@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ListeCentreComponent } from './liste-centre/liste-centre.component';
 import { ChoixCentreComponent } from './choix-centre/choix-centre.component';
+import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListeCentreComponent,
-    ChoixCentreComponent
+    ChoixCentreComponent,
+    ChoixVilleComponent
   ],
   imports: [
     BrowserModule,

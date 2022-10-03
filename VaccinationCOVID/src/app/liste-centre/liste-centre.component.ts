@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ChoixCentre } from '../choix-centre/choix-centre';
+import { ChoixVilleComponent } from '../choix-ville/choix-ville.component';
+import { ChoixdelavilleService } from '../choixdelaville.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
 
 @Component({
@@ -9,22 +12,32 @@ import { VaccinationCenterService } from '../vaccination-center.service';
 })
 export class ListeCentreComponent implements OnInit {
 
-  
   centers!: ChoixCentre[];
   selected?: ChoixCentre;
 
-  constructor(private service: VaccinationCenterService) { }
+  constructor(private service: VaccinationCenterService, private service2: ChoixdelavilleService) { }
 
   ngOnInit(): void {
-    this.centers = this.service.getAllVaccinationCenter();
+    this.service.getAllVaccinationCenter().subscribe(resultCenters=>{
+      this.centers = resultCenters;
+    });
   }
 
+  test(): Observable<ChoixCentre[]>{
+    return this.service.getAllVaccinationCenter();
+  }
   isSpecialCenter(center: ChoixCentre){
     return center.city == "Nancy";
   }
+
+  VilleSelectionnee(centercity: string){
+    return this.service2.getNomVille()==centercity;
+  }
+
   selectCenter(center: ChoixCentre){
     this.selected=center;
   }
+
   onDeleted(center: ChoixCentre){
     delete this.selected;
     this.centers.splice(this.centers.indexOf(center),1);

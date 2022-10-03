@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -60,28 +62,12 @@ public class AdminController {
     @Autowired
     CentreServices centreServices;
 
+    // @ApiOperation(value = "Afficher tous les centres de vaccination de France")
     @GetMapping("/centres")
     public List<Centre> voirCentres() {
         return centreServices.voirCentres();
     }
 
-    /*
-     * Données envoyées en JSON (remplir la partie de droite):
-     * {
-     * "nom":"",
-     * "comnom":"",
-     * "numAdresse":"",
-     * "adresse":"",
-     * "cp":"",
-     * "horairesLundi":"",
-     * "horairesMardi":"",
-     * "horairesMercredi":"",
-     * "horairesJeudi":"",
-     * "horairesVendredi":"",
-     * "horairesSamedi":"",
-     * "horairesDimanche":""
-     * }
-     */
     @PostMapping("/centres/nouveau")
     public ResponseEntity<Centre> createCenter(@RequestBody Centre centre) {
         try {
