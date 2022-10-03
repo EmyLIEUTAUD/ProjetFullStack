@@ -11,6 +11,5 @@ Swagger url: http://localhost:8080/swagger-ui/
 ![image](https://user-images.githubusercontent.com/67641786/191991447-46ee7022-9c08-46ba-ac32-1d26369c394f.png)
 
 *TODO*
-- Importer les centres de vaccination COVID dans la bdd
 - Faire des tests unitaires
 - regarder DTO
