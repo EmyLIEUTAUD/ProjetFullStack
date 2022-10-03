@@ -23,11 +23,13 @@ export class ListeCentreComponent implements OnInit {
     });
   }
 
+  
+
   test(): Observable<ChoixCentre[]>{
     return this.service.getAllVaccinationCenter();
   }
   isSpecialCenter(center: ChoixCentre){
-    return center.city == "Nancy";
+    return center.comnom == "Nancy";
   }
 
   VilleSelectionnee(centercity: string){
