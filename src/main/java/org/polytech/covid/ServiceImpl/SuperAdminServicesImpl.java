@@ -1,6 +1,7 @@
 package org.polytech.covid.ServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Repository.AdminRepository;
@@ -22,6 +23,13 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
     public Admin creerAdmin(Admin admin) {
         Admin _admin = adminRepository
                 .save(new Admin(admin.getPersonne(), admin.getCentre()));
+        return _admin;
+    }
+
+    public Admin modifierAdmin(Optional<Admin> adminData, Admin admin) {
+        Admin _admin = adminData.get();
+        _admin.setCentre(admin.getCentre());
+        _admin.setPersonne(admin.getPersonne());
         return _admin;
     }
 

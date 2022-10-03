@@ -7,6 +7,7 @@ import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
+import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.CentreRepositry;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
@@ -106,7 +107,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/centres/supprimer/{gid}")
-    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("gid") Integer gid) {
+    public ResponseEntity<HttpStatus> deleteCentre(@PathVariable("gid") Integer gid) {
         try {
             centreRepository.deleteById(gid);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -117,6 +118,9 @@ public class AdminController {
 
     @Autowired
     private SuperAdminServices superAdminServices;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     @GetMapping("/administrateurs")
     public List<Admin> voirAdmins() {
@@ -131,6 +135,29 @@ public class AdminController {
             return new ResponseEntity<>(_admin, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/administrateurs/modifier/{id}")
+    public ResponseEntity<Admin> updateAdmin(@PathVariable("id") Integer id, @RequestBody Admin admin) {
+        Optional<Admin> adminData = adminRepository.findById(id);
+
+        if (adminData.isPresent()) {
+            Admin _admin;
+            _admin = superAdminServices.modifierAdmin(adminData, admin);
+            return new ResponseEntity<>(adminRepository.save(_admin), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/administrateurs/supprimer/{id}")
+    public ResponseEntity<HttpStatus> deleteAdmin(@PathVariable("id") Integer id) {
+        try {
+            adminRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
