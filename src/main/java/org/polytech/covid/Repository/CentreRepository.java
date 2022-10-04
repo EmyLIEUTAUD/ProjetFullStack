@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CentreRepositry extends JpaRepository<Centre, Integer> {
+public interface CentreRepository extends JpaRepository<Centre, Integer> {
 
     List<Centre> findByComnomIgnoreCase(String nomcom);
 

@@ -8,7 +8,7 @@ import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.AdminRepository;
-import org.polytech.covid.Repository.CentreRepositry;
+import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
 import org.polytech.covid.Service.SuperAdminServices;
@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/admin")
@@ -57,7 +55,7 @@ public class AdminController {
     }
 
     @Autowired
-    CentreRepositry centreRepository;
+    CentreRepository centreRepository;
 
     @Autowired
     CentreServices centreServices;

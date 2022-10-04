@@ -1,6 +1,7 @@
 package org.polytech.covid.Entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -30,6 +31,12 @@ public class Reservation {
 
     public Reservation() {
 
+    }
+
+    public Reservation(LocalDate date_reservation, Personne personne, Centre centre) {
+        this.date_reservation = date_reservation;
+        this.personne = personne;
+        this.centre = centre;
     }
 
     public Integer getId_reservation() {
