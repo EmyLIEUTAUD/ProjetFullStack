@@ -15,11 +15,15 @@ export class ChoixCentreComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get('gid'));
+  }
+
+  getNom(){
+    return this.center.nom;
   }
 
   isNameNotEmpty(){
-    return this.center.name.length>0;
+    return this.center.nom.length>0;
   }
   delete(){
     this.deleted.emit(this.center);

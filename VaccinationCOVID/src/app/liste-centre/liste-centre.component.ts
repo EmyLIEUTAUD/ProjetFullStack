@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ChoixVilleComponent } from '../choix-ville/choix-ville.component';
@@ -18,7 +18,7 @@ export class ListeCentreComponent implements OnInit {
   constructor(private service: VaccinationCenterService, private service2: ChoixdelavilleService) { }
 
   ngOnInit(): void {
-    this.service.getAllVaccinationCenter().subscribe(resultCenters=>{
+    this.service.getAllVaccinationCenterFromCity(this.service2.getNomVille()).subscribe(resultCenters=>{
       this.centers = resultCenters;
     });
   }
@@ -27,7 +27,7 @@ export class ListeCentreComponent implements OnInit {
     return this.service.getAllVaccinationCenter();
   }
   isSpecialCenter(center: ChoixCentre){
-    return center.city == "Nancy";
+    return center.comnom == "Nancy";
   }
 
   VilleSelectionnee(centercity: string){

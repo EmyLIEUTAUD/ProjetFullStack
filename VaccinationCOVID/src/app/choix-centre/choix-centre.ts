@@ -1,7 +1,7 @@
 export interface ChoixCentre{
-    id: number;
-    name: string;
-    city: string;
+    gid: number;
+    nom: string;
+    comnom: string;
     numAdresse: string;
     adresse: string;
     cp: number;

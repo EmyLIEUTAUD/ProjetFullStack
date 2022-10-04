@@ -86,7 +86,7 @@ public class JPAUnitTestCentres {
                                 "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
                 entityManager.persist(centre2);
 
-                Centre centre3 = new Centre("Test Centre 3", "arville", "3", "rue de Jarville", 54140,
+                Centre centre3 = new Centre("Test Centre 3", "Jarville", "3", "rue de Jarville", 54140,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
                                 "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30");
                 entityManager.persist(centre3);
