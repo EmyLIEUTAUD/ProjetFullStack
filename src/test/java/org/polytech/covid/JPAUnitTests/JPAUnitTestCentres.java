@@ -3,8 +3,9 @@ package org.polytech.covid.JPAUnitTests;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.polytech.covid.Entity.Centre;
-import org.polytech.covid.Repository.CentreRepositry;
+import org.polytech.covid.Repository.CentreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -17,11 +18,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class JPAUnitTestCentres {
 
-        @Autowired
+        @Mock
         private TestEntityManager entityManager;
 
         @Autowired
-        private CentreRepositry centreRepository;
+        private CentreRepository centreRepository;
 
         @Test
         public void should_find_no_centers_if_repository_is_empty() {
@@ -85,7 +86,7 @@ public class JPAUnitTestCentres {
                                 "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
                 entityManager.persist(centre2);
 
-                Centre centre3 = new Centre("Test Centre 3", "arville", "3", "rue de Jarville", 54140,
+                Centre centre3 = new Centre("Test Centre 3", "Jarville", "3", "rue de Jarville", 54140,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
                                 "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30");
                 entityManager.persist(centre3);

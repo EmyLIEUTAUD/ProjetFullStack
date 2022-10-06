@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChoixdelavilleService } from '../choixdelaville.service';
+import { ListeCentreComponent } from '../liste-centre/liste-centre.component';
 
 @Component({
   selector: 'app-choix-ville',

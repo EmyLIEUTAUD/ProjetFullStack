@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.Entity.Centre;
-import org.polytech.covid.Repository.CentreRepositry;
+import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Service.CentreServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class CentreServicesImpl implements CentreServices {
 
     @Autowired
-    private CentreRepositry centreRepository;
+    private CentreRepository centreRepository;
 
     public Centre creerCentre(Centre centre) {
         Centre _centre = centreRepository
