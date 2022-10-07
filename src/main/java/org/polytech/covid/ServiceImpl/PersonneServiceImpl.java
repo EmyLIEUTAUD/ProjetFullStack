@@ -15,7 +15,7 @@ public class PersonneServiceImpl implements PersonneService {
     public Personne creerPersonne(Personne personne) {
         Personne _personne = personneRepository
                 .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getTelephone(),
-                        personne.getAdresse(), personne.getRole()));
+                        personne.getAdresse()));
         return _personne;
     }
 

@@ -13,7 +13,6 @@ public class Personne {
     private String mail;
     private String telephone;
     private String adresse;
-    private String role;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personne")
     private Reservation reservation;
@@ -30,13 +29,12 @@ public class Personne {
 
     }
 
-    public Personne(String nom, String prenom, String mail, String telephone, String adresse, String role) {
+    public Personne(String nom, String prenom, String mail, String telephone, String adresse) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.telephone = telephone;
         this.adresse = adresse;
-        this.role = role;
     }
 
     public Integer getIdentifiant() {
@@ -85,14 +83,6 @@ public class Personne {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
 }
