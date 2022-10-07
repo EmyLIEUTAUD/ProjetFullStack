@@ -3,6 +3,7 @@ package org.polytech.covid.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Medecin;
 
 public interface AdminServices {

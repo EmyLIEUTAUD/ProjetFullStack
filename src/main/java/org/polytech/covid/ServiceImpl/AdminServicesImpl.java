@@ -3,7 +3,11 @@ package org.polytech.covid.ServiceImpl;
 import java.util.List;
 import java.util.Optional;
 
+import org.polytech.covid.Entity.Admin;
+import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Medecin;
+import org.polytech.covid.Repository.AdminRepository;
+import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Service.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +36,11 @@ public class AdminServicesImpl implements AdminServices {
         _medecin.setPersonne(medecin.getPersonne());
         return _medecin;
     }
+
+    @Autowired
+    private CentreRepository centreRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
 }
