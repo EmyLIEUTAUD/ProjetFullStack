@@ -20,8 +20,4 @@ export class VaccinationCenterService {
   getAllVaccinationCenter(comnom: string) : Observable<ChoixCentre[]>{
     return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom);
   }
-
-  getAllVaccinationCenterFromCity(ville: string) : Observable<ChoixCentre[]>{
-    return this.httpClient.get<ChoixCentre[]>("public/centres/"+ville); // mettre la variable ville qui insère la ville entrée par l'utilisateur
-  }
 }

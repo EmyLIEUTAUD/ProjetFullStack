@@ -1,6 +1,15 @@
-<div *ngFor="let aCenter of centers"
-    [ngClass]="selected==aCenter ? 'selected' : ''">
-    {{aCenter.nom}}
+<div class="divMain">
+    <div *ngFor="let aCenter of centers">
+        <div class="centre">
+            <div>
+                {{aCenter.nom}}
+                <br>
+                {{aCenter.numAdresse}} {{aCenter.adresse}}, {{aCenter.cp}} {{aCenter.comnom}} 
+            </div>
+            <button class="choisirBtn">Choisir</button>
+        </div>
+        <br><br>
+    </div>
 </div>
 
 <!--
