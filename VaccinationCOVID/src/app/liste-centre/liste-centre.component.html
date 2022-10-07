@@ -1,11 +1,14 @@
 <div *ngFor="let aCenter of centers"
     [ngClass]="selected==aCenter ? 'selected' : ''">
     {{aCenter.nom}}
+</div>
+
+<!--
+
     <div *ngIf="VilleSelectionnee(aCenter.comnom)">
         {{aCenter.nom}}
     </div>
-</div>
-<!--
+
     <button (click)="selectCenter(aCenter)">
         {{aCenter.name}} {{aCenter.city}}
     </button>

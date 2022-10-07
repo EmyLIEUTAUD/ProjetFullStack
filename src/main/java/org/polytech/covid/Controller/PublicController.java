@@ -1,11 +1,14 @@
 package org.polytech.covid.Controller;
 
 import org.polytech.covid.Entity.Centre;
+import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Service.CentreServices;
 import org.polytech.covid.Service.MedecinServices;
+import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -46,4 +49,18 @@ public class PublicController {
     public List<Reservation> rechercherPersonne(@PathVariable(value = "nom")String nom,@PathVariable(value = "gid")Integer gid){
         return medecinServices.rechercherPersonne(nom,gid);
     }
+    @Autowired
+    private PersonneService personneService;
+
+    @PostMapping("/nouvellePersonne")
+    public ResponseEntity<Personne> createPersonne(@RequestBody Personne personne) {
+        try {
+            Personne _personne;
+            _personne = personneService.creerPersonne(personne);
+            return new ResponseEntity<>(_personne, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
