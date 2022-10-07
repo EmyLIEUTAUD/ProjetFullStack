@@ -15,3 +15,5 @@ Swagger url: http://localhost:8080/swagger-ui/
 - regarder DTO
 - Admin : ne peut chercher que les médecins de son centre
 - Admin : gestion des réservations dans son centre
+- Mettre en place Login/mdp
+- Mettre des restrictions sur /admin (basic Auth)
