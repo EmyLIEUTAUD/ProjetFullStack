@@ -3,6 +3,7 @@ package org.polytech.covid.Controller;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Service.CentreServices;
+import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ public class PublicController {
     private CentreServices centreServices;
     @Autowired
     private ReservationService reservationService;
+    @Autowired
+    private MedecinServices medecinServices;
 
     @GetMapping("/centres")
     public List<Centre> voirCentres() {
@@ -37,5 +40,10 @@ public class PublicController {
         Reservation saveReservation = reservationService.save(reservation);
         URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(reservation.getId_reservation()).toUri();
         return ResponseEntity.created(uri).body(saveReservation);
+    }
+
+    @GetMapping(path = "/medecin/planning/{nom}/{gid}")
+    public List<Reservation> rechercherPersonne(@PathVariable(value = "nom")String nom,@PathVariable(value = "gid")Integer gid){
+        return medecinServices.rechercherPersonne(nom,gid);
     }
 }

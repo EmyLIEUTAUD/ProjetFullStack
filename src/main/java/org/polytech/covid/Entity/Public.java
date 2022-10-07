@@ -12,7 +12,7 @@ public class Public {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_personne;
+    private Integer id_public;
 
     @OneToOne
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
@@ -29,12 +29,12 @@ public class Public {
 
     }
 
-    public Integer getId_personne() {
-        return id_personne;
+    public Integer getId_public() {
+        return id_public;
     }
 
-    public void setId_personne(Integer id_personne) {
-        this.id_personne = id_personne;
+    public void setId_public(Integer id_public) {
+        this.id_public = id_public;
     }
 
     public Personne getPersonne() {
