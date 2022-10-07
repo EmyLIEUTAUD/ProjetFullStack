@@ -37,22 +37,19 @@ public class JPAUnitTestReservation {
     private CentreRepository centreRepository;
 
     @Test
-    public void should_store_a_reservation(){
-        Personne personne = personneRepository.save(new Personne("testNom","testPrenom","testMail","testTelephone","testAdresse","testRole"));
+    public void should_store_a_reservation() {
+        Personne personne = personneRepository
+                .save(new Personne("testNom", "testPrenom", "testMail", "testTelephone", "testAdresse"));
         Centre centre = centreRepository.save(new Centre("Test Centre", "Baccarat", "1", "rue de Baccarat",
                 54120,
                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
                 "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
-        LocalDate testDate = LocalDate.of(2022,10,03);
-        Reservation reservation = reservationRepository.save(new Reservation(testDate,personne,centre));
+        LocalDate testDate = LocalDate.of(2022, 10, 03);
+        Reservation reservation = reservationRepository.save(new Reservation(testDate, personne, centre));
         assertThat(reservation).hasFieldOrPropertyWithValue("date_reservation", testDate);
         assertThat(reservation).hasFieldOrPropertyWithValue("personne", personne);
         assertThat(reservation).hasFieldOrPropertyWithValue("centre", centre);
 
-
-
-
     }
-
 
 }

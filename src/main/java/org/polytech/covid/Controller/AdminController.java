@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Medecin;
+import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.AdminRepository;
@@ -14,6 +15,7 @@ import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Service.AdminServices;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
+import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -190,6 +192,15 @@ public class AdminController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Autowired
+    private MedecinServices medecinServices;
+
+    @GetMapping(path = "/medecin/planning/{nom}/{gid}")
+    public List<Reservation> rechercherPersonne(@PathVariable(value = "nom") String nom,
+            @PathVariable(value = "gid") Integer gid) {
+        return medecinServices.rechercherPersonne(nom, gid);
     }
 
 }

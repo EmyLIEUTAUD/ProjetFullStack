@@ -13,3 +13,5 @@ Swagger url: http://localhost:8080/swagger-ui/
 *TODO*
 - Faire des tests unitaires
 - regarder DTO
+- Admin : ne peut chercher que les médecins de son centre
+- Admin : gestion des réservations dans son centre

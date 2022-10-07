@@ -3,6 +3,7 @@ package org.polytech.covid.Controller;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
+import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Service.CentreServices;
 import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.PersonneService;
@@ -15,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/public")
@@ -25,7 +27,7 @@ public class PublicController {
     @Autowired
     private ReservationService reservationService;
     @Autowired
-    private MedecinServices medecinServices;
+    private PersonneRepository personneRepository;
 
     @GetMapping("/centres")
     public List<Centre> voirCentres() {
@@ -45,14 +47,10 @@ public class PublicController {
         return ResponseEntity.created(uri).body(saveReservation);
     }
 
-    @GetMapping(path = "/medecin/planning/{nom}/{gid}")
-    public List<Reservation> rechercherPersonne(@PathVariable(value = "nom")String nom,@PathVariable(value = "gid")Integer gid){
-        return medecinServices.rechercherPersonne(nom,gid);
-    }
     @Autowired
     private PersonneService personneService;
 
-    @PostMapping("/nouvellePersonne")
+    @PostMapping("/personne/nouvelle")
     public ResponseEntity<Personne> createPersonne(@RequestBody Personne personne) {
         try {
             Personne _personne;
@@ -60,6 +58,29 @@ public class PublicController {
             return new ResponseEntity<>(_personne, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/personne/modifier/{id}")
+    public ResponseEntity<Personne> updatePersonne(@PathVariable("id") Integer id, @RequestBody Personne personne) {
+        Optional<Personne> personneData = personneRepository.findById(id);
+
+        if (personneData.isPresent()) {
+            Personne _personne;
+            _personne = personneService.modifierPersonne(personneData, personne);
+            return new ResponseEntity<>(personneRepository.save(_personne), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/personne/supprimer/{id}")
+    public ResponseEntity<HttpStatus> deleteMedecin(@PathVariable("id") Integer id) {
+        try {
+            personneRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
