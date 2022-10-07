@@ -1,5 +1,9 @@
 package org.polytech.covid.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -15,7 +19,10 @@ public class Reservation {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
+    @JsonManagedReference
     private Personne personne;
+
+
 
     @ManyToOne
     @JoinColumn(name = "gid", referencedColumnName = "gid")

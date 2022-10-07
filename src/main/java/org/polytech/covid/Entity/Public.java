@@ -20,6 +20,7 @@ public class Public {
 
     private Integer dose;
 
+
     public Public(Personne personne, Integer dose) {
         this.personne = personne;
         this.dose = dose;

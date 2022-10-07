@@ -1,5 +1,9 @@
 package org.polytech.covid.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +20,7 @@ public class Personne {
     private String role;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personne")
+    @JsonBackReference
     private Reservation reservation;
 
     public Reservation getReservation() {

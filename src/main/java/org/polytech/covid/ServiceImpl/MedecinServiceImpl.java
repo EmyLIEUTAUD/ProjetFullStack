@@ -29,8 +29,8 @@ public class MedecinServiceImpl implements MedecinServices {
     public List<Reservation> rechercherPersonne(String nom, Integer idCentre) {
         Optional<Centre> centreOptional = centreRepository.findById(idCentre);
         Centre centre = centreOptional.get();
-        List<Personne> personne = personneRepository.findByNom(nom);
-        List<Reservation> reservationList = reservationRepository.findByPersonneAndCentre(personne,centre);
+        List<Personne> personneList = personneRepository.findByNom(nom);
+        List<Reservation> reservationList = reservationRepository.findByPersonneInAndCentre(personneList,centre);
         return reservationList;
     }
 
