@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface PersonneRepository extends JpaRepository<Personne,Integer> {
+public interface PersonneRepository extends JpaRepository<Personne, Integer> {
     List<Personne> findByNom(String nom);
-
 
     Personne findPersonneByTelephone(String telephone);
 }
