@@ -1,5 +1,6 @@
 package org.polytech.covid.Entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,6 @@ public class Public {
     private Personne personne;
 
     private Integer dose;
-
 
     public Public(Personne personne, Integer dose) {
         this.personne = personne;

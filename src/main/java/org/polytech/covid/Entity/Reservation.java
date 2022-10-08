@@ -22,8 +22,6 @@ public class Reservation {
     @JsonManagedReference
     private Personne personne;
 
-
-
     @ManyToOne
     @JoinColumn(name = "gid", referencedColumnName = "gid")
     private Centre centre;
@@ -61,7 +59,6 @@ public class Reservation {
     public void setDate_reservation(LocalDate date_reservation) {
         this.date_reservation = date_reservation;
     }
-
 
     public Centre getCentre() {
         return centre;
