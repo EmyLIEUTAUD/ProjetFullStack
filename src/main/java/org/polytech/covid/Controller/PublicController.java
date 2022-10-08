@@ -5,7 +5,6 @@ import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Service.CentreServices;
-import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
