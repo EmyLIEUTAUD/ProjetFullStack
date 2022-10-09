@@ -21,6 +21,8 @@ public class Personne {
     private String telephone;
     @Column(nullable = false)
     private String adresse;
+    @Column(nullable = false)
+    private String mdp;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personne")
     @JsonBackReference
@@ -38,12 +40,13 @@ public class Personne {
 
     }
 
-    public Personne(String nom, String prenom, String mail, String telephone, String adresse) {
+    public Personne(String nom, String prenom, String mail, String telephone, String adresse, String mdp) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.telephone = telephone;
         this.adresse = adresse;
+        this.mdp = mdp;
     }
 
     public Integer getIdentifiant() {
@@ -92,6 +95,14 @@ public class Personne {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
     }
 
 }

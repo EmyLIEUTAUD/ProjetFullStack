@@ -40,7 +40,7 @@ public class JPAUnitTestSuperAdmin {
     @Test
     public void should_store_an_admin() {
         Personne personne = personneRepository.save(new Personne("NomPersonne", "PrenomPersonne",
-                "mail.personne@mail.com", "+33111111111", "1, adresse de la personne"));
+                "mail.personne@mail.com", "+33111111111", "1, adresse de la personne", "mdp"));
         Centre centre = centreRepository.save(new Centre("Test Centre", "Baccarat", "1", "rue de Baccarat",
                 54120,
                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
@@ -54,6 +54,7 @@ public class JPAUnitTestSuperAdmin {
         assertThat(admin.getPersonne().getMail()).isEqualTo(personne.getMail());
         assertThat(admin.getPersonne().getTelephone()).isEqualTo(personne.getTelephone());
         assertThat(admin.getPersonne().getAdresse()).isEqualTo(personne.getAdresse());
+        assertThat(admin.getPersonne().getMdp()).isEqualTo(personne.getMdp());
         assertThat(admin.getCentre().getGid()).isEqualTo(centre.getGid());
         assertThat(admin.getCentre().getNom()).isEqualTo(centre.getNom());
         assertThat(admin.getCentre().getComnom()).isEqualTo(centre.getComnom());
@@ -87,13 +88,13 @@ public class JPAUnitTestSuperAdmin {
                 "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30"));
 
         Personne personne1 = personneRepository.save(new Personne("NomPersonne1", "PrenomPersonne1",
-                "mail.personne1@mail.com", "+33111111111", "1, adresse de la personne 1"));
+                "mail.personne1@mail.com", "+33111111111", "1, adresse de la personne 1", "mdp1"));
 
         Personne personne2 = personneRepository.save(new Personne("NomPersonne2", "PrenomPersonne2",
-                "mail.personn2@mail.com", "+33222222222", "2, adresse de la personne 2"));
+                "mail.personn2@mail.com", "+33222222222", "2, adresse de la personne 2", "mdp2"));
 
         Personne personne3 = personneRepository.save(new Personne("NomPersonne3", "PrenomPersonne3",
-                "mail.personn3@mail.com", "+33333333333", "3, adresse de la personne 3"));
+                "mail.personn3@mail.com", "+33333333333", "3, adresse de la personne 3", "mdp3"));
 
         Admin admin1 = adminRepository.save(new Admin(personne1, centre1));
 
@@ -119,7 +120,7 @@ public class JPAUnitTestSuperAdmin {
                 "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
         Personne personne1 = personneRepository.save(new Personne("NomPersonne1", "PrenomPersonne1",
-                "mail.personne1@mail.com", "+33111111111", "1, adresse de la personne 1"));
+                "mail.personne1@mail.com", "+33111111111", "1, adresse de la personne 1", "mdp1"));
 
         Admin admin1 = adminRepository.save(new Admin(personne1, centre1));
 
@@ -155,13 +156,13 @@ public class JPAUnitTestSuperAdmin {
                 "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30"));
 
         Personne personne1 = personneRepository.save(new Personne("NomPersonne1", "PrenomPersonne1",
-                "mail.personne1@mail.com", "+33111111111", "1, adresse de la personne 1"));
+                "mail.personne1@mail.com", "+33111111111", "1, adresse de la personne 1", "mdp1"));
 
         Personne personne2 = personneRepository.save(new Personne("NomPersonne2", "PrenomPersonne2",
-                "mail.personn2@mail.com", "+33222222222", "2, adresse de la personne 2"));
+                "mail.personn2@mail.com", "+33222222222", "2, adresse de la personne 2", "mdp2"));
 
         Personne personne3 = personneRepository.save(new Personne("NomPersonne3", "PrenomPersonne3",
-                "mail.personn3@mail.com", "+33333333333", "3, adresse de la personne 3"));
+                "mail.personn3@mail.com", "+33333333333", "3, adresse de la personne 3", "mdp3"));
 
         Admin admin1 = adminRepository.save(new Admin(personne1, centre1));
 
