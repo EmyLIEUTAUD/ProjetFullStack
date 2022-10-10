@@ -1,7 +1,7 @@
 package org.polytech.covid.JPAUnitTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.polytech.covid.Entity.Centre;
@@ -17,9 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class JPAUnitTestCentres {
-
-        @Mock
-        private TestEntityManager entityManager;
 
         @Autowired
         private CentreRepository centreRepository;
@@ -54,20 +51,20 @@ public class JPAUnitTestCentres {
 
         @Test
         public void should_find_all_centers() {
-                Centre centre1 = new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat", 54120,
+                Centre centre1 = centreRepository.save(new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre1);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
-                Centre centre2 = new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat", 54120,
+                Centre centre2 = centreRepository.save(new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre2);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
-                Centre centre3 = new Centre("Test Centre 3", "Jarville", "3", "rue de Jarville", 54140,
+                Centre centre3 = centreRepository.save(new Centre("Test Centre 3", "Jarville", "3", "rue de Jarville",
+                                54140,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30");
-                entityManager.persist(centre3);
+                                "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30"));
 
                 Iterable centres = centreRepository.findAll();
 
@@ -76,20 +73,20 @@ public class JPAUnitTestCentres {
 
         @Test
         public void should_find_centre_by_city() {
-                Centre centre1 = new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat", 54120,
+                Centre centre1 = centreRepository.save(new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre1);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
-                Centre centre2 = new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat", 54120,
+                Centre centre2 = centreRepository.save(new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre2);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
-                Centre centre3 = new Centre("Test Centre 3", "Jarville", "3", "rue de Jarville", 54140,
+                Centre centre3 = centreRepository.save(new Centre("Test Centre 3", "Jarville", "3", "rue de Jarville",
+                                54140,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30");
-                entityManager.persist(centre3);
+                                "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30"));
 
                 Iterable centres = centreRepository.findByComnomIgnoreCase("Baccarat");
 
@@ -98,15 +95,15 @@ public class JPAUnitTestCentres {
 
         @Test
         public void should_update_centre_by_id() {
-                Centre centre1 = new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat", 54120,
+                Centre centre1 = centreRepository.save(new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre1);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
-                Centre centre2 = new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat", 54120,
+                Centre centre2 = centreRepository.save(new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre2);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
                 Centre updatedCentre = new Centre("updated Centre 1", "Baccarat", "1", "rue de Baccarat updated", 54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
@@ -146,20 +143,20 @@ public class JPAUnitTestCentres {
 
         @Test
         public void should_delete_centre_by_id() {
-                Centre centre1 = new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat", 54120,
+                Centre centre1 = centreRepository.save(new Centre("Test Centre 1", "Baccarat", "1", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre1);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
-                Centre centre2 = new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat", 54120,
+                Centre centre2 = centreRepository.save(new Centre("Test Centre 2", "Baccarat", "2", "rue de Baccarat",
+                                54120,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé");
-                entityManager.persist(centre2);
+                                "9h00-12h00/14h-18h", "8h00-13h00", "fermé"));
 
-                Centre centre3 = new Centre("Test Centre 3", "arville", "3", "rue de Jarville", 54140,
+                Centre centre3 = centreRepository.save(new Centre("Test Centre 3", "Jarville", "3", "rue de Jarville",
+                                54140,
                                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",
-                                "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30");
-                entityManager.persist(centre3);
+                                "9h00-12h00/14h-18h", "8h00-17h00", "9h30-11h30"));
 
                 centreRepository.deleteById(centre2.getGid());
 

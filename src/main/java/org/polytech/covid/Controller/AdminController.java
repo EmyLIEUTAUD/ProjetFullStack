@@ -5,12 +5,17 @@ import java.util.Optional;
 
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
+import org.polytech.covid.Entity.Medecin;
+import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.CentreRepository;
+import org.polytech.covid.Repository.MedecinRepository;
+import org.polytech.covid.Service.AdminServices;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
+import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -110,7 +115,7 @@ public class AdminController {
         return superAdminServices.voirAdmins();
     }
 
-    @PostMapping("/administrateur/nouveau")
+    @PostMapping("/administrateurs/nouveau")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         try {
             Admin _admin;
@@ -142,6 +147,60 @@ public class AdminController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Autowired
+    private AdminServices adminServices;
+
+    @Autowired
+    private MedecinRepository medecinRepository;
+
+    @GetMapping("/medecins")
+    public List<Medecin> voirMedecins() {
+        return adminServices.voirMedecins();
+    }
+
+    @PostMapping("/medecins/nouveau")
+    public ResponseEntity<Medecin> createMedecin(@RequestBody Medecin medecin) {
+        try {
+            Medecin _medecin;
+            _medecin = adminServices.creerMedecin(medecin);
+            return new ResponseEntity<>(_medecin, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/medecins/modifier/{id}")
+    public ResponseEntity<Medecin> updateMedecin(@PathVariable("id") Integer id, @RequestBody Medecin medecin) {
+        Optional<Medecin> medecinData = medecinRepository.findById(id);
+
+        if (medecinData.isPresent()) {
+            Medecin _medecin;
+            _medecin = adminServices.modifierMedecin(medecinData, medecin);
+            return new ResponseEntity<>(medecinRepository.save(_medecin), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/medecins/supprimer/{id}")
+    public ResponseEntity<HttpStatus> deleteMedecin(@PathVariable("id") Integer id) {
+        try {
+            adminRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Autowired
+    private MedecinServices medecinServices;
+
+    @GetMapping(path = "/medecin/planning/{nom}/{gid}")
+    public List<Reservation> rechercherPersonne(@PathVariable(value = "nom") String nom,
+            @PathVariable(value = "gid") Integer gid) {
+        return medecinServices.rechercherPersonne(nom, gid);
     }
 
 }
