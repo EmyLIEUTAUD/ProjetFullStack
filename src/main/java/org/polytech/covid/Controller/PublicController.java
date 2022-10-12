@@ -50,17 +50,6 @@ public class PublicController {
     @Autowired
     private PersonneService personneService;
 
-    @PostMapping("/personne/nouvelle")
-    public ResponseEntity<Personne> createPersonne(@RequestBody Personne personne) {
-        try {
-            Personne _personne;
-            _personne = personneService.creerPersonne(personne);
-            return new ResponseEntity<>(_personne, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @PutMapping("/personne/modifier/{id}")
     public ResponseEntity<Personne> updatePersonne(@PathVariable("id") Integer id, @RequestBody Personne personne) {
         Optional<Personne> personneData = personneRepository.findById(id);

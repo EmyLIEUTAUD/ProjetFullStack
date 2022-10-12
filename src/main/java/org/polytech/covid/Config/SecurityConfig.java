@@ -27,7 +27,11 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         (authz) -> authz
-                                .antMatchers(HttpMethod.GET, "/**").authenticated()
+                                .antMatchers(HttpMethod.POST, "/login/nouveau").permitAll()
+                                .antMatchers(HttpMethod.GET, "/public", "/admin").authenticated()
+                                .antMatchers(HttpMethod.POST, "/public", "/admin").authenticated()
+                                .antMatchers(HttpMethod.PUT, "/public", "/admin").authenticated()
+                                .antMatchers(HttpMethod.DELETE, "/public", "/admin").authenticated()
                                 .antMatchers(HttpMethod.GET, "/public/**").hasAuthority("PUBLIC")
                                 .antMatchers(HttpMethod.POST, "/public/**").hasAuthority("PUBLIC")
                                 .antMatchers(HttpMethod.PUT, "/public/**").hasAuthority("PUBLIC")
