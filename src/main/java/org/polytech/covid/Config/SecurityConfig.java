@@ -2,6 +2,7 @@ package org.polytech.covid.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,14 +23,37 @@ public class SecurityConfig {
     private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) -> authz.anyRequest().authenticated())
+                .authorizeHttpRequests(
+                        (authz) -> authz
+                                .antMatchers(HttpMethod.POST, "/login/nouveau").permitAll()
+                                .antMatchers(HttpMethod.GET, "/public", "/admin").authenticated()
+                                .antMatchers(HttpMethod.POST, "/public", "/admin").authenticated()
+                                .antMatchers(HttpMethod.PUT, "/public", "/admin").authenticated()
+                                .antMatchers(HttpMethod.DELETE, "/public", "/admin").authenticated()
+                                .antMatchers(HttpMethod.GET, "/public/**").hasAuthority("PUBLIC")
+                                .antMatchers(HttpMethod.POST, "/public/**").hasAuthority("PUBLIC")
+                                .antMatchers(HttpMethod.PUT, "/public/**").hasAuthority("PUBLIC")
+                                .antMatchers(HttpMethod.DELETE, "/public/**").hasAuthority("PUBLIC")
+                                .antMatchers(HttpMethod.GET, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.POST, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.PUT, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.GET, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.POST, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.PUT, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.POST, "/admin/csv/upload").hasAuthority("SUPER_ADMIN")
+                                .antMatchers(HttpMethod.GET, "/admin/medecins/**").hasAuthority("ADMIN")
+                                .antMatchers(HttpMethod.POST, "/admin/medecins/**").hasAuthority("ADMIN")
+                                .antMatchers(HttpMethod.PUT, "/admin/medecins/**").hasAuthority("ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("ADMIN")
+                                .antMatchers(HttpMethod.GET, "/admin/medecin/planning/**").hasAuthority("MEDECIN"))
                 .httpBasic(withDefaults())
-                .cors().disable()
-                .csrf().disable() // Desactivation de la protection csrf
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);// On rend les session
-                                                                                            // stateless
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .csrf().disable();// On rend les session
+                                  // stateless
         return http.build();
     }
 

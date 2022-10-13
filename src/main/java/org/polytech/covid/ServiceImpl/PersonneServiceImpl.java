@@ -1,5 +1,7 @@
 package org.polytech.covid.ServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.Entity.Personne;
@@ -26,7 +28,7 @@ public class PersonneServiceImpl implements PersonneService {
     public Personne creerPersonne(Personne personne) {
         Personne _personne = personneRepository
                 .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getTelephone(),
-                        personne.getAdresse(), passwordEncoder.encode((personne.getMdp()))));
+                        personne.getAdresse(), passwordEncoder.encode((personne.getMdp())), List.of("PUBLIC")));
         return _personne;
     }
 
@@ -38,6 +40,7 @@ public class PersonneServiceImpl implements PersonneService {
         _personne.setTelephone(personne.getTelephone());
         _personne.setAdresse(personne.getAdresse());
         _personne.setMdp(passwordEncoder.encode(personne.getMdp()));
+        _personne.setRoles(personne.getRoles());
         return _personne;
     }
 
