@@ -39,16 +39,16 @@ public class LoginServiceImpl implements UserDetailsService {
      */
     @PostConstruct
     public void createUserDefault() {
-        log.info("Creation du user par défaut");
-        Personne personne = new Personne();
-        personne.setNom("test");
-        personne.setPrenom("test");
-        personne.setMail("test@gmail.com");
-        personne.setTelephone("");
-        personne.setAdresse("");
-        personne.setMdp(passwordEncoder.encode("test"));
-        personne.setRoles(List.of("PUBLIC"));
-        this.personneRepository.save(personne);
+        log.info("Creation du user médecin");
+        Personne medecin = new Personne();
+        medecin.setNom("medecin");
+        medecin.setPrenom("medecin");
+        medecin.setMail("medecin@gmail.com");
+        medecin.setTelephone("");
+        medecin.setAdresse("");
+        medecin.setMdp(passwordEncoder.encode("medecinPassword"));
+        medecin.setRoles(List.of("MEDECIN"));
+        this.personneRepository.save(medecin);
         log.info("Creation du user admin");
         Personne admin = new Personne();
         admin.setNom("admin");
@@ -57,8 +57,18 @@ public class LoginServiceImpl implements UserDetailsService {
         admin.setTelephone("");
         admin.setAdresse("");
         admin.setMdp(passwordEncoder.encode("adminPassword"));
-        admin.setRoles(List.of("SUPER_ADMIN"));
+        admin.setRoles(List.of("ADMIN"));
         this.personneRepository.save(admin);
+        log.info("Creation du user superAdmin");
+        Personne superAdmin = new Personne();
+        superAdmin.setNom("superAdmin");
+        superAdmin.setPrenom("superAdmin");
+        superAdmin.setMail("superAdmin@gmail.com");
+        superAdmin.setTelephone("");
+        superAdmin.setAdresse("");
+        superAdmin.setMdp(passwordEncoder.encode("superAadminPassword"));
+        superAdmin.setRoles(List.of("SUPER_ADMIN"));
+        this.personneRepository.save(superAdmin);
     }
 
     @Override
