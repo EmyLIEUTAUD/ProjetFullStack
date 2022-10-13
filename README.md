@@ -17,3 +17,5 @@ Swagger url: http://localhost:8080/swagger-ui/
 - Admin : gestion des réservations dans son centre
 - Mettre en place Login/mdp
 - Mettre des restrictions sur /admin (basic Auth)
+- Mettre des vérifications avant d'appeler une méthode (ex : vérifier que ce soit bien un admin qui gère les médecins de son centre (que ce soit par le front ou pas postman) ; autre ex : vérifier que ce soit la personne qui possède le compte qui veut supprimer le sien ; ...)
+- Basic auth : mettre des rôles pour les restrictions aux urls (roles médecin, admin, superAdmin, public) --> définition du rôle dans personne : rôle par défaut = public et ensuite c'est le supérieur qui peut définir un rôle inférieur à une autre personne (superAdmin -> admin -> medecin)

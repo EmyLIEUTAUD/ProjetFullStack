@@ -1,5 +1,7 @@
 package org.polytech.covid.ServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.Entity.Personne;
@@ -8,26 +10,49 @@ import org.polytech.covid.Service.PersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Service
 public class PersonneServiceImpl implements PersonneService {
 
     @Autowired
     private PersonneRepository personneRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Personne creerPersonne(Personne personne) {
+    @Autowired
+    public PersonneServiceImpl(final PersonneRepository personneRepository, PasswordEncoder passwordEncoder) {
+        this.personneRepository = personneRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public Personne creerPublic(Personne personne) {
         Personne _personne = personneRepository
-                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getTelephone(),
-                        personne.getAdresse()));
+                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail()));
         return _personne;
     }
 
-    public Personne modifierPersonne(Optional<Personne> personneData, Personne personne) {
+    public Personne creerProfessionnel(Personne personne) {
+        Personne _personne = personneRepository
+                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getMail(),
+                        List.of()));
+        return _personne;
+    }
+
+    public Personne modifierPublic(Optional<Personne> personneData, Personne personne) {
         Personne _personne = personneData.get();
         _personne.setNom(personne.getNom());
         _personne.setPrenom(personne.getPrenom());
         _personne.setMail(personne.getMail());
-        _personne.setTelephone(personne.getTelephone());
-        _personne.setAdresse(personne.getAdresse());
+        return _personne;
+    }
+
+    public Personne modifierProfessionnel(Optional<Personne> personneData, Personne personne) {
+        Personne _personne = personneData.get();
+        _personne.setNom(personne.getNom());
+        _personne.setPrenom(personne.getPrenom());
+        _personne.setMail(personne.getMail());
+        _personne.setMdp(passwordEncoder.encode(personne.getMdp()));
+        _personne.setRoles(personne.getRoles());
         return _personne;
     }
 

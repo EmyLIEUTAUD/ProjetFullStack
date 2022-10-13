@@ -17,12 +17,9 @@ public class Reservation {
     private Integer id_reservation;
     private LocalDate date_reservation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
-    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "identifiant", referencedColumnName = "identifiant", nullable = false)
     private Personne personne;
-
-
 
     @ManyToOne
     @JoinColumn(name = "gid", referencedColumnName = "gid")
@@ -61,7 +58,6 @@ public class Reservation {
     public void setDate_reservation(LocalDate date_reservation) {
         this.date_reservation = date_reservation;
     }
-
 
     public Centre getCentre() {
         return centre;

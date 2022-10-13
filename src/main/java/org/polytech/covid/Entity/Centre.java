@@ -8,10 +8,14 @@ public class Centre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer gid;
+    @Column(nullable = false)
     private String nom;
+    @Column(nullable = false)
     private String comnom;
     private String numAdresse;
+    @Column(nullable = false)
     private String adresse;
+    @Column(nullable = false)
     private Integer cp;
     private String horairesLundi;
     private String horairesMardi;
@@ -20,7 +24,6 @@ public class Centre {
     private String horairesVendredi;
     private String horairesSamedi;
     private String horairesDimanche;
-
 
     public Centre(String nom, String comnom, String numAdresse, String adresse, Integer cp, String horairesLundi,
             String horairesMardi, String horairesMercredi, String horairesJeudi, String horairesVendredi,

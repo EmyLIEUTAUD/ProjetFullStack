@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,34 +14,36 @@ public class Personne {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer identifiant;
+    @Column(nullable = false)
     private String nom;
+    @Column(nullable = false)
     private String prenom;
+    @Column(nullable = false)
     private String mail;
-    private String telephone;
-    private String adresse;
+    private String mdp;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "personne")
-    @JsonBackReference
-    private Reservation reservation;
-
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
+    @ElementCollection
+    private List<String> roles;
 
     public Personne() {
 
     }
 
-    public Personne(String nom, String prenom, String mail, String telephone, String adresse) {
+    // Contructeur pour public
+    public Personne(String nom, String prenom, String mail) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
-        this.telephone = telephone;
-        this.adresse = adresse;
+    }
+
+    // Constructeur pour un professionnel
+    public Personne(String nom, String prenom, String mail, String mdp,
+            List<String> roles) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.mdp = mdp;
+        this.roles = roles;
     }
 
     public Integer getIdentifiant() {
@@ -74,20 +78,20 @@ public class Personne {
         this.mail = mail;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getMdp() {
+        return mdp;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public List<String> getRoles() {
+        return roles;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
 }

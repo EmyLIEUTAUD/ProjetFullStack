@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MedecinRepository extends JpaRepository<Medecin, Integer> {
 
-    List<Medecin> findByMedecinInAndCentre(List<Admin> admin, Centre centre);
-
     List<Medecin> findAll();
 
 }

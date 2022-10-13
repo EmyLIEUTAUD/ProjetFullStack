@@ -4,13 +4,14 @@ import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Repository.PersonneRepository;
+import org.polytech.covid.Repository.ReservationRepository;
 import org.polytech.covid.Service.CentreServices;
-import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -28,6 +29,8 @@ public class PublicController {
     private ReservationService reservationService;
     @Autowired
     private PersonneRepository personneRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @GetMapping("/centres")
     public List<Centre> voirCentres() {
@@ -40,26 +43,29 @@ public class PublicController {
     }
 
     @PostMapping(path = "/inscription")
-    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation,
+    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest,
             UriComponentsBuilder uriBuilder) {
-        Reservation saveReservation = reservationService.save(reservation);
+        Optional<Personne> personneRequest = personneRepository.findByMail(reservationRequest.getPersonne().getMail());
+        Personne personneSave = personneRequest.get();
+        if (personneRequest == null) {
+            personneSave.setNom(reservationRequest.getPersonne().getNom());
+            personneSave.setMail(reservationRequest.getPersonne().getMail());
+            personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
+            personneSave.setMdp(reservationRequest.getPersonne().getMdp());
+            // reservationRequest.setPersonne(personneSave);
+            // reservationRepository.save(reservationRequest);
+        }
+        Reservation reservation = personneSave.map((Personne personne) -> {
+            reservationRequest.setPersonne(personne);
+            return reservationRepository.save(reservationRequest);
+        });
+
         URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(reservation.getId_reservation()).toUri();
-        return ResponseEntity.created(uri).body(saveReservation);
+        return ResponseEntity.created(uri).body(reservation);
     }
 
     @Autowired
     private PersonneService personneService;
-
-    @PostMapping("/personne/nouvelle")
-    public ResponseEntity<Personne> createPersonne(@RequestBody Personne personne) {
-        try {
-            Personne _personne;
-            _personne = personneService.creerPersonne(personne);
-            return new ResponseEntity<>(_personne, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     @PutMapping("/personne/modifier/{id}")
     public ResponseEntity<Personne> updatePersonne(@PathVariable("id") Integer id, @RequestBody Personne personne) {
@@ -67,7 +73,7 @@ public class PublicController {
 
         if (personneData.isPresent()) {
             Personne _personne;
-            _personne = personneService.modifierPersonne(personneData, personne);
+            _personne = personneService.modifierPublic(personneData, personne);
             return new ResponseEntity<>(personneRepository.save(_personne), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -39,7 +39,7 @@ public class JPAUnitTestReservation {
     @Test
     public void should_store_a_reservation() {
         Personne personne = personneRepository
-                .save(new Personne("testNom", "testPrenom", "testMail", "testTelephone", "testAdresse"));
+                .save(new Personne("testNom", "testPrenom", "testMail", "testTelephone", "testAdresse", "mdp"));
         Centre centre = centreRepository.save(new Centre("Test Centre", "Baccarat", "1", "rue de Baccarat",
                 54120,
                 "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h", "9h00-12h00/14h-18h",

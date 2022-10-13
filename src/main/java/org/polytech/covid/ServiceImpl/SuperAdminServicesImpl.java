@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Repository.AdminRepository;
+import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
 
     @Autowired
     private AdminRepository adminRepository;
+    private PersonneRepository personneRepository;
 
     public List<Admin> voirAdmins() {
         List<Admin> listAdmins = adminRepository.findAll();
