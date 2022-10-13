@@ -25,20 +25,32 @@ public class PersonneServiceImpl implements PersonneService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Personne creerPersonne(Personne personne) {
+    public Personne creerPublic(Personne personne) {
         Personne _personne = personneRepository
-                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getTelephone(),
-                        personne.getAdresse(), passwordEncoder.encode((personne.getMdp())), List.of()));
+                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail()));
         return _personne;
     }
 
-    public Personne modifierPersonne(Optional<Personne> personneData, Personne personne) {
+    public Personne creerProfessionnel(Personne personne) {
+        Personne _personne = personneRepository
+                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getMail(),
+                        List.of()));
+        return _personne;
+    }
+
+    public Personne modifierPublic(Optional<Personne> personneData, Personne personne) {
         Personne _personne = personneData.get();
         _personne.setNom(personne.getNom());
         _personne.setPrenom(personne.getPrenom());
         _personne.setMail(personne.getMail());
-        _personne.setTelephone(personne.getTelephone());
-        _personne.setAdresse(personne.getAdresse());
+        return _personne;
+    }
+
+    public Personne modifierProfessionnel(Optional<Personne> personneData, Personne personne) {
+        Personne _personne = personneData.get();
+        _personne.setNom(personne.getNom());
+        _personne.setPrenom(personne.getPrenom());
+        _personne.setMail(personne.getMail());
         _personne.setMdp(passwordEncoder.encode(personne.getMdp()));
         _personne.setRoles(personne.getRoles());
         return _personne;

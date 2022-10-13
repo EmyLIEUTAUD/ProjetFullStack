@@ -20,10 +20,6 @@ public class Personne {
     private String prenom;
     @Column(nullable = false)
     private String mail;
-    private String telephone;
-    @Column(nullable = false)
-    private String adresse;
-    @Column(nullable = false)
     private String mdp;
 
     @ElementCollection
@@ -33,13 +29,19 @@ public class Personne {
 
     }
 
-    public Personne(String nom, String prenom, String mail, String telephone, String adresse, String mdp,
+    // Contructeur pour public
+    public Personne(String nom, String prenom, String mail) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+    }
+
+    // Constructeur pour un professionnel
+    public Personne(String nom, String prenom, String mail, String mdp,
             List<String> roles) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
-        this.telephone = telephone;
-        this.adresse = adresse;
         this.mdp = mdp;
         this.roles = roles;
     }
@@ -74,22 +76,6 @@ public class Personne {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
     }
 
     public String getMdp() {

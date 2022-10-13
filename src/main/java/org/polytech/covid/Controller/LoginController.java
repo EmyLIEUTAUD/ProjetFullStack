@@ -27,7 +27,7 @@ public class LoginController {
     public ResponseEntity<Personne> createPersonne(@RequestBody Personne personne) {
         try {
             Personne _personne;
-            _personne = personneService.creerPersonne(personne);
+            _personne = personneService.creerProfessionnel(personne);
             return new ResponseEntity<>(_personne, HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println(e);

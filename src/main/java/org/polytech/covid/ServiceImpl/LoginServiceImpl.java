@@ -44,8 +44,6 @@ public class LoginServiceImpl implements UserDetailsService {
         medecin.setNom("medecin");
         medecin.setPrenom("medecin");
         medecin.setMail("medecin@gmail.com");
-        medecin.setTelephone("");
-        medecin.setAdresse("");
         medecin.setMdp(passwordEncoder.encode("medecinPassword"));
         medecin.setRoles(List.of("MEDECIN"));
         this.personneRepository.save(medecin);
@@ -54,8 +52,6 @@ public class LoginServiceImpl implements UserDetailsService {
         admin.setNom("admin");
         admin.setPrenom("admin");
         admin.setMail("admin@gmail.com");
-        admin.setTelephone("");
-        admin.setAdresse("");
         admin.setMdp(passwordEncoder.encode("adminPassword"));
         admin.setRoles(List.of("ADMIN"));
         this.personneRepository.save(admin);
@@ -64,8 +60,6 @@ public class LoginServiceImpl implements UserDetailsService {
         superAdmin.setNom("superAdmin");
         superAdmin.setPrenom("superAdmin");
         superAdmin.setMail("superAdmin@gmail.com");
-        superAdmin.setTelephone("");
-        superAdmin.setAdresse("");
         superAdmin.setMdp(passwordEncoder.encode("superAadminPassword"));
         superAdmin.setRoles(List.of("SUPER_ADMIN"));
         this.personneRepository.save(superAdmin);

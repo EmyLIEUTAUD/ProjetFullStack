@@ -1,5 +1,7 @@
 package org.polytech.covid.ServiceImpl;
 
+import java.util.Optional;
+
 import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Repository.PersonneRepository;
@@ -15,11 +17,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private PersonneRepository personneRepository;
+
     @Override
     public Reservation save(Reservation reservation) {
-        Personne personne =personneRepository.findPersonneByTelephone(reservation.getPersonne().getTelephone());
-        if (personne==null){
-            personne = reservation.getPersonne();
+        Optional<Personne> personne = personneRepository.findByMail((reservation.getPersonne().getMail()));
+        if (personne == null) {
+            // personne = reservation.getPersonne();
+            personneRepository.save(reservation.getPersonne());
         }
         reservation = reservationRepository.save(reservation);
         return reservation;

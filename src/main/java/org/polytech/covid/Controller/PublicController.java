@@ -46,22 +46,19 @@ public class PublicController {
     public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest,
             UriComponentsBuilder uriBuilder) {
         Optional<Personne> personneRequest = personneRepository.findByMail(reservationRequest.getPersonne().getMail());
-        Personne personneSave=personneRequest.get();
-        if (personneRequest==null){
+        Personne personneSave = personneRequest.get();
+        if (personneRequest == null) {
             personneSave.setNom(reservationRequest.getPersonne().getNom());
-            personneSave.setAdresse(reservationRequest.getPersonne().getAdresse());
             personneSave.setMail(reservationRequest.getPersonne().getMail());
             personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
             personneSave.setMdp(reservationRequest.getPersonne().getMdp());
-            personneSave.setTelephone(reservationRequest.getPersonne().getTelephone());
-            //reservationRequest.setPersonne(personneSave);
-            //reservationRepository.save(reservationRequest);
+            // reservationRequest.setPersonne(personneSave);
+            // reservationRepository.save(reservationRequest);
         }
-            Reservation reservation = personneSave.map((Personne personne) -> {
-                reservationRequest.setPersonne(personne);
-                return reservationRepository.save(reservationRequest);
-            });
-
+        Reservation reservation = personneSave.map((Personne personne) -> {
+            reservationRequest.setPersonne(personne);
+            return reservationRepository.save(reservationRequest);
+        });
 
         URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(reservation.getId_reservation()).toUri();
         return ResponseEntity.created(uri).body(reservation);
@@ -76,7 +73,7 @@ public class PublicController {
 
         if (personneData.isPresent()) {
             Personne _personne;
-            _personne = personneService.modifierPersonne(personneData, personne);
+            _personne = personneService.modifierPublic(personneData, personne);
             return new ResponseEntity<>(personneRepository.save(_personne), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
