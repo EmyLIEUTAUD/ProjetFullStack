@@ -24,17 +24,9 @@ public class Personne {
     @Column(nullable = false)
     private String mdp;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "personne")
-    @JsonBackReference
-    private Reservation reservation;
 
-    public Reservation getReservation() {
-        return reservation;
-    }
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
+
 
     public Personne() {
 

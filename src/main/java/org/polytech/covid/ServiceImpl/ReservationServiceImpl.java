@@ -20,9 +20,6 @@ public class ReservationServiceImpl implements ReservationService {
         Personne personne =personneRepository.findPersonneByTelephone(reservation.getPersonne().getTelephone());
         if (personne==null){
             personne = reservation.getPersonne();
-            personne.setReservation(reservation);
-        }else {
-            personne.setReservation(reservation);
         }
         reservation = reservationRepository.save(reservation);
         return reservation;
