@@ -6,8 +6,12 @@ import org.polytech.covid.Entity.Personne;
 
 public interface PersonneService {
 
-    Personne creerPersonne(Personne personne);
+    Personne creerPublic(Personne personne);
 
-    Personne modifierPersonne(Optional<Personne> personneData, Personne personne);
+    Personne creerProfessionnel(Personne personne);
+
+    Personne modifierPublic(Optional<Personne> personneData, Personne personne);
+
+    Personne modifierProfessionnel(Optional<Personne> personneData, Personne personne);
 
 }

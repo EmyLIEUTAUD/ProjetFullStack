@@ -30,10 +30,6 @@ public class SecurityConfig {
                                 .antMatchers(HttpMethod.POST, "/login/nouveau", "/public/**").permitAll()
                                 .antMatchers(HttpMethod.GET, "/public/**").permitAll()
                                 .antMatchers(HttpMethod.PUT, "/public/**").permitAll()
-                                .antMatchers(HttpMethod.GET, "/admin/**").authenticated()
-                                .antMatchers(HttpMethod.POST, "/admin/**").authenticated()
-                                .antMatchers(HttpMethod.PUT, "/admin/**").authenticated()
-                                .antMatchers(HttpMethod.DELETE, "/admin/**").authenticated()
                                 .antMatchers(HttpMethod.GET, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
                                 .antMatchers(HttpMethod.POST, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
                                 .antMatchers(HttpMethod.PUT, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
@@ -49,8 +45,8 @@ public class SecurityConfig {
                                 .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("ADMIN")
                                 .antMatchers(HttpMethod.GET, "/admin/medecin/planning/**").hasAuthority("MEDECIN"))
                 .httpBasic(withDefaults())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .csrf().disable();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable();
         return http.build();
     }
 

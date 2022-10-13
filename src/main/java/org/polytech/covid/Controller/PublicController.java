@@ -52,16 +52,17 @@ public class PublicController {
             personneSave.setMail(reservationRequest.getPersonne().getMail());
             personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
             personneSave.setMdp(reservationRequest.getPersonne().getMdp());
-            // reservationRequest.setPersonne(personneSave);
-            // reservationRepository.save(reservationRequest);
+
         }
-        Reservation reservation = personneSave.map((Personne personne) -> {
+        Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
             reservationRequest.setPersonne(personne);
+
             return reservationRepository.save(reservationRequest);
         });
+        Reservation newReservation = reservation.get();
 
-        URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(reservation.getId_reservation()).toUri();
-        return ResponseEntity.created(uri).body(reservation);
+        URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(newReservation.getId_reservation()).toUri();
+        return ResponseEntity.created(uri).body(newReservation);
     }
 
     @Autowired

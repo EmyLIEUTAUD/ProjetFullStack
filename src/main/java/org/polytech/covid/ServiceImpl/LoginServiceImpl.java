@@ -60,7 +60,7 @@ public class LoginServiceImpl implements UserDetailsService {
         superAdmin.setNom("superAdmin");
         superAdmin.setPrenom("superAdmin");
         superAdmin.setMail("superAdmin@gmail.com");
-        superAdmin.setMdp(passwordEncoder.encode("superAadminPassword"));
+        superAdmin.setMdp(passwordEncoder.encode("superAdminPassword"));
         superAdmin.setRoles(List.of("SUPER_ADMIN"));
         this.personneRepository.save(superAdmin);
     }
