@@ -1,3 +1,36 @@
-.selected button{
-    background-color: aquamarine;
+
+div.divMain{
+    overflow-y: auto;
+    max-height: 300px;
+    display: inline-block;
+
+}
+
+div.centre{
+    border-style: solid;
+    display: inline-block;
+    padding: 10px;
+    max-width: 400px;
+    background-color: rgb(46, 81, 255, 0.1);
+    border-color: rgba(20, 38, 127, 0.7);
+}
+
+button.choisirBtn {
+    color: white;
+    font-weight: bold;
+    font-size: auto;
+    text-decoration: none;
+    padding: 2px 3px;
+    background-color: #222e6b;
+}
+button.choisirBtn:hover{
+    transform: scale(1.1);
+    background-position: -60px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+   
+button.choisirBtn:active{
+    transform: scale(1);
+    background-position: 500px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }

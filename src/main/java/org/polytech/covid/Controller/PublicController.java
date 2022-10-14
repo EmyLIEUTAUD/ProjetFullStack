@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.*;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/public")
@@ -46,21 +46,20 @@ public class PublicController {
     public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest,
             UriComponentsBuilder uriBuilder) {
         Optional<Personne> personneRequest = personneRepository.findByMail(reservationRequest.getPersonne().getMail());
-        Personne personneSave=personneRequest.get();
-        if (personneRequest==null){
+        Personne personneSave = personneRequest.get();
+        if (personneRequest == null) {
             personneSave.setNom(reservationRequest.getPersonne().getNom());
             personneSave.setMail(reservationRequest.getPersonne().getMail());
             personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
             personneSave.setMdp(reservationRequest.getPersonne().getMdp());
 
         }
-            Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
-                reservationRequest.setPersonne(personne);
+        Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
+            reservationRequest.setPersonne(personne);
 
-                return reservationRepository.save(reservationRequest);
-            });
+            return reservationRepository.save(reservationRequest);
+        });
         Reservation newReservation = reservation.get();
-
 
         URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(newReservation.getId_reservation()).toUri();
         return ResponseEntity.created(uri).body(newReservation);
@@ -75,7 +74,7 @@ public class PublicController {
 
         if (personneData.isPresent()) {
             Personne _personne;
-            _personne = personneService.modifierPersonne(personneData, personne);
+            _personne = personneService.modifierPublic(personneData, personne);
             return new ResponseEntity<>(personneRepository.save(_personne), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

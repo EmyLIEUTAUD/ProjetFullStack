@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ChoixdelavilleService } from '../choixdelaville.service';
 import { ListeCentreComponent } from '../liste-centre/liste-centre.component';
 
@@ -14,8 +14,10 @@ export class ChoixVilleComponent implements OnInit {
   constructor(private service: ChoixdelavilleService) { }
 
   ngOnInit(): void {
-    this.service.setNomVille(this.nomVille);
   }
   
+  setVille(nomVille: string){
+    this.service.setNomVille(nomVille);
+  }
 
 }

@@ -27,15 +27,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         (authz) -> authz
-                                .antMatchers(HttpMethod.POST, "/login/nouveau").permitAll()
-                                .antMatchers(HttpMethod.GET, "/public", "/admin").authenticated()
-                                .antMatchers(HttpMethod.POST, "/public", "/admin").authenticated()
-                                .antMatchers(HttpMethod.PUT, "/public", "/admin").authenticated()
-                                .antMatchers(HttpMethod.DELETE, "/public", "/admin").authenticated()
-                                .antMatchers(HttpMethod.GET, "/public/**").hasAuthority("PUBLIC")
-                                .antMatchers(HttpMethod.POST, "/public/**").hasAuthority("PUBLIC")
-                                .antMatchers(HttpMethod.PUT, "/public/**").hasAuthority("PUBLIC")
-                                .antMatchers(HttpMethod.DELETE, "/public/**").hasAuthority("PUBLIC")
+                                .antMatchers(HttpMethod.POST, "/login/nouveau", "/public/**").permitAll()
+                                .antMatchers(HttpMethod.GET, "/public/**").permitAll()
+                                .antMatchers(HttpMethod.PUT, "/public/**").permitAll()
                                 .antMatchers(HttpMethod.GET, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
                                 .antMatchers(HttpMethod.POST, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
                                 .antMatchers(HttpMethod.PUT, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
@@ -51,9 +45,8 @@ public class SecurityConfig {
                                 .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("ADMIN")
                                 .antMatchers(HttpMethod.GET, "/admin/medecin/planning/**").hasAuthority("MEDECIN"))
                 .httpBasic(withDefaults())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .csrf().disable();// On rend les session
-                                  // stateless
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable();
         return http.build();
     }
 

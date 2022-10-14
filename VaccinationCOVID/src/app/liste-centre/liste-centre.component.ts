@@ -18,16 +18,12 @@ export class ListeCentreComponent implements OnInit {
   constructor(private service: VaccinationCenterService, private service2: ChoixdelavilleService) { }
 
   ngOnInit(): void {
-    this.service.getAllVaccinationCenter(this.service2.getNomVille()).subscribe(resultCenters=>{
-      this.centers = resultCenters;
-    });
+    this.service2._nomVilleSubject.subscribe((nomVille) => {
+      this.service.getAllVaccinationCenter(nomVille).subscribe(resultCenters=>{
+        this.centers = resultCenters;
+      });
+    })
   }
-
-  
-
-  /*test(): Observable<ChoixCentre[]>{
-    return this.service.getAllVaccinationCenter();
-  }*/
 
   isSpecialCenter(center: ChoixCentre){
     return center.comnom == "Nancy";

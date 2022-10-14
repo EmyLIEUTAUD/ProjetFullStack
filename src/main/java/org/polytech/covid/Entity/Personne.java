@@ -20,7 +20,6 @@ public class Personne {
     private String prenom;
     @Column(nullable = false)
     private String mail;
-    @Column(nullable = false)
     private String mdp;
 
     @ElementCollection
@@ -30,12 +29,19 @@ public class Personne {
 
     }
 
+    // Contructeur pour public
+    public Personne(String nom, String prenom, String mail) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+    }
+
+    // Constructeur pour un professionnel
     public Personne(String nom, String prenom, String mail, String mdp,
             List<String> roles) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
-
         this.mdp = mdp;
         this.roles = roles;
     }
@@ -72,8 +78,6 @@ public class Personne {
         this.mail = mail;
     }
 
-
-
     public String getMdp() {
         return mdp;
     }
@@ -89,6 +93,5 @@ public class Personne {
     public void setRoles(List<String> roles) {
         this.roles = roles;
     }
-
 
 }
