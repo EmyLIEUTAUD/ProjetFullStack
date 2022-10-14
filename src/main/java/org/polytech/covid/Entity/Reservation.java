@@ -3,6 +3,8 @@ package org.polytech.covid.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -17,8 +19,9 @@ public class Reservation {
     private Integer id_reservation;
     private LocalDate date_reservation;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Personne personne;
 
     @ManyToOne

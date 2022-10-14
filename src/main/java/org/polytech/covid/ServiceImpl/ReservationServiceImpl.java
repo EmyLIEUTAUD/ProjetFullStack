@@ -10,18 +10,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
-    @Autowired
-    private ReservationRepository reservationRepository;
 
-    @Autowired
-    private PersonneRepository personneRepository;
-    @Override
-    public Reservation save(Reservation reservation) {
-        Personne personne =personneRepository.findPersonneByTelephone(reservation.getPersonne().getTelephone());
-        if (personne==null){
-            personne = reservation.getPersonne();
-        }
-        reservation = reservationRepository.save(reservation);
-        return reservation;
-    }
 }
