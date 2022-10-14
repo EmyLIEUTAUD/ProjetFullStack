@@ -27,8 +27,7 @@ public class PersonneServiceImpl implements PersonneService {
 
     public Personne creerPersonne(Personne personne) {
         Personne _personne = personneRepository
-                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getTelephone(),
-                        personne.getAdresse(), passwordEncoder.encode((personne.getMdp())), List.of("PUBLIC")));
+                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(),  passwordEncoder.encode((personne.getMdp())), List.of("PUBLIC")));
         return _personne;
     }
 
@@ -37,10 +36,7 @@ public class PersonneServiceImpl implements PersonneService {
         _personne.setNom(personne.getNom());
         _personne.setPrenom(personne.getPrenom());
         _personne.setMail(personne.getMail());
-        _personne.setTelephone(personne.getTelephone());
-        _personne.setAdresse(personne.getAdresse());
-        _personne.setMdp(passwordEncoder.encode(personne.getMdp()));
-        _personne.setRoles(personne.getRoles());
+
         return _personne;
     }
 
