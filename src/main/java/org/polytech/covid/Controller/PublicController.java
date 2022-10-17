@@ -43,26 +43,28 @@ public class PublicController {
     }
 
     @PostMapping(path = "/inscription")
-    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest,
-            UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest) {
         Optional<Personne> personneRequest = personneRepository.findByMail(reservationRequest.getPersonne().getMail());
-        Personne personneSave = personneRequest.get();
-        if (personneRequest == null) {
+
+        if (!personneRequest.isPresent()) {
+            Personne personneSave = new Personne();
             personneSave.setNom(reservationRequest.getPersonne().getNom());
             personneSave.setMail(reservationRequest.getPersonne().getMail());
             personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
-            personneSave.setMdp(reservationRequest.getPersonne().getMdp());
+            reservationRequest.setPersonne(personneSave);
+            reservationRepository.save(reservationRequest);
+            return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
+        }else{
+            Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
+                reservationRequest.setPersonne(personne);
 
+                return reservationRepository.save(reservationRequest);
+            });
+
+            return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
         }
-        Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
-            reservationRequest.setPersonne(personne);
 
-            return reservationRepository.save(reservationRequest);
-        });
-        Reservation newReservation = reservation.get();
 
-        URI uri = uriBuilder.path("/reservation/{id}").buildAndExpand(newReservation.getId_reservation()).toUri();
-        return ResponseEntity.created(uri).body(newReservation);
     }
 
     @Autowired
