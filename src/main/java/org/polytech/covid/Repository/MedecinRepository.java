@@ -1,6 +1,7 @@
 package org.polytech.covid.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
@@ -14,5 +15,8 @@ import org.springframework.stereotype.Repository;
 public interface MedecinRepository extends JpaRepository<Medecin, Integer> {
 
     List<Medecin> findAll();
+
+    @Query("SELECT m FROM Medecin m WHERE m.personne = :identifiant")
+    Optional<Medecin> findMedecinByID(@Param("identifiant") Integer identifiant);
 
 }

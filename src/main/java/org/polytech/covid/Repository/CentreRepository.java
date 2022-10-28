@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CentreRepository extends JpaRepository<Centre, Integer> {
@@ -15,5 +16,8 @@ public interface CentreRepository extends JpaRepository<Centre, Integer> {
     List<Centre> findByComnomIgnoreCase(@Param("ville") String nomcom);
 
     List<Centre> findAll();
+
+    @Query("SELECT c FROM Centre c WHERE c.gid = :gid")
+    Optional<Centre> findById(@Param("gid") Integer gid);
 
 }

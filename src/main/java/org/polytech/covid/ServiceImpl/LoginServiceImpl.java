@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Repository.AdminRepository;
+import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Repository.PersonneRepository;
 
 import org.slf4j.Logger;
@@ -47,6 +49,7 @@ public class LoginServiceImpl implements UserDetailsService {
         medecin.setMdp(passwordEncoder.encode("medecinPassword"));
         medecin.setRoles(List.of("MEDECIN"));
         this.personneRepository.save(medecin);
+
         log.info("Creation du user admin");
         Personne admin = new Personne();
         admin.setNom("admin");
@@ -55,6 +58,7 @@ public class LoginServiceImpl implements UserDetailsService {
         admin.setMdp(passwordEncoder.encode("adminPassword"));
         admin.setRoles(List.of("ADMIN"));
         this.personneRepository.save(admin);
+
         log.info("Creation du user superAdmin");
         Personne superAdmin = new Personne();
         superAdmin.setNom("superAdmin");

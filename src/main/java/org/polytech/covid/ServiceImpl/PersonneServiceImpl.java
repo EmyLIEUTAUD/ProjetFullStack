@@ -33,8 +33,9 @@ public class PersonneServiceImpl implements PersonneService {
 
     public Personne creerProfessionnel(Personne personne) {
         Personne _personne = personneRepository
-                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(), personne.getMail(),
-                        List.of()));
+                .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(),
+                        passwordEncoder.encode(personne.getMdp()),
+                        List.of("PUBLIC")));
         return _personne;
     }
 
@@ -53,6 +54,7 @@ public class PersonneServiceImpl implements PersonneService {
         _personne.setMail(personne.getMail());
         _personne.setMdp(passwordEncoder.encode(personne.getMdp()));
         _personne.setRoles(personne.getRoles());
+        System.out.println("Professionnel modifié");
         return _personne;
     }
 

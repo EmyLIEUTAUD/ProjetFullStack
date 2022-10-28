@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Medecin;
+import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.MedecinRepository;
@@ -24,9 +25,9 @@ public class AdminServicesImpl implements AdminServices {
         return listMedecins;
     }
 
-    public Medecin creerMedecin(Medecin medecin) {
+    public Medecin creerMedecin(Personne personne, Centre centre) {
         Medecin _medecin = medecinRepository
-                .save(new Medecin(medecin.getPersonne(), medecin.getCentre()));
+                .save(new Medecin(personne, centre));
         return _medecin;
     }
 

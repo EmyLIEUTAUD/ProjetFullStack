@@ -6,20 +6,25 @@ import java.util.Optional;
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Medecin;
+import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.MedecinRepository;
+import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Service.AdminServices;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
 import org.polytech.covid.Service.MedecinServices;
+import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -115,13 +120,34 @@ public class AdminController {
         return superAdminServices.voirAdmins();
     }
 
+    @Autowired
+    private PersonneService personneService;
+
     @PostMapping("/administrateurs/nouveau")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         try {
             Admin _admin;
             _admin = superAdminServices.creerAdmin(admin);
+            System.out.println("admin créé");
+            // Optional<Personne> personneData =
+            // personneRepository.findById(admin.getPersonne().getIdentifiant());
+            // Personne _personne;
+            // Personne personne = admin.getPersonne();
+            // Personne personne = personneData.get();
+            // System.out.println("J'ai récupéré la personne");
+            // personne.setRoles(List.of("ADMIN"));
+            // System.out.println(personneData.toString());
+            // System.out.println(personne.toString());
+            // personneRepository.setAdminRole(admin.getPersonne().getIdentifiant());
+            // _personne = personneService.modifierProfessionnel(personneData, personne);
+            // System.out.println("J'ai mis le rôle ADMIN");
+            // ResponseEntity<Personne> responsePersonne = new
+            // ResponseEntity<>(personneRepository.save(personne),HttpStatus.OK);
+            // personneRepository.setAdminRole(_admin.getPersonne().getIdentifiant());
+            // System.out.println("Personne mise à jour");
             return new ResponseEntity<>(_admin, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -155,6 +181,9 @@ public class AdminController {
     @Autowired
     private MedecinRepository medecinRepository;
 
+    @Autowired
+    private PersonneRepository personneRepository;
+
     @GetMapping("/medecins")
     public List<Medecin> voirMedecins() {
         return adminServices.voirMedecins();
@@ -163,8 +192,18 @@ public class AdminController {
     @PostMapping("/medecins/nouveau")
     public ResponseEntity<Medecin> createMedecin(@RequestBody Medecin medecin) {
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Personne personne = personneRepository.findByMail(authentication.getPrincipal().toString()).get();
+            Admin admin = adminRepository.findById(personne.getIdentifiant()).get();
+            Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+            System.out.println("Centre de la personne connectée : " + centre.getGid());
             Medecin _medecin;
-            _medecin = adminServices.creerMedecin(medecin);
+            _medecin = adminServices.creerMedecin(personne, centre);
+            // personne.setRoles(List.of("Admin"));
+            System.out.println("Medecin créé");
+            // personneRepository.setAdminRole(personne.getIdentifiant());
+            // TODO : créer role médecin
+            // System.out.println();
             return new ResponseEntity<>(_medecin, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

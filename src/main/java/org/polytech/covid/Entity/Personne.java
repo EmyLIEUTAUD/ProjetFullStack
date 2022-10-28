@@ -8,6 +8,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 public class Personne {
 
@@ -22,7 +26,8 @@ public class Personne {
     private String mail;
     private String mdp;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
     private List<String> roles;
 
     public Personne() {
@@ -92,6 +97,12 @@ public class Personne {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "Personne [identifiant=" + identifiant + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail
+                + ", mdp=" + mdp + ", roles=" + roles + "]";
     }
 
 }
