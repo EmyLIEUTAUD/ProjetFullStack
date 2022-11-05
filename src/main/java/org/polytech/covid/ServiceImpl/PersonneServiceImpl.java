@@ -35,7 +35,7 @@ public class PersonneServiceImpl implements PersonneService {
         Personne _personne = personneRepository
                 .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail(),
                         passwordEncoder.encode(personne.getMdp()),
-                        List.of("PUBLIC")));
+                        new ArrayList<>()));
         return _personne;
     }
 

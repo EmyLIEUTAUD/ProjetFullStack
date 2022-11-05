@@ -22,15 +22,4 @@ public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 
     // @Query("SELECT p FROM Personne p WHERE p.identifiant = :identifiant")
     Optional<Personne> findById(@Param("identifiant") Integer identifiant);
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE Personne p SET p.roles = ('ADMIN', '') WHERE p.identifiant =:identifiant")
-    // @Query("UPDATE Personne p SET p.roles = ('ADMIN', '') WHERE p.identifiant =
-    // :identifiant")
-    // @Query("SELECT p FROM Personne p JOIN FETCH p.roles")
-    // @Query("UPDATE personne_roles pr SET pr.roles = 'ADMIN' JOIN Personne p ON
-    // pr.personne_identifiant = p.identifiant WHERE pr.personne_identifiant =
-    // :identifiant")
-    void setAdminRole(@Param("identifiant") Integer identifiant);
 }

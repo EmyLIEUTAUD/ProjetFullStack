@@ -1,5 +1,6 @@
 package org.polytech.covid.ServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,17 +31,10 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
                 .save(new Admin(admin.getPersonne(), admin.getCentre()));
         Optional<Personne> personneData = personneRepository.findById(admin.getPersonne().getIdentifiant());
         Personne personne = personneData.get();
-        System.out.println("J'ai récupéré la personne dans createAdmin");
-        personne.setRoles(List.of("ADMIN"));
-        System.out.println("personne createAdmin " + personne.toString());
-        System.out.println("J'ai mis le rôle ADMIN dans createAdmin");
-        System.out.println(personneRepository);
-
-        // C'est cette ligne qui bloque : elle ne peut pas enregistrer le changement
-        // dans la bdd
+        List<String> roles = new ArrayList<String>();
+        roles.add("ADMIN");
+        personne.setRoles(roles);
         personneRepository.save(personne);
-
-        System.out.println("personne modifiée dans createAdmin");
         return _admin;
     }
 

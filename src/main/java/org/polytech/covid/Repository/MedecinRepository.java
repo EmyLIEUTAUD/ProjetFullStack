@@ -16,7 +16,7 @@ public interface MedecinRepository extends JpaRepository<Medecin, Integer> {
 
     List<Medecin> findAll();
 
-    @Query("SELECT m FROM Medecin m WHERE m.personne = :identifiant")
+    @Query("SELECT m FROM Medecin m WHERE m.personne.identifiant = :identifiant")
     Optional<Medecin> findMedecinByID(@Param("identifiant") Integer identifiant);
 
 }
