@@ -177,7 +177,6 @@ public class AdminController {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Personne personne = personneRepository.findByMail(authentication.getName()).get();
-            System.out.println(adminRepository.findByIdentifiant(personne.getIdentifiant()));
             Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
             Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
             Medecin _medecin;
@@ -191,11 +190,18 @@ public class AdminController {
     @PutMapping("/medecins/modifier/{id}")
     public ResponseEntity<Medecin> updateMedecin(@PathVariable("id") Integer id, @RequestBody Medecin medecin) {
         Optional<Medecin> medecinData = medecinRepository.findById(id);
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Personne personne = personneRepository.findByMail(authentication.getName()).get();
+        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
         if (medecinData.isPresent()) {
-            Medecin _medecin;
-            _medecin = adminServices.modifierMedecin(medecinData, medecin);
-            return new ResponseEntity<>(medecinRepository.save(_medecin), HttpStatus.OK);
+            if (medecinData.get().getCentre().getGid() == centre.getGid()) {
+                Medecin _medecin;
+                _medecin = adminServices.modifierMedecin(medecinData, medecin);
+                return new ResponseEntity<>(medecinRepository.save(_medecin), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -204,8 +210,17 @@ public class AdminController {
     @DeleteMapping("/medecins/supprimer/{id}")
     public ResponseEntity<HttpStatus> deleteMedecin(@PathVariable("id") Integer id) {
         try {
-            adminRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Personne personne = personneRepository.findByMail(authentication.getName()).get();
+            Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+            Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+            Medecin medecin = medecinRepository.findById(id).get();
+            if (medecin.getCentre().getGid() == centre.getGid()) {
+                medecinRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

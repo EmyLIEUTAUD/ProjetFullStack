@@ -14,6 +14,8 @@ import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Service.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +33,6 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     public Medecin creerMedecin(Personne personne, Centre centre) {
-        System.out.println("Je veux créer un médecin");
         Medecin _medecin = medecinRepository
                 .save(new Medecin(personne, centre));
         Optional<Personne> personneData = personneRepository.findById(personne.getIdentifiant());
@@ -40,13 +41,16 @@ public class AdminServicesImpl implements AdminServices {
         roles.add("MEDECIN");
         personneP.setRoles(roles);
         personneRepository.save(personneP);
-        System.out.println("Médecin créé !");
         return _medecin;
     }
 
     public Medecin modifierMedecin(Optional<Medecin> medecinData, Medecin medecin) {
         Medecin _medecin = medecinData.get();
-        _medecin.setCentre(medecin.getCentre());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Personne personne = personneRepository.findByMail(authentication.getName()).get();
+        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+        _medecin.setCentre(centre);
         _medecin.setPersonne(medecin.getPersonne());
         return _medecin;
     }
