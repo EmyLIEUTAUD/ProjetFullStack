@@ -8,10 +8,12 @@ import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Medecin;
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Repository.PersonneRepository;
+import org.polytech.covid.Repository.ReservationRepository;
 import org.polytech.covid.Service.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -27,9 +29,25 @@ public class AdminServicesImpl implements AdminServices {
     @Autowired
     private PersonneRepository personneRepository;
 
+    @Autowired
+    private ReservationRepository reservationRepository;
+
     public List<Medecin> voirMedecins() {
-        List<Medecin> listMedecins = medecinRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Personne personne = personneRepository.findByMail(authentication.getName()).get();
+        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+        List<Medecin> listMedecins = medecinRepository.findByGid(centre.getGid());
         return listMedecins;
+    }
+
+    public List<Reservation> voirReservations() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Personne personne = personneRepository.findByMail(authentication.getName()).get();
+        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+        List<Reservation> listReservations = reservationRepository.findByGid(centre.getGid());
+        return listReservations;
     }
 
     public Medecin creerMedecin(Personne personne, Centre centre) {

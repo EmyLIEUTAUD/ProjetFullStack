@@ -7,6 +7,7 @@ import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Medecin;
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Public;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
@@ -14,6 +15,8 @@ import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Repository.PersonneRepository;
+import org.polytech.covid.Repository.PublicRepository;
+import org.polytech.covid.Repository.ReservationRepository;
 import org.polytech.covid.Service.AdminServices;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
@@ -226,13 +229,68 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/reservations")
+    public List<Reservation> voirReservations() {
+        return adminServices.voirReservations();
+    }
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+
+    @DeleteMapping("reservations/supprimer/{id}")
+    public ResponseEntity<HttpStatus> deleteReservation(@PathVariable("id") Integer id) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Personne personne = personneRepository.findByMail(authentication.getName()).get();
+            Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+            Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+            Reservation reservation = reservationRepository.findById(id).get();
+            if (reservation.getCentre().getGid() == centre.getGid()) {
+                reservationRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @Autowired
     private MedecinServices medecinServices;
 
-    @GetMapping(path = "/medecin/planning/{nom}/{gid}")
-    public List<Reservation> rechercherPersonne(@PathVariable(value = "nom") String nom,
-            @PathVariable(value = "gid") Integer gid) {
-        return medecinServices.rechercherPersonne(nom, gid);
+    @GetMapping(path = "/personnes/{nom}")
+    public List<Reservation> rechercherPersonne(@PathVariable(value = "nom") String nom) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Personne personne = personneRepository.findByMail(authentication.getName()).get();
+        Medecin medecin = medecinRepository.findById(personne.getIdentifiant()).get();
+        Centre centre = centreRepository.findById(medecin.getCentre().getGid()).get();
+        return medecinServices.rechercherPersonne(nom, centre.getGid());
+    }
+
+    @Autowired
+    private PublicRepository publicRepository;
+
+    @PutMapping("/personnes/validerVaccination/{id}")
+    public ResponseEntity<Public> updateVaccination(@PathVariable("id") Integer id,
+            @RequestBody Public personnePublic) {
+        Optional<Public> publicData = publicRepository.findById(id);
+        // TODO : voir si besoin de vérifier que la personne a bien eu son rendez-vous
+        // Authentication authentication =
+        // SecurityContextHolder.getContext().getAuthentication();
+        // Personne personne =
+        // personneRepository.findByMail(authentication.getName()).get();
+        // Medecin medecin =
+        // medecinRepository.findById(personne.getIdentifiant()).get();
+        // Centre centre =
+        // centreRepository.findById(medecin.getCentre().getGid()).get();
+        if (publicData.isPresent()) {
+            Public _public;
+            _public = medecinServices.modifierPublic(publicData, personnePublic);
+            return new ResponseEntity<>(publicRepository.save(_public), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

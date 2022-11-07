@@ -5,10 +5,25 @@ import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import liquibase.pro.packaged.P;
 
 import java.util.List;
 
-public interface ReservationRepository extends JpaRepository<Reservation,Integer> {
-    //@Query(value = "SELECT * FROM reservation r WHERE r.identifiant=?1 AND r.gid=?2", nativeQuery = true)
-    List<Reservation> findByPersonneInAndCentre(List<Personne> personne, Centre centre);
+@Repository
+public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+
+    // @Query("SELECT r in Reservation r WHERE r.centre.gid = :gid AND
+    // r.personne.identifiant = (SELECT p.identifiant FROM Personne p WHERE p.nom =
+    // :nom)")
+    // List<Reservation> findByPersonneInAndCentre(List<Personne> personne, Integer
+    // gid);
+
+    @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid AND r.personne.identifiant = (SELECT p.identifiant FROM Personne p WHERE p.nom = :nom)")
+    List<Reservation> findByPersonneAndCentre(@Param("nom") String nom, @Param("gid") Integer gid);
+
+    @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid")
+    List<Reservation> findByGid(@Param("gid") Integer gid);
 }

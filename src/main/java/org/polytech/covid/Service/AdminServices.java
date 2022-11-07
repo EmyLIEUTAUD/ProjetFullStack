@@ -7,10 +7,13 @@ import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Medecin;
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Reservation;
 
 public interface AdminServices {
 
     List<Medecin> voirMedecins();
+
+    List<Reservation> voirReservations();
 
     Medecin creerMedecin(Personne personne, Centre centre);
 

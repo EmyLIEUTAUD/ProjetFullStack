@@ -4,6 +4,7 @@ import io.swagger.models.auth.In;
 import liquibase.pro.packaged.A;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Public;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.PersonneRepository;
@@ -25,12 +26,14 @@ public class MedecinServiceImpl implements MedecinServices {
     private ReservationRepository reservationRepository;
     @Autowired
     private CentreRepository centreRepository;
+
     @Override
-    public List<Reservation> rechercherPersonne(String nom, Integer idCentre) {
-        Optional<Centre> centreOptional = centreRepository.findById(idCentre);
-        Centre centre = centreOptional.get();
-        List<Personne> personneList = personneRepository.findByNom(nom);
-        List<Reservation> reservationList = reservationRepository.findByPersonneInAndCentre(personneList,centre);
+    public List<Reservation> rechercherPersonne(String nom, Integer gid) {
+        // List<Reservation> reservationList = reservationRepository.findByGid(gid);
+        // List<Personne> personneList = personneRepository.findByNom(nom);
+        // List<Reservation> reservationList =
+        // reservationRepository.findByPersonneInAndCentre(personneList, gid);
+        List<Reservation> reservationList = reservationRepository.findByPersonneAndCentre(nom, gid);
         return reservationList;
     }
 
@@ -38,4 +41,13 @@ public class MedecinServiceImpl implements MedecinServices {
     public void validerVaccination() {
 
     }
+
+    @Override
+    public Public modifierPublic(Optional<Public> publicData, Public personnePublic) {
+        Public _public = publicData.get();
+        _public.setDose(personnePublic.getDose() + 1);
+        _public.setPersonne(personnePublic.getPersonne());
+        return _public;
+    }
+
 }

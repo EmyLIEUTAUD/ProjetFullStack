@@ -43,7 +43,7 @@ public class SecurityConfig {
                                 .antMatchers(HttpMethod.POST, "/admin/medecins/**").hasAuthority("ADMIN")
                                 .antMatchers(HttpMethod.PUT, "/admin/medecins/**").hasAuthority("ADMIN")
                                 .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("ADMIN")
-                                .antMatchers(HttpMethod.GET, "/admin/medecin/planning/**").hasAuthority("MEDECIN"))
+                                .antMatchers(HttpMethod.GET, "/personnes/**").hasAuthority("MEDECIN"))
                 .httpBasic(withDefaults())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();

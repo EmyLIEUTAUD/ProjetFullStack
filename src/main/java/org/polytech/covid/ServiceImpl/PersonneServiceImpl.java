@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Public;
 import org.polytech.covid.Repository.PersonneRepository;
+import org.polytech.covid.Repository.PublicRepository;
 import org.polytech.covid.Service.PersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +22,20 @@ public class PersonneServiceImpl implements PersonneService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
+    private PublicRepository publicRepository;
+
+    @Autowired
     public PersonneServiceImpl(final PersonneRepository personneRepository, PasswordEncoder passwordEncoder) {
         this.personneRepository = personneRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public Personne creerPublic(Personne personne) {
+        // TODO : si la personne n'existe pas : faire ça
         Personne _personne = personneRepository
                 .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail()));
+        Public _public = publicRepository.save(new Public(_personne, 0));
+        // sinon : pré-remplir le formulaire avec les infos de la personne
         return _personne;
     }
 

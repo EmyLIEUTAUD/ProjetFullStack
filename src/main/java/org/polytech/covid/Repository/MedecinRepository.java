@@ -19,4 +19,7 @@ public interface MedecinRepository extends JpaRepository<Medecin, Integer> {
     @Query("SELECT m FROM Medecin m WHERE m.personne.identifiant = :identifiant")
     Optional<Medecin> findMedecinByID(@Param("identifiant") Integer identifiant);
 
+    @Query("SELECT m FROM Medecin m WHERE m.centre.gid = :gid")
+    List<Medecin> findByGid(@Param("gid") Integer gid);
+
 }
