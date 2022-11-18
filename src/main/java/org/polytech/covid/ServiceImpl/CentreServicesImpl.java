@@ -43,7 +43,8 @@ public class CentreServicesImpl implements CentreServices {
     }
 
     public List<Centre> rechercheCentreByVille(String comnom) {
-        List<Centre> listCentres = centreRepository.findByComnomIgnoreCase(comnom);
+        String comNom = comnom.substring(0, 1).toUpperCase() + comnom.substring(1).toLowerCase();
+        List<Centre> listCentres = centreRepository.findByComnom(comNom);
         return listCentres;
     }
 
