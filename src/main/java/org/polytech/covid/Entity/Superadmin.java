@@ -19,13 +19,8 @@ public class Superadmin {
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
     private Personne personne;
 
-    @OneToOne
-    @JoinColumn(name = "gid", referencedColumnName = "gid")
-    private Centre id_centre;
-
-    public Superadmin(Personne personne, Centre id_centre) {
+    public Superadmin(Personne personne) {
         this.personne = personne;
-        this.id_centre = id_centre;
     }
 
     public Superadmin() {
@@ -46,14 +41,6 @@ public class Superadmin {
 
     public void setPersonne(Personne personne) {
         this.personne = personne;
-    }
-
-    public Centre getId_centre() {
-        return id_centre;
-    }
-
-    public void setId_centre(Centre id_centre) {
-        this.id_centre = id_centre;
     }
 
 }

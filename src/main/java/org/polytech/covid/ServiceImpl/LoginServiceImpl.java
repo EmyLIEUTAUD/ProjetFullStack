@@ -7,10 +7,11 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Superadmin;
 import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Repository.PersonneRepository;
-
+import org.polytech.covid.Repository.SuperadminRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class LoginServiceImpl implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
+    private SuperadminRepository superadminRepository;
+
+    @Autowired
     public LoginServiceImpl(final PersonneRepository personneRepository, PasswordEncoder passwordEncoder) {
         this.personneRepository = personneRepository;
         this.passwordEncoder = passwordEncoder;
@@ -49,6 +53,9 @@ public class LoginServiceImpl implements UserDetailsService {
         superAdmin.setMdp(passwordEncoder.encode("superAdminPassword"));
         superAdmin.setRoles(List.of("SUPER_ADMIN"));
         this.personneRepository.save(superAdmin);
+        Superadmin sa = new Superadmin();
+        sa.setPersonne(superAdmin);
+        superadminRepository.save(sa);
     }
 
     @Override
