@@ -3,10 +3,14 @@ package org.polytech.covid.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import liquibase.pro.packaged.ho;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -19,7 +23,7 @@ public class Reservation {
     private Integer id_reservation;
     private LocalDate date_reservation;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Personne personne;
@@ -69,4 +73,5 @@ public class Reservation {
     public void setCentre(Centre centre) {
         this.centre = centre;
     }
+
 }
