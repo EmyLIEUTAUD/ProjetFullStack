@@ -1,0 +1,115 @@
+<section class="vh-100" >
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <h3 class="mb-5">Sign up</h3>
+              <form
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate
+              >
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="typePasswordX-2">Nom</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    name="nom"
+                    [(ngModel)]="form.nom"
+                    required
+                    minlength="3"
+                    maxlength="20"
+                    #nom="ngModel"
+                  />
+                  
+                  <div class="alert-danger" *ngIf="nom.errors && f.submitted">
+                    <div *ngIf="nom.errors.required">Veuillez saisir votre nom</div>
+                    <div *ngIf="nom.errors.minlength">
+                      Au moin 3 characters sont necessaire!
+                    </div>
+                    <div *ngIf="nom.errors.maxlength">
+                      Au maximum 20 caractères!
+                    </div>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="typePasswordX-2">prenom</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg"
+                      name="prenom"
+                      [(ngModel)]="form.prenom"
+                      required
+                      minlength="3"
+                      maxlength="20"
+                      #prenom="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="nom.errors && f.submitted">
+                      <div *ngIf="prenom.errors.required">Veuillez saisir votre prénom</div>
+                      <div *ngIf="prenom.errors.minlength">
+                        Au moin 3 characters sont necessaire!
+                      </div>
+                      <div *ngIf="prenom.errors.maxlength">
+                        Au maximum 20 caractères!
+                      </div>
+                    </div>
+                  </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="typePasswordX-2">Email</label>
+                  <input
+                    type="mail"
+                    class="form-control form-control-lg"
+                    name="mail"
+                    [(ngModel)]="form.mail"
+                    required
+                    mail
+                    #mail="ngModel"
+                  />
+                  <div class="alert-danger" *ngIf="mail.errors && f.submitted">
+                    <div *ngIf="mail.errors.required">Veuillez saisir voter adresse mail</div>
+                    <div *ngIf="mail.errors.mail">
+                      L'adresse mail invalid
+                    </div>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="typePasswordX-2">Password</label>
+                  <input
+                    type="pwd"
+                    class="form-control form-control-lg"
+                    name="pwd"
+                    [(ngModel)]="form.pwd"
+                    required
+                    minlength="6"
+                    #pwd="ngModel"
+                  />
+                  <div class="alert-danger" *ngIf="pwd.errors && f.submitted">
+                    <div *ngIf="pwd.errors.required">pwd is required</div>
+                    <div *ngIf="pwd.errors.minlength">
+                      Au moins 6 characters
+                    </div>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary btn-block">Sign Up</button>
+                </div>
+  
+                <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+                  Signup failed!<br />{{ errorMessage }}
+                </div>
+                </form>
+  
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Your registration is successful!
+      </div>
+
+    </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</section>
