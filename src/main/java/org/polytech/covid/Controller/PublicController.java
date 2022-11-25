@@ -15,7 +15,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import io.github.bucket4j.*;
+
 import java.net.URI;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,29 +45,52 @@ public class PublicController {
         return centreServices.rechercheCentreByVille(com_nom);
     }
 
+    // rajoute 10 tokens toutes les minutes
+    Refill refill = Refill.intervally(10, Duration.ofMinutes(1));
+    // capacité max de 10 token
+    Bandwidth limit = Bandwidth.classic(10, refill);
+    Bucket bucket = Bucket.builder().addLimit(limit).build();
+
     @PostMapping(path = "/inscription")
     public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest) {
-        Optional<Personne> personneRequest = personneRepository.findByMail(reservationRequest.getPersonne().getMail());
+        if (bucket.tryConsume(1)) {
+            Optional<Personne> personneRequest = personneRepository
+                    .findByMail(reservationRequest.getPersonne().getMail());
 
-        if (!personneRequest.isPresent()) {
-            Personne personneSave = new Personne();
-            personneSave.setNom(reservationRequest.getPersonne().getNom());
-            personneSave.setMail(reservationRequest.getPersonne().getMail());
-            personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
-            reservationRequest.setPersonne(personneSave);
-            reservationRepository.save(reservationRequest);
-            return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
-        }else{
-            Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
-                reservationRequest.setPersonne(personne);
+            if (!personneRequest.isPresent()) {
+                Personne personneSave = new Personne();
+                personneSave.setNom(reservationRequest.getPersonne().getNom());
+                personneSave.setMail(reservationRequest.getPersonne().getMail());
+                personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
+                reservationRequest.setPersonne(personneSave);
+                reservationRepository.save(reservationRequest);
+                return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
+            } else {
+                Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
+                    reservationRequest.setPersonne(personne);
 
-                return reservationRepository.save(reservationRequest);
-            });
+                    return reservationRepository.save(reservationRequest);
+                });
 
-            return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
+                return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
+            }
         }
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+    }
 
+    @GetMapping(value = "/inscription/infos")
+    public ResponseEntity<String> infos() {
 
+        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+        if (probe.isConsumed()) {
+            return ResponseEntity.ok()
+                    .header("X-Rate-Limit-Remaining", Long.toString(probe.getRemainingTokens()))
+                    .body("infos");
+        }
+        long delaiEnSeconde = probe.getNanosToWaitForRefill() / 1_000_000_000;
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                .header("X-Rate-Limit-Retry-After-Seconds", String.valueOf(delaiEnSeconde))
+                .build();
     }
 
     @Autowired
