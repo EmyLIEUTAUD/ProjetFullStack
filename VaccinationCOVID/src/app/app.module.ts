@@ -8,13 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { ListeCentreComponent } from './liste-centre/liste-centre.component';
 import { ChoixCentreComponent } from './choix-centre/choix-centre.component';
 import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
+import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListeCentreComponent,
     ChoixCentreComponent,
-    ChoixVilleComponent
+    ChoixVilleComponent,
+    RendezVousComponent
   ],
   imports: [
     BrowserModule,
