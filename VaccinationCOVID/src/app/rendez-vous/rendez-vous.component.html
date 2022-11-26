@@ -1,1 +1,36 @@
-<p>rendez-vous works!</p>
+<p>Prise de rendez-vous vaccination</p>
+<div class="centre">
+  <div>
+      {{this.centre.nom}}
+      <br>
+      {{this.centre.numAdresse}} {{this.centre.adresse}}, {{this.centre.cp}} {{this.centre.comnom}} 
+  </div>
+</div>
+<div class="formulaire">
+  <div class="nomprenom">
+    <div class="prenom">
+      Prénom
+      <input id="prenom" placeholder="Entrez votre prénom"/>
+
+    </div>
+    <div class="nom">
+      Nom
+      <input id="nom" placeholder="Entrez votre Nom"/>
+    </div>
+  </div>
+  <div class="email">
+    Email
+    <input id="email" placeholder="Entrez votre mail"/>
+  </div>
+  <div class="date_rdv">
+    Date du rendez-vous
+    <!--<mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  -->
+  </div>
+</div>
