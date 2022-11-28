@@ -1,0 +1,37 @@
+<p>Prise de rendez-vous vaccination</p>
+<div *ngIf="centre" class="centre">
+  <div>
+      {{this.centre.nom}}
+      <br>
+      {{this.centre.numAdresse}} {{this.centre.adresse}}, {{this.centre.cp}} {{this.centre.comnom}} 
+  </div>
+</div>
+<div class="formulaire">
+  <div class="nomprenom">
+    <div class="prenom">
+      Prénom
+      <input id="prenom" placeholder="Entrez votre prénom" [(ngModel)]="prenom"/>
+
+    </div>
+    <div class="nom">
+      Nom
+      <input id="nom" placeholder="Entrez votre Nom" [(ngModel)]="nom"/>
+    </div>
+  </div>
+  <div class="email">
+    Email
+    <input id="email" placeholder="Entrez votre mail" [(ngModel)]="email"/>
+  </div>
+  <div class="date_rdv">
+    Date du rendez-vous
+    <mat-form-field appearance="fill">
+      <mat-label>Choisissez une date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="dateRdv">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  <button (click)="EnvoyerForm(centre,prenom,nom,email,dateRdv)">
+    Envoyer formulaire
+  </button>
+  </div>
+</div>

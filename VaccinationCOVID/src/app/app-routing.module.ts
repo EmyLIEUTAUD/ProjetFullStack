@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ChoixCentreComponent } from './choix-centre/choix-centre.component';
-import { ListeCentreComponent } from './liste-centre/liste-centre.component';
+import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
+import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 
 const routes: Routes = [
-  {path: "public", component: ListeCentreComponent},
-  {path: "public/detail/:id", component: ChoixCentreComponent}
-  //{path: '', redirectTo: '/public', pathMatch: 'full'},
+  {path: "public",title: 'Page de recherche', component: ChoixVilleComponent},
+  {path: "rdv/:gid", title: 'Page de rendez-vous', component: RendezVousComponent},
+  {path: '', redirectTo: '/public', pathMatch: 'full'},
+  //{path: '**', title: 'Page erreur', component: PageNotFoundComponent }, //renvoie à une page d'erreur si pas bon url
 ];
 
 @NgModule({
