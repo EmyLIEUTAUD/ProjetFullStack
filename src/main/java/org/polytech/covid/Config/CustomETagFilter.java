@@ -39,6 +39,7 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
 
     private boolean preconditionFailed(HttpServletRequest request) {
         String ifMatchEtag = request.getHeader(HttpHeaders.IF_MATCH);
+        System.out.println("ifMatch Etag : " + ifMatchEtag);
         if (Strings.isNotBlank(ifMatchEtag)) {
             return !cache.contains(ifMatchEtag);
         }
@@ -70,5 +71,4 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
 
         return false;
     }
-
 }

@@ -39,5 +39,5 @@ services:
       - ~/jenkins:/var/jenkins_home
       - ./data/certs:/certs/client
       - ./data/docker/etc/docker:/etc/docker
-  
+
 ### End Jenkins part
