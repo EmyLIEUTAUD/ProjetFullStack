@@ -21,6 +21,6 @@ export class VaccinationCenterService {
     return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom);
   }
   getVaccinationCenterById(gid: number) : Observable<ChoixCentre>{
-    return this.httpClient.get<ChoixCentre>("public/centres/"+gid);
+    return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid);
   }
 }

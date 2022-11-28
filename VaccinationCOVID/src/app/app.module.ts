@@ -13,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ListeCentreComponent } from './liste-centre/liste-centre.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 @NgModule({
@@ -21,10 +23,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         ChoixCentreComponent,
         ChoixVilleComponent,
         RendezVousComponent,
+        ListeCentreComponent,
         PageNotFoundComponent
+    ],
+    providers: [
+        {provide: LocationStrategy, useClass: HashLocationStrategy}, //permet d'éviter whitelabel lors du refresh de la page /public
+        {provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
 
     ],
-    providers: [],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
@@ -36,8 +42,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         MatInputModule,
         MatDatepickerModule,
         MatFormFieldModule,
-        BrowserAnimationsModule,
+        MatNativeDateModule,
+        BrowserAnimationsModule
     ]
-    
 })
 export class AppModule { }

@@ -13,8 +13,8 @@ import java.util.Optional;
 public interface CentreRepository extends JpaRepository<Centre, Integer> {
 
     // @Query("SELECT c FROM Centre c WHERE c.comnom = :ville")
-    // @Query("SELECT c FROM Centre c WHERE c.comnom LIKE %:ville%")
-    @Query("SELECT c FROM Centre c WHERE c.comnom = :ville")
+    @Query("SELECT c FROM Centre c WHERE c.comnom LIKE %:ville%")
+    //@Query("SELECT c FROM Centre c WHERE c.comnom = :ville")
     List<Centre> findByComnom(@Param("ville") String ville);
 
     List<Centre> findAll();

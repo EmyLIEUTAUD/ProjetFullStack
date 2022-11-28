@@ -15,7 +15,7 @@ import { VaccinationCenterService } from '../vaccination-center.service';
 export class ListeCentreComponent implements OnInit {
 
   centers!: ChoixCentre[];
-  selected?: ChoixCentre;
+  selected?: ChoixCentre
 
   constructor(private router : Router,private service: VaccinationCenterService, private service2: ChoixdelavilleService, private service3: CentreChoisieService, private route: ActivatedRoute) { }
 
@@ -35,14 +35,13 @@ export class ListeCentreComponent implements OnInit {
     return this.service2.getNomVille()==centercity;
   }
 
-  routeRdv():void{
-  }
-
 
   selectCenter(center: ChoixCentre){
     this.selected=center;
     this.service3.centre = center;
+    console.log(center);
     this.router.navigate(['rdv',center.gid]);
+  
   }
 
   onDeleted(center: ChoixCentre){
