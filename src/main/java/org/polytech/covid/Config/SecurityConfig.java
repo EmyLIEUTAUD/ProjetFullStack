@@ -56,21 +56,23 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public ShallowEtagHeaderFilter shallowEtagHeaderFilter() {
+        return new CustomETagFilter();
+    }
+
     /*
      * @Bean
-     * public ShallowEtagHeaderFilter shallowEtagHeaderFilter() {
-     * return new CustomETagFilter();
+     * public FilterRegistrationBean<ShallowEtagHeaderFilter>
+     * shallowEtagHeaderFilter() {
+     * FilterRegistrationBean<ShallowEtagHeaderFilter> filterRegistrationBean = new
+     * FilterRegistrationBean<>(
+     * new ShallowEtagHeaderFilter());
+     * filterRegistrationBean.addUrlPatterns("/admin/*");
+     * filterRegistrationBean.setName("etagFilter");
+     * filterRegistrationBean.setFilter(new CustomETagFilter());
+     * return filterRegistrationBean;
      * }
      */
-
-    @Bean
-    public FilterRegistrationBean<ShallowEtagHeaderFilter> shallowEtagHeaderFilter() {
-        FilterRegistrationBean<ShallowEtagHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<>(
-                new ShallowEtagHeaderFilter());
-        filterRegistrationBean.addUrlPatterns("/admin/*");
-        filterRegistrationBean.setName("etagFilter");
-        filterRegistrationBean.setFilter(new CustomETagFilter());
-        return filterRegistrationBean;
-    }
 
 }
