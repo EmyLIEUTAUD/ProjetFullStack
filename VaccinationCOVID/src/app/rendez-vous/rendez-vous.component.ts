@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { textSpanContainsPosition } from 'typescript';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { EnvoiFormulaireService } from '../envoi-formulaire.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
@@ -27,7 +28,8 @@ export class RendezVousComponent implements OnInit {
 
   EnvoyerForm(centre: ChoixCentre,prenom: string,nom: string,email: string,dateRdv: string): void{
     dateRdv = this.convertDate(dateRdv);
-    this.service2.saveRdv(centre, prenom, nom, email, dateRdv);
+    var fin = this.service2.saveRdv(centre, prenom, nom, email, dateRdv);
+    console.log("fichier fini : ", fin);
   }
 
   convertDate(date) { // convertion date en format yyyy-mm-dd
