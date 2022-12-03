@@ -40,10 +40,12 @@ services:
       - ./data/certs:/certs/client
       - ./data/docker/etc/docker:/etc/docker
 
+### End Jenkins part
+
   back:
     build: .
     ports:
-      - 8080:8081
+      - 8081:8080
     container_name: covid-api-back
     depends_on:
       - db
@@ -60,11 +62,9 @@ services:
   db:
     image: postgres:15.1
     container_name: covid-api-db
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgre"
-      POSTGRES_DB: "covid-db"
     ports: 
       - 5433:5432
-
-### End Jenkins part
+    environment:
+      - POSTGRES_PASSWORD=postgre
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=covid-db

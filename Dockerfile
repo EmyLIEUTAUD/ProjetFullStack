@@ -7,5 +7,5 @@ RUN mvn package -f /usr/src/app/pom.xml -Dmaven.test.skip
 FROM openjdk:17
 #WORKDIR /covid-api
 COPY --from=builder /usr/src/app/target/covid-api-0.0.1-SNAPSHOT.jar /usr/app/
-EXPOSE 8080
+EXPOSE 8081
 CMD ["java", "-jar", "/usr/app/covid-api-0.0.1-SNAPSHOT.jar"]
