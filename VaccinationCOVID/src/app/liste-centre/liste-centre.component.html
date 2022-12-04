@@ -6,7 +6,9 @@
                 <br>
                 {{aCenter.numAdresse}} {{aCenter.adresse}}, {{aCenter.cp}} {{aCenter.comnom}} 
             </div>
-            <button class="choisirBtn">Choisir</button>
+            <button class="choisirBtn" (click)="selectCenter(aCenter)">
+                Choisir
+            </button>
         </div>
         <br><br>
     </div>

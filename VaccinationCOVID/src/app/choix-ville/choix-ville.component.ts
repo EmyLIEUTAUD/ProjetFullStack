@@ -8,7 +8,6 @@ import { ListeCentreComponent } from '../liste-centre/liste-centre.component';
   styleUrls: ['./choix-ville.component.scss']
 })
 export class ChoixVilleComponent implements OnInit {
-
   nomVille : string;
 
   constructor(private service: ChoixdelavilleService) { }
