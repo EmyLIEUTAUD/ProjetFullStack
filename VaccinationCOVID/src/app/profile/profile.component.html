@@ -1,22 +1,23 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
+  <!-- <div class="card mt-4">
+      <h4 class="card-header">Home</h4>
+      <div class="card-body">
+          <p>Welcome to your profile !!</p>
+          <p>Your role is: .</p>
+      </div>
+  </div> -->
+
+  <div class="container" *ngIf="currentUser; else loggedOut">
     <header class="jumbotron">
       <h3>
-        <strong>{{ currentUser.username }}</strong> Profile
+        <strong>Email:</strong>{{ currentUser.sub }}
       </h3>
     </header>
-    <p>
-      <strong>Token:</strong>
-      {{ currentUser.accessToken.substring(0, 20) }} ...
-      {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{ currentUser.email }}
-    </p>
+   
+    
     <strong>Roles:</strong>
     <ul>
-      <li *ngFor="let role of currentUser.roles">
-        {{ role }}
+      <li *ngFor="let role of currentUser.scopes">
+        {{ currentUser.scopes }}
       </li>
     </ul>
   </div>

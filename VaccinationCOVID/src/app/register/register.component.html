@@ -61,18 +61,18 @@
                 <div class="form-outline mb-4">
                   <label class="form-label" for="typePasswordX-2">Email</label>
                   <input
-                    type="mail"
+                    type="username"
                     class="form-control form-control-lg"
-                    name="mail"
-                    [(ngModel)]="form.mail"
+                    name="username"
+                    [(ngModel)]="form.username"
                     required
-                    mail
-                    #mail="ngModel"
+                    username
+                    #username="ngModel"
                   />
-                  <div class="alert-danger" *ngIf="mail.errors && f.submitted">
-                    <div *ngIf="mail.errors.required">Veuillez saisir voter adresse mail</div>
-                    <div *ngIf="mail.errors.mail">
-                      L'adresse mail invalid
+                  <div class="alert-danger" *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors.required">Veuillez saisir voter adresse username</div>
+                    <div *ngIf="username.errors.username">
+                      L'adresse username invalid
                     </div>
                   </div>
                 </div>

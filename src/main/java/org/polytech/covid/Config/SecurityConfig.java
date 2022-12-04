@@ -1,8 +1,9 @@
 package org.polytech.covid.Config;
 
+import lombok.RequiredArgsConstructor;
+import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.security.JwtAuthenticationEntryPoint;
 import org.polytech.covid.security.JwtRequestFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,25 +30,34 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
-    @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    @Autowired
-    private UserDetailsService jwtUserDetailsService;
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+    private final UserDetailsService userDetailsService;
 
+    private final JwtRequestFilter jwtRequestFilter;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(
-                        (authz) -> authz
-                                .antMatchers(HttpMethod.POST, "/login/authenticate", "/public/**").permitAll()
+                .cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeHttpRequests()
+                                .antMatchers(HttpMethod.POST, "/login/**", "/public/**").permitAll()
                                 .antMatchers(HttpMethod.GET, "/public/**").permitAll()
                                 .antMatchers(HttpMethod.PUT, "/public/**").permitAll()
                                 .antMatchers(HttpMethod.GET, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
@@ -63,13 +73,9 @@ public class SecurityConfig {
                                 .antMatchers(HttpMethod.POST, "/admin/medecins/**").hasAuthority("ADMIN")
                                 .antMatchers(HttpMethod.PUT, "/admin/medecins/**").hasAuthority("ADMIN")
                                 .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("ADMIN")
-                                .antMatchers(HttpMethod.GET, "/personnes/**").hasAuthority("MEDECIN"))
-                .httpBasic(withDefaults())
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint);
+                                .antMatchers(HttpMethod.GET, "/personnes/**").hasAuthority("MEDECIN")
+                                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
+
         http.addFilterBefore(
                 jwtRequestFilter,
                 UsernamePasswordAuthenticationFilter.class
@@ -79,20 +85,14 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Bean
     public ShallowEtagHeaderFilter shallowEtagHeaderFilter() {
         return new CustomETagFilter();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

@@ -4,13 +4,17 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Entity
 public class Personne {
@@ -24,6 +28,8 @@ public class Personne {
     private String prenom;
     @Column(nullable = false)
     private String mail;
+    @Column
+    @JsonIgnore
     private String mdp;
 
     @ElementCollection(fetch = FetchType.EAGER)

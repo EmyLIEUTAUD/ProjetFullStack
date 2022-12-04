@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TokenStorageService } from './_services/token-storage.service';
+
+import { AuthenticationService } from './_services/authentication.service';
+import { User } from './_models/user';
+
 
 @Component({
   selector: 'app-root',
@@ -7,26 +12,29 @@ import { TokenStorageService } from './_services/token-storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Rendez-vous vaccination COVID';
+  
   private roles: string[] = [];
   isLoggedIn = false;
+  showMedecinBoard = false;
   showAdminBoard = false;
-  showModeratorBoard = false;
+  showSuperAdminBoard = false;
   username?: string;
+title = 'VaccinationCOVID';
 
-  constructor(private tokenStorageService: TokenStorageService) {}
+  constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
+      this.roles = user.scopes;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.showMedecinBoard = this.roles.includes('ROLE_MEDECIN');
+      this.showSuperAdminBoard = this.roles.includes('ROLE_SUPERADMIN');
 
-      this.username = user.username;
+      this.username = user.sub;
     }
   }
 

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,9 +13,13 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
-import { BoardMedecinComponent } from './board-medecin/board-medecin.component';
+import { AuthInterceptor } from './_helpers/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { BoardMedecinComponent } from './board-medecin/board-medecin.component';
+import { BoardSuperadminComponent } from './board-superadmin/board-superadmin.component';
+
 
 
 @NgModule({
@@ -29,8 +33,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     HomeComponent,
     ProfileComponent,
     BoardAdminComponent,
-    BoardModeratorComponent,
-    BoardMedecinComponent
+    BoardMedecinComponent,
+    BoardSuperadminComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,5 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
-  
 })
 export class AppModule { }

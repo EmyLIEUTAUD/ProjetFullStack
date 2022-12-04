@@ -7,6 +7,7 @@ import org.polytech.covid.Service.JwtUserDetailsService;
 import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Message.MessageResponse;
 import org.polytech.covid.ServiceImpl.PersonneServiceImpl;
+import org.polytech.covid.model.UserDTO;
 import org.polytech.covid.security.JwtRequet;
 import org.polytech.covid.security.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -40,14 +43,18 @@ public class LoginController {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequet authenticationRequest) throws Exception {
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
-
-        final String token = jwtTokenUtil.generateToken(userDetails);
-
+        //authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        final Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authenticationRequest.getUsername(),
+                        authenticationRequest.getPassword()
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        final String token = jwtTokenUtil.generateJwtToken(authentication);
         return ResponseEntity.ok(new JwtResponse(token));
+
+      
     }
 
     private void authenticate(String username, String password) throws Exception {
@@ -59,17 +66,14 @@ public class LoginController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-    @Autowired
-    private PersonneService personneService;
 
-    @PostMapping("/nouveau")
-    public ResponseEntity<?> createPersonne(@RequestBody Personne personne) {
-        if (personneRepository.existsByMail(personne.getMail())){
+
+    @RequestMapping(value = "/nouveau", method = RequestMethod.POST)
+    public ResponseEntity<?> createPersonne(@RequestBody UserDTO user)  throws Exception{
+        if (personneRepository.existsByMail(user.getUsername())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
-            Personne _personne;
-            _personne = personneService.creerProfessionnel(personne);
-            return  ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(userDetailsService.save(user));
     }
 
 }

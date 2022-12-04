@@ -16,7 +16,14 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
+  main:
+    allow-circular-references: true
+  devtools:
+    restart:
+      enabled: false
 jwt:
   secret: covidcentre
+
+
 
 
