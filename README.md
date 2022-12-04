@@ -15,3 +15,5 @@ Swagger url: http://localhost:8080/swagger-ui/
 - regarder DTO
 - Il ne faut pas qu'on puisse modifier le rôle
 - Si un admin ou un médecin est supprimé, il faut supprimer le rôle avec
+
+- Test de jenkins n°2

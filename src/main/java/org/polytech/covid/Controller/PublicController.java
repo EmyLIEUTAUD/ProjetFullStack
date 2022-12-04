@@ -3,6 +3,7 @@ package org.polytech.covid.Controller;
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Reservation;
+import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Repository.ReservationRepository;
 import org.polytech.covid.Service.CentreServices;
@@ -34,10 +35,22 @@ public class PublicController {
     private PersonneRepository personneRepository;
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private CentreRepository centreRepository;
 
     @GetMapping("/centres")
     public List<Centre> voirCentres() {
         return centreServices.voirCentres();
+    }
+
+    @GetMapping("/centres/id/{gid}")
+    public ResponseEntity<Centre> rechercheCentreByGid(@PathVariable(value = "gid") Integer gid) {
+        Optional<Centre> centreData = centreRepository.findById(gid);
+        if (centreData.isPresent()) {
+            return new ResponseEntity<>(centreData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(path = "/centres/{com_nom}")
