@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChoixCentre } from './choix-centre/choix-centre';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Personne } from './personne';
 
 @Injectable({
   providedIn: 'root'
@@ -23,20 +22,27 @@ export class EnvoiFormulaireService {
     this.httpClient.post("public/inscription",inscription);
     console.log(inscription);
   } */
-  saveRdv(centre: ChoixCentre,prenom: string,nom: string,mail: string,date_reservation: string){
-    let personne={} as Personne;
-    personne.prenom = prenom;
-    personne.nom = nom;
-    personne.mail = mail;
 
-    let inscription = {
+  saveRdv(centre: ChoixCentre,prenom: string,nom: string,mail: string,date_reservation: string){
+
+    const personne = {
+      prenom: prenom,
+      nom: nom,
+      mail: mail
+    };
+    const inscription = {
       centre: centre,
       personne: personne,
       date_reservation: date_reservation
-    }
-
-    console.log("test"+inscription);
-    this.httpClient.post("/public/inscription",inscription);
-    console.log("test2",inscription);
+    };
+    console.log("test : ",inscription);
+    this.httpClient.post<string>("public/inscription",inscription).subscribe(
+      data => {
+         console.log("succés")
+         console.log(data)
+      }
+   );
+    /*return this.httpClient.post<String>("public/inscription",inscription1);
+    console.log("test2",inscription);*/
   }
 }
