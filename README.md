@@ -4,9 +4,6 @@ Application permettant de prendre un rendez-vous pour une vaccination COVID dans
 
 Données sur les lieux de vaccination : https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/
 
-- rendez-vous.temps.enregistrement : voir le temps d'engeristrement d'un rendez-vous
-- rendez-vous.nombre : voir le nombre de rendez-vous pris
-
 ## Structure du back
 Projet JAVA basé sur Maven : les dépendances sont donc décrites dans le fichier pom.xml
 
@@ -21,8 +18,9 @@ Projet Angular
 **/swagger-ui** -> accéder au swagger (description de l'API REST)
 
 ## Rôles
+
 ### SuperAdmin
-Il n'appartient pas à un centre précis. 
+Il n'appartient pas à un centre précis. <br>
 Il peut :
 - gérer les centres (**/admin/centres**) : 
   - créer un centre (**POST /admin/centres/nouveau**)
@@ -36,7 +34,7 @@ Il peut :
   - supprimer un administrateur (**DELETE /admin/administrateurs/supprimer/{id}**)
   
 ### Admin
-Il est lié à un centre.
+Il est lié à un centre.<br>
 Il peut : 
 - gérer les médecins de son centre (**admin/medecins**) : 
   - créer un médecin (**POST /admin/medecins/nouveau**)
@@ -44,22 +42,34 @@ Il peut :
   - modifier un médecin (**PUT /admin/medecins/modifier/{id}**)
   - supprimer un médecin (**DELETE /admin/medecins/supprimer/{id}**)
 - gérer les réservations de son centre (**/admin/reservations**) : 
-  - afficher les réservations (** GET /admin/reservations**)
-  - supprimer une réservation (** DELETE /admin/reservations/supprimer/{id}**)
+  - afficher les réservations (**GET /admin/reservations**)
+  - supprimer une réservation (**DELETE /admin/reservations/supprimer/{id}**)
 
 ### Medecin
-Il est lié à un centre.
-Il peut : 
-- rechercher une personne dans son centre par son nom (** GET /admin/personnes/{nom}**)
-- valider la vaccination d'une personne (** PUT /admin/personnes/validerVaccination/{id}**)
+Il est lié à un centre.<br>
+Il peut :
+- rechercher une personne dans son centre par son nom (**GET /admin/personnes/{nom}**)
+- valider la vaccination d'une personne (**PUT /admin/personnes/validerVaccination/{id}**)
 
+## Métriques
+Pour accéder aux métriques, il est nécessaire d'avoir appelé au moins une fois l'endpoint lié. 
+
+### rendez-vous.temps.enregistrement
+Elle sert à voir le temps d'enregistrement d'un rendez-vous. <br>
+Endpoint : **GET /actuator/metrics/rendez-vous.temps.enregistrement**<br>
+Métrique mise à jour lors de l'appel du endpoint suivant : **POST /public/inscription**
+
+### rendez-vous.nombre
+Elle sert à voir le nombre de rendez-vous pris. <br>
+Endpoint : **GET /actuator/metrics/rendez-vous.nombre**<br>
+Métrique incrémentée lors de l'appel du endpoint suivant : **POST /public/inscription**
 
 ## Docker
 
 ## Versions
-Angular CLI : 15.0.3
-Docker : 20.10.21
-Java (jdk) : 17.0.5
-Maven : 3.6.3
-Node : 18.12.1
-npm : 8.19.2
+Angular CLI : 15.0.3<br>
+Docker : 20.10.21<br>
+Java (jdk) : 17.0.5<br>
+Maven : 3.6.3<br>
+Node : 18.12.1<br>
+npm : 8.19.2<br>
