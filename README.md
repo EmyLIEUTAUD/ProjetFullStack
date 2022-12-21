@@ -1,4 +1,4 @@
-# ProjetFullStack
+# ProjetFullStack - Vaccination COVID
 Application permettant de prendre un rendez-vous pour une vaccination COVID dans un centre de vaccination en France. <br>
 *Créée par Emy LIEUTAUD (31818604), Yunqiao ZHANG () et Romain PERRELLE ()*
 
