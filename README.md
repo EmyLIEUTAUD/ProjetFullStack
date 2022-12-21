@@ -14,7 +14,7 @@ Projet Angular
 **/public** -> destiné à tout utilisateur qui souhaite prendre un rendez-vous sur l'application<br>
 **/admin** -> destiné aux professionnels : besoin d'être connecté pour y accéder<br>
 **/login** -> reservé aux professionnels pour se créer un compte (**/login/nouveau**) ou se connecter (**/login/authenticate**)<br>
-**/actuator/metrics** -> accéder aux métriques générées
+**/actuator/metrics** -> accéder aux métriques générées<br>
 **/swagger-ui** -> accéder au swagger (description de l'API REST)
 
 ## Rôles
