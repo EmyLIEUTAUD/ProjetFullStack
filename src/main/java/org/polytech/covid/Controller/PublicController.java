@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import io.github.bucket4j.*;
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 
 import java.net.URI;
 import java.time.Duration;
@@ -65,6 +67,8 @@ public class PublicController {
     Bucket bucket = Bucket.builder().addLimit(limit).build();
 
     @PostMapping(path = "/inscription")
+    @Timed(value = "rendez-vous.temps.enregistrement", description = "Temps d'enregistrement d'un rendez-vous")
+    @Counted(value = "rendez-vous.nombre", description = "Nombre de rendez-vous pris")
     public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest) {
         if (bucket.tryConsume(1)) {
             Optional<Personne> personneRequest = personneRepository
