@@ -33,5 +33,10 @@
   <button (click)="EnvoyerForm(centre,prenom,nom,email,dateRdv)">
     Envoyer formulaire
   </button>
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    Votre rendez-vous a bien été pris en compte !<br>
+    Voici les horaires d'ouverture du centre le {{jour}} : <br>
+    {{horaires}}
+  </div>
   </div>
 </div>
