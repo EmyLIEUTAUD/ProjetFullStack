@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SignUpEnvoiFormService } from '../sign-up-envoi-form.service';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
@@ -18,13 +20,13 @@ export class RegisterComponent implements OnInit {
   isSignupFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private service: SignUpEnvoiFormService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void{
-    const {nom,prenom,username,password} = this.form;
+    /*const {nom,prenom,username,password} = this.form;
 
     this.authService.register(nom,prenom,username,password).subscribe({
       next: (data) => {
@@ -36,6 +38,13 @@ export class RegisterComponent implements OnInit {
         this.errorMessage = err.error.message;
         this.isSignupFailed = true;
       }
-  });
+  });*/
+    const {nom, prenom, username, pwd} = this.form;
+
+    console.log("password = "+pwd);
+    this.service.saveCompte(username, pwd, nom, prenom);
+    
+    this.isSuccessful = true;
+
   }
 }

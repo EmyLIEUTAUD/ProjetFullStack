@@ -46,5 +46,4 @@ public class UserDTO {
         this.password = password;
     }
 
-
 }
