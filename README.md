@@ -11,9 +11,9 @@ Projet JAVA basé sur Maven : les dépendances sont donc décrites dans le fichi
 Projet Angular
 
 ## Endpoints
-**/public** -> destinée à tout utilisateur qui souhaite prendre un rendez-vous sur l'application<br>
-**/admin** -> destinée aux professionnels : besoin d'être connecté pour y accéder<br>
-**/login** -> reservée aux professionnels pour se créer un compte (**/login/nouveau**) ou se connecter (**/login/authenticate**)<br>
+**/public** -> destiné à tout utilisateur qui souhaite prendre un rendez-vous sur l'application<br>
+**/admin** -> destiné aux professionnels : besoin d'être connecté pour y accéder<br>
+**/login** -> reservé aux professionnels pour se créer un compte (**/login/nouveau**) ou se connecter (**/login/authenticate**)<br>
 **/actuator/metrics** -> accéder aux métriques générées
 **/swagger-ui** -> accéder au swagger (description de l'API REST)
 
