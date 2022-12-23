@@ -28,17 +28,18 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Personne> personne = personneRepository.findByMail(username);
-        if(!personne.isPresent()){
+        if (!personne.isPresent()) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
         Personne user = personne.get();
-        return new org.springframework.security.core.userdetails.User(user.getMail(), user.getMdp(),getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getMail(), user.getMdp(),
+                getAuthority(user));
 
     }
+
     private Set<SimpleGrantedAuthority> getAuthority(Personne user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         user.getRoles().forEach(role -> {
@@ -46,6 +47,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         });
         return authorities;
     }
+
     public Personne save(UserDTO user) {
         Personne newUser = new Personne();
         newUser.setMail(user.getUsername());
@@ -54,8 +56,5 @@ public class JwtUserDetailsService implements UserDetailsService {
         newUser.setPrenom(user.getPrenom());
         return personneRepository.save(newUser);
     }
-
-
-
 
 }
