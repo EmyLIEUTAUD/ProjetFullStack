@@ -13,10 +13,10 @@ Projet Angular.<br>
 Il est accessible sur le navigateur sur **localhost:4200**.
 
 ## Endpoints
-**/public** -> destiné à tout utilisateur qui souhaite prendre un rendez-vous sur l'application<br>
-**/admin** -> destiné aux professionnels : besoin d'être connecté pour y accéder<br>
-**/login** -> reservé aux professionnels pour se créer un compte (**/login/nouveau**) ou se connecter (**/login/authenticate**)<br>
-**/actuator/metrics** -> accéder aux métriques générées<br>
+**/public/** -> destiné à tout utilisateur qui souhaite prendre un rendez-vous sur l'application<br>
+**/admin/** -> destiné aux professionnels : besoin d'être connecté pour y accéder<br>
+**/login/** -> reservé aux professionnels pour se créer un compte (**/login/nouveau**) ou se connecter (**/login/authenticate**)<br>
+**/actuator/metrics/** -> accéder aux métriques générées<br>
 **/swagger-ui** -> accéder au swagger (description de l'API REST)
 
 ## Rôles
@@ -69,6 +69,7 @@ Métrique incrémentée lors de l'appel du endpoint suivant : **POST /public/ins
 ## Docker
 Il est possible de lancer notre application (back + front) avec Docker.<br>
 Pour cela, il faut **aller à la racine du projet** (là où se trouve le fichier *docker-compose.yml*).<br>
+Remarque : Docker doit être lancé (état : running).<br>
 Ensuite, il est nécessaire d'exécuter la commande suivante : ```docker-compose up -d --build```.<br>
 L'application fonctionne alors dans des conteneurs. Vous pouvez y accéder sur votre navigateur :
 - **localhost:4200** pour accéder au front
