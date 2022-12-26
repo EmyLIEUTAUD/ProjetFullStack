@@ -50,60 +50,71 @@ public class CovidApiApplication implements CommandLineRunner {
 		File file = null;
 		String resource = "/centres-vaccination.csv";
 		URL res = getClass().getResource(resource);
+		String centresVaccinationPath = "";
+		/*
+		 * if (res.getProtocol().equals("jar")) {
+		 * try {
+		 * InputStream input = getClass().getResourceAsStream(resource);
+		 * file = File.createTempFile("centres-vaccination", ".csv");
+		 * OutputStream out = new FileOutputStream(file);
+		 * int read;
+		 * byte[] bytes = new byte[1024];
+		 * 
+		 * while ((read = input.read(bytes)) != -1) {
+		 * out.write(bytes, 0, read);
+		 * }
+		 * out.close();
+		 * // file.deleteOnExit();
+		 * //
+		 * // Path path = Paths.get(file.getAbsolutePath());
+		 * // Set<PosixFilePermission> perms = Files.readAttributes(path,
+		 * // PosixFileAttributes.class).permissions();
+		 * //
+		 * // System.out.format("Permissions before: %s%n",
+		 * // PosixFilePermissions.toString(perms));
+		 * //
+		 * // perms.add(PosixFilePermission.OWNER_WRITE);
+		 * // perms.add(PosixFilePermission.OWNER_READ);
+		 * // perms.add(PosixFilePermission.OWNER_EXECUTE);
+		 * // perms.add(PosixFilePermission.GROUP_WRITE);
+		 * // perms.add(PosixFilePermission.GROUP_READ);
+		 * // perms.add(PosixFilePermission.GROUP_EXECUTE);
+		 * // perms.add(PosixFilePermission.OTHERS_WRITE);
+		 * // perms.add(PosixFilePermission.OTHERS_READ);
+		 * // perms.add(PosixFilePermission.OTHERS_EXECUTE);
+		 * // Files.setPosixFilePermissions(path, perms);
+		 * //
+		 * // System.out.format("Permissions after:  %s%n",
+		 * // PosixFilePermissions.toString(perms));
+		 * //
+		 * file.setReadable(true);
+		 * System.out.println(file.canRead());
+		 * System.out.println(file.exists());
+		 * centresVaccinationPath = "/tmp/centres-vaccination.csv";
+		 * 
+		 * } catch (IOException ex) {
+		 * ex.printStackTrace();
+		 * }
+		 * } else {
+		 * // this will probably work in your IDE, but not from a JAR
+		 * file = new File(res.getFile());
+		 * centresVaccinationPath = file.getAbsolutePath();
+		 * }
+		 */
 		if (res.getProtocol().equals("jar")) {
-			try {
-				InputStream input = getClass().getResourceAsStream(resource);
-				file = File.createTempFile("centres-vaccination", ".csv");
-				OutputStream out = new FileOutputStream(file);
-				int read;
-				byte[] bytes = new byte[1024];
-
-				while ((read = input.read(bytes)) != -1) {
-					out.write(bytes, 0, read);
-				}
-				out.close();
-				// file.deleteOnExit();
-				/*
-				 * Path path = Paths.get(file.getAbsolutePath());
-				 * Set<PosixFilePermission> perms = Files.readAttributes(path,
-				 * PosixFileAttributes.class).permissions();
-				 * 
-				 * System.out.format("Permissions before: %s%n",
-				 * PosixFilePermissions.toString(perms));
-				 * 
-				 * perms.add(PosixFilePermission.OWNER_WRITE);
-				 * perms.add(PosixFilePermission.OWNER_READ);
-				 * perms.add(PosixFilePermission.OWNER_EXECUTE);
-				 * perms.add(PosixFilePermission.GROUP_WRITE);
-				 * perms.add(PosixFilePermission.GROUP_READ);
-				 * perms.add(PosixFilePermission.GROUP_EXECUTE);
-				 * perms.add(PosixFilePermission.OTHERS_WRITE);
-				 * perms.add(PosixFilePermission.OTHERS_READ);
-				 * perms.add(PosixFilePermission.OTHERS_EXECUTE);
-				 * Files.setPosixFilePermissions(path, perms);
-				 * 
-				 * System.out.format("Permissions after:  %s%n",
-				 * PosixFilePermissions.toString(perms));
-				 */
-				file.setReadable(true);
-				System.out.println(file.canRead());
-				System.out.println(file.exists());
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+			// C'est Docker qui utilise le jar, donc on spécifie le chemin du fichier à
+			// l'intérieur du conteneur (grâce au volume spécifié)
+			centresVaccinationPath = "/tmp/centres-vaccination.csv";
 		} else {
-			// this will probably work in your IDE, but not from a JAR
 			file = new File(res.getFile());
+			centresVaccinationPath = file.getAbsolutePath();
 		}
-		String centresVaccinationPath = file.getAbsolutePath();
 		// BufferedReader reader = new BufferedReader(new
 		// InputStreamReader(centresVaccinationPath));
 		// URL urlCentresVaccination =
 		// getClass().getResource("centres-vaccination.csv");
 		// String centresVaccinationPath = urlCentresVaccination.toURI().getPath();
 		System.out.println(centresVaccinationPath);
-		centresVaccinationPath = "/tmp/centres-vaccination.csv";
 		// Thread.sleep(60000);
 		String importCentres = "COPY Centre(gid,nom,arrete_pref_numero,xy_precis,id_adr,num_adresse,adresse,cp,com_insee,comnom,lat_coor1,long_coor1,structure_siren,structure_type,structure_rais,structure_num,structure_voie,structure_cp,structure_insee,structure_com,_userid_creation,_userid_modification,_edit_datemaj,lieu_accessibilite,horaires_lundi,horaires_mardi,horaires_mercredi,horaires_jeudi,horaires_vendredi,horaires_samedi,horaires_dimanche,rdv,date_fermeture,date_ouverture,rdv_site_web,rdv_tel,rdv_tel2,rdv_modalites,rdv_consultation_prevaccination,centre_svi_repondeur,centre_fermeture,reserve_professionels_sante,centre_type) FROM '"
 				+ centresVaccinationPath + "' DELIMITER ';' CSV HEADER;";
