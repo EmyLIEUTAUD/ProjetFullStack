@@ -11,7 +11,9 @@ Plusieurs méthodes existent pour lancer le back :
 Il faut premièrement ouvrir le projet dans VScode.<br>
 Ensuite, il faut faire un **clique droit sur la classe *CovidApiApplication.java*** qui se trouve dans src/main/java/org/polytech/covid/.<br>
 Enfin, il suffit de cliquer sur **Run Java**.<br>
-- avec le .jar :<br>
+- en ligne de commandes : <br>
+Il faut tout d'abord **aller à la racine du projet**.
+Puis, il faut exécuter la commande suivante : ```mvn exec:java -Dexec.mainClass=org.polytech.covid.CovidApiApplication```
 
 Le back est maintenant accessible sur le navigateur sur **localhost:8080**.
 
