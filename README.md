@@ -13,7 +13,7 @@ Ensuite, il faut faire un **clique droit sur la classe *CovidApiApplication.java
 Enfin, il suffit de cliquer sur **Run Java**.<br>
 - en ligne de commandes : <br>
 Il faut tout d'abord **aller à la racine du projet**.
-Puis, il faut exécuter la commande suivante : ```mvn exec:java -Dexec.mainClass=org.polytech.covid.CovidApiApplication```
+Puis, il faut exécuter la commande suivante : <br>```mvn exec:java -Dexec.mainClass=org.polytech.covid.CovidApiApplication```
 
 Le back est maintenant accessible sur le navigateur sur **localhost:8080**.
 
