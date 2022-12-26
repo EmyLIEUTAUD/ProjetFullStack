@@ -28,6 +28,11 @@ Pour lancer le front, il faut tout d'abord **aller dans le dossier VaccinationCO
 Ensuite, il suffit d'exécuter la commande suivante : ```ng serve```.<br>
 Le front est maintenant accessible sur le navigateur sur **localhost:4200**.
 
+### Endpoints
+**/home/** -> destiné à tout utilisateur qui souhaite prendre un rendez-vous sur l'application<br>
+**/register/** -> destiné aux professionnels pour se créer un compte<br>
+**/login/** -> reservé aux professionnels pour se connecter<br>
+
 ## Rôles
 
 ### SuperAdmin
