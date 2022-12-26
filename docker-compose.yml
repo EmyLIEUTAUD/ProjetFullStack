@@ -46,8 +46,9 @@ services:
     build: 
       context: .
       dockerfile: build/back/Dockerfile
+    user: root
     ports:
-      - 8081:8080
+      - 8080:8080
     container_name: covid-api-back
     depends_on:
       - db
@@ -70,6 +71,8 @@ services:
       - POSTGRES_PASSWORD=postgre
       - POSTGRES_USER=postgres
       - POSTGRES_DB=covid-db
+    volumes:
+      - ./src/main/resources/:/tmp
 
   front:
     build: 
