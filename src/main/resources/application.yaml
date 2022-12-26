@@ -23,6 +23,8 @@ spring:
       enabled: false
 jwt:
   secret: covidcentre
+  token:
+    prefix: Bearer
 
 
 

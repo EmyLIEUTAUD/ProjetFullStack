@@ -6,6 +6,7 @@ import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ChoixVilleComponent } from '../choix-ville/choix-ville.component';
 import { ChoixdelavilleService } from '../choixdelaville.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-liste-centre',
@@ -16,10 +17,19 @@ export class ListeCentreComponent implements OnInit {
 
   centers!: ChoixCentre[];
   selected?: ChoixCentre
+  isLoggedIn = false;
+  isLoginFailed = false;
+  roles: string[] = [];
 
-  constructor(private router : Router,private service: VaccinationCenterService, private service2: ChoixdelavilleService, private service3: CentreChoisieService, private route: ActivatedRoute) { }
+  constructor(private router : Router,
+    private service: VaccinationCenterService, 
+    private service2: ChoixdelavilleService, 
+    private service3: CentreChoisieService, 
+    private route: ActivatedRoute,
+    private tokenStorageService: TokenStorageService,) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
     this.service2._nomVilleSubject.subscribe((nomVille) => {
       this.service.getAllVaccinationCenter(nomVille).subscribe(resultCenters=>{
         this.centers = resultCenters;

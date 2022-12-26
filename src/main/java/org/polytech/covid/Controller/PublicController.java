@@ -25,6 +25,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/public")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PublicController {
 
     @Autowired

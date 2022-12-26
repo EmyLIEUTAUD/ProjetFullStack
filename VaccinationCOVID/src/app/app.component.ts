@@ -13,7 +13,7 @@ import { User } from './_models/user';
 })
 export class AppComponent {
   
-  private roles: string[] = [];
+  private roles: string;
   isLoggedIn = false;
   showMedecinBoard = false;
   showAdminBoard = false;
@@ -30,9 +30,13 @@ title = 'VaccinationCOVID';
       const user = this.tokenStorageService.getUser();
       this.roles = user.scopes;
 
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showMedecinBoard = this.roles.includes('ROLE_MEDECIN');
-      this.showSuperAdminBoard = this.roles.includes('ROLE_SUPERADMIN');
+      if (this.roles === 'SUPER_ADMIN'){
+        this.showSuperAdminBoard = true;
+      }
+      if (this.roles === 'ADMIN'){
+        this.showAdminBoard = true;
+      }
+      this.showMedecinBoard = this.roles.includes('MEDECIN');
 
       this.username = user.sub;
     }

@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import org.polytech.covid.Entity.Admin;
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Superadmin;
 import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.PersonneRepository;
+import org.polytech.covid.Repository.SuperadminRepository;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,16 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
     private AdminRepository adminRepository;
     @Autowired
     private PersonneRepository personneRepository;
-
+    @Autowired
+    private SuperadminRepository superadminRepository;
     public List<Admin> voirAdmins() {
         List<Admin> listAdmins = adminRepository.findAll();
         return listAdmins;
+    }
+
+    public List<Superadmin> voirSuperAdmins() {
+        List<Superadmin> listSuperadmin = superadminRepository.findAll();
+        return listSuperadmin;
     }
 
     public Admin creerAdmin(Admin admin) {

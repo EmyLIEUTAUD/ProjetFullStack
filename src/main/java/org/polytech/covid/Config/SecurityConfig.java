@@ -4,14 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.security.JwtAuthenticationEntryPoint;
 import org.polytech.covid.security.JwtRequestFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,7 +34,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig  {
 
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -40,6 +43,7 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     private final JwtRequestFilter jwtRequestFilter;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -76,6 +80,7 @@ public class SecurityConfig {
                                 .antMatchers(HttpMethod.GET, "/personnes/**").hasAuthority("MEDECIN")
                                 .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
 
+
         http.addFilterBefore(
                 jwtRequestFilter,
                 UsernamePasswordAuthenticationFilter.class
@@ -102,5 +107,11 @@ public class SecurityConfig {
                         .allowedMethods("*");
             }
         };
+
+
+    }
+    @Bean
+    public JwtRequestFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtRequestFilter();
     }
 }

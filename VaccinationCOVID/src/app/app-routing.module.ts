@@ -13,8 +13,7 @@ import { BoardSuperadminComponent } from './board-superadmin/board-superadmin.co
 import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
 import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 const routes: Routes = [
-  {path: "public", component: ListeCentreComponent},
-  {path: "public/detail/:id", component: ChoixCentreComponent},
+
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent },
   {path: 'register', component: RegisterComponent},
@@ -23,7 +22,7 @@ const routes: Routes = [
   {path: 'medecin', component: BoardMedecinComponent},
   {path: 'superAdmin', component: BoardSuperadminComponent},
   {path: '', redirectTo: 'home',pathMatch: 'full'  },
-  {path: "public",title: 'Page de recherche', component: ChoixVilleComponent},
+  {path: "villes", component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Page de rendez-vous', component: RendezVousComponent},
   {path: '', redirectTo: '/public', pathMatch: 'full'},
 

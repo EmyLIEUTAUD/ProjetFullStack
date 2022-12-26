@@ -26,7 +26,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import { ModalSuperAdminComponent } from './modal-super-admin/modal-super-admin.component';
+import { MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ModalSuperConfigComponent } from './modal-super-config/modal-super-config.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     ProfileComponent,
     BoardAdminComponent,
     BoardMedecinComponent,
-    BoardSuperadminComponent
+    BoardSuperadminComponent,
+    ModalSuperAdminComponent,
+    ModalSuperConfigComponent
   ],
   imports: [
     BrowserModule,
@@ -57,10 +61,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy}, //permet d'éviter whitelabel lors du refresh de la page /public
-  {provide: MAT_DATE_LOCALE, useValue: 'en-GB' },authInterceptorProviders],
+  {provide: MAT_DATE_LOCALE, useValue: 'en-GB' },authInterceptorProviders,MdbModalService],
   bootstrap: [AppComponent]
   
 })
