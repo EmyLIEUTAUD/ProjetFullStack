@@ -5,10 +5,12 @@ Application permettant de prendre un rendez-vous pour une vaccination COVID dans
 Données sur les lieux de vaccination : https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/
 
 ## Structure du back
-Projet JAVA basé sur Maven : les dépendances sont donc décrites dans le fichier pom.xml
+Projet JAVA basé sur Maven : les dépendances sont donc décrites dans le fichier *pom.xml*.<br>
+Il est accessible sur le navigateur sur **localhost:8080**.
 
 ## Structure du front
-Projet Angular
+Projet Angular.<br>
+Il est accessible sur le navigateur sur **localhost:4200**.
 
 ## Endpoints
 **/public** -> destiné à tout utilisateur qui souhaite prendre un rendez-vous sur l'application<br>
@@ -65,6 +67,12 @@ Endpoint : **GET /actuator/metrics/rendez-vous.nombre**<br>
 Métrique incrémentée lors de l'appel du endpoint suivant : **POST /public/inscription**
 
 ## Docker
+Il est possible de lancer notre application (back + front) avec Docker.<br>
+Pour cela, il faut **aller à la racine du projet** (là où se trouve le fichier *docker-compose.yml*).<br>
+Ensuite, il est nécessaire d'exécuter la commande suivante : ```docker-compose up -d --build```.<br>
+L'application fonctionne alors dans des conteneurs. Vous pouvez y accéder sur votre navigateur :
+- **localhost:4200** pour accéder au front
+- **localhost:8080** pour accéder au back
 
 ## Versions
 Angular CLI : 15.0.3<br>
