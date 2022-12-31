@@ -39,7 +39,10 @@ Le back est maintenant accessible sur le navigateur sur **localhost:8080**.
 ## Structure du front
 Projet Angular.<br>
 Technologies implémentées : <br>
+- Bootstrap
 - Formulaire BasicAuth
+- Interceptor
+- Material
 
 Pour lancer le front, il faut tout d'abord **aller dans le dossier VaccinationCOVID**.<br>
 Ensuite, il suffit d'exécuter la commande suivante : ```ng serve```.<br>
