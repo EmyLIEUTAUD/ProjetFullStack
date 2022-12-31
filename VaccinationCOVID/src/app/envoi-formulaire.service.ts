@@ -13,6 +13,7 @@ export class EnvoiFormulaireService {
   word = '';
   infos = '';
   flag = false;
+  end = false;
   
   constructor(private  httpClient: HttpClient, private router: Router) { }
 
@@ -61,6 +62,7 @@ export class EnvoiFormulaireService {
       const nbToken =  resp.headers.get('X-Rate-Limit-Remaining')
       this.infos = `${nbToken} tokens restant`
       this.flag = true;
+      this.end = true;
     },
     error:  (err) => {
       console.log("C'est une erreur");
@@ -71,6 +73,7 @@ export class EnvoiFormulaireService {
       temps =  err.headers.get('X-Rate-Limit-Retry-After-Seconds')
       this.infos = `Ressayer après ${temps} secondes`;
       this.flag = false;
+      this.end = true;
     }
   });
   /*if(this.flag == true){

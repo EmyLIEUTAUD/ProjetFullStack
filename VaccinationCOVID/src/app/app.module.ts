@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -29,6 +29,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { GlobalErrorHandlerService } from './global-error-handler.service';
+import { GeneralHttpInterceptorService } from './general-http-interceptor.service';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ProfileComponent,
     BoardAdminComponent,
     BoardMedecinComponent,
-    BoardSuperadminComponent
+    BoardSuperadminComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressBarModule
   ],
   providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy}, //permet d'éviter whitelabel lors du refresh de la page /public
-  {provide: MAT_DATE_LOCALE, useValue: 'en-GB' },authInterceptorProviders],
+  {provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+  { provide: HTTP_INTERCEPTORS, useClass: GeneralHttpInterceptorService, multi: true },
+  { provide: ErrorHandler, useClass:GlobalErrorHandlerService},
+  authInterceptorProviders],
   bootstrap: [AppComponent]
   
 })

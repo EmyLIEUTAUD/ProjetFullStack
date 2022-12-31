@@ -41,13 +41,13 @@ export class RendezVousComponent implements OnInit {
     this.jour = this.GetDayOfDate(dateRdv);
     if(this.horaires != 'fermé'){
       this.service2.saveRdv(centre, prenom, nom, email, dateRdv);
-      if(this.service2.flag == true){
+      if(this.service2.flag == true && this.service2.end == true){
         console.log("c'est true");
         this.isSuccessful = true;
         this.isNotSuccessful = false;
         this.wait = false;
       }
-      else{
+      else if(this.service2.flag == false && this.service2.end == true){
         console.log("c'est false");
         this.isSuccessful = false;
         this.isNotSuccessful = false;
