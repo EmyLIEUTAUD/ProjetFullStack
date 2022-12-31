@@ -26,7 +26,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatProgressBarModule
   ],
   providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy}, //permet d'éviter whitelabel lors du refresh de la page /public
   {provide: MAT_DATE_LOCALE, useValue: 'en-GB' },authInterceptorProviders],

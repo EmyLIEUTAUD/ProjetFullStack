@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { textSpanContainsPosition } from 'typescript';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { EnvoiFormulaireService } from '../envoi-formulaire.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
+import { HttpClient, HttpHeaders, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-rendez-vous',
@@ -21,7 +22,12 @@ export class RendezVousComponent implements OnInit {
   day: number;
   jour: string;
   horaires : string;
-  constructor(private route: ActivatedRoute, private service: VaccinationCenterService,private service2: EnvoiFormulaireService) { }
+  word = '';
+  infos = '';
+  isNotSuccessful = false;
+  wait = false;
+
+  constructor(private route: ActivatedRoute, private service: VaccinationCenterService,private service2: EnvoiFormulaireService, private readonly http: HttpClient, private readonly router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.service.getVaccinationCenterById(params['gid']).subscribe(resultCenters=> {
@@ -32,10 +38,29 @@ export class RendezVousComponent implements OnInit {
 
   EnvoyerForm(centre: ChoixCentre,prenom: string,nom: string,email: string,dateRdv: string): void{
     dateRdv = this.convertDate(dateRdv);
-    var fin = this.service2.saveRdv(centre, prenom, nom, email, dateRdv);
-    console.log("fichier fini : ", fin);
-    this.isSuccessful = true;
     this.jour = this.GetDayOfDate(dateRdv);
+    if(this.horaires != 'fermé'){
+      this.service2.saveRdv(centre, prenom, nom, email, dateRdv);
+      if(this.service2.flag == true){
+        console.log("c'est true");
+        this.isSuccessful = true;
+        this.isNotSuccessful = false;
+        this.wait = false;
+      }
+      else{
+        console.log("c'est false");
+        this.isSuccessful = false;
+        this.isNotSuccessful = false;
+        this.infos = this.service2.infos;
+        this.wait = true;
+      }
+    }
+    else{
+      this.isSuccessful = false;
+      this.isNotSuccessful = true;
+      this.wait = false;
+    }
+    
   }
 
   convertDate(date) { // convertion date en format yyyy-mm-dd

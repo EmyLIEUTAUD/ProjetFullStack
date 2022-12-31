@@ -40,3 +40,10 @@
   </div>
   </div>
 </div>
+<div class="alert alert-danger" *ngIf="isNotSuccessful">
+  Le centre est fermé le {{jour}}.<br>
+  Veuillez choisir un autre jour.
+</div>
+<div class="alert alert-warning" *ngIf="wait">
+  {{infos}}
+</div>

@@ -43,6 +43,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.micrometer.core.aop.CountedAspect;
@@ -53,7 +54,8 @@ import io.micrometer.core.instrument.MeterRegistry;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-public class SecurityConfig {
+@EnableWebMvc
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -162,6 +164,11 @@ public class SecurityConfig {
     @Bean
     public CountedAspect countedAspect(MeterRegistry registry) {
         return new CountedAspect(registry);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
     }
 
 }

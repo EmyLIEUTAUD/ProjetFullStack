@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './_services/token-storage.service';
+import { HttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from './_services/authentication.service';
 import { User } from './_models/user';
@@ -21,7 +22,10 @@ export class AppComponent {
   username?: string;
 title = 'VaccinationCOVID';
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, private readonly http: HttpClient, private readonly router: Router) { }
+
+  word = '';
+  infos = '';
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -42,6 +46,7 @@ title = 'VaccinationCOVID';
     this.tokenStorageService.signOut();
     window.location.reload();
   }
+
 }
 
 

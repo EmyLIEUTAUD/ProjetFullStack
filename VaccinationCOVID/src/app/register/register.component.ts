@@ -43,6 +43,9 @@ export class RegisterComponent implements OnInit {
 
     console.log("password = "+pwd);
     this.service.saveCompte(username, pwd, nom, prenom);
+    this.isSignupFailed = this.service.isSignupFailed;
+    this.isSuccessful = this.service.isSuccessful;
+    this.errorMessage = this.service.errorMessage;
     
     this.isSuccessful = true;
 
