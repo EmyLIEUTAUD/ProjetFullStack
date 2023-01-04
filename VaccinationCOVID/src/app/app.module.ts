@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -26,6 +26,12 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { GlobalErrorHandlerService } from './global-error-handler.service';
+import { GeneralHttpInterceptorService } from './general-http-interceptor.service';
+import { ModalComponent } from './modal/modal.component';
 import { ModalSuperAdminComponent } from './modal-super-admin/modal-super-admin.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalSuperConfigComponent } from './modal-super-config/modal-super-config.component';
@@ -47,6 +53,8 @@ import { ModalSuperConfigComponent } from './modal-super-config/modal-super-conf
     BoardAdminComponent,
     BoardMedecinComponent,
     BoardSuperadminComponent,
+    ModalComponent
+    BoardSuperadminComponent,
     ModalSuperAdminComponent,
     ModalSuperConfigComponent
   ],
@@ -62,11 +70,19 @@ import { ModalSuperConfigComponent } from './modal-super-config/modal-super-conf
     MatFormFieldModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-    
+
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatProgressBarModule
   ],
   providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy}, //permet d'éviter whitelabel lors du refresh de la page /public
   {provide: MAT_DATE_LOCALE, useValue: 'en-GB' },authInterceptorProviders,MdbModalService],
+  {provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+  { provide: HTTP_INTERCEPTORS, useClass: GeneralHttpInterceptorService, multi: true },
+  { provide: ErrorHandler, useClass:GlobalErrorHandlerService},
+  authInterceptorProviders],
   bootstrap: [AppComponent]
-  
+
 })
 export class AppModule { }

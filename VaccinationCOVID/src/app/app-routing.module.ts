@@ -12,6 +12,7 @@ import { BoardMedecinComponent } from './board-medecin/board-medecin.component';
 import { BoardSuperadminComponent } from './board-superadmin/board-superadmin.component';
 import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
 import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
+
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -25,11 +26,14 @@ const routes: Routes = [
   {path: "villes", component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Page de rendez-vous', component: RendezVousComponent},
   {path: '', redirectTo: '/public', pathMatch: 'full'},
+  {path: "public",title: 'Accueil', component: ChoixVilleComponent},
+  {path: "rdv/:gid", title: 'Inscription', component: RendezVousComponent},
+  {path: '', redirectTo: '/public', pathMatch: 'full'}
 
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
 
- 
+
   //{path: '**', title: 'Page erreur', component: PageNotFoundComponent }, //renvoie à une page d'erreur si pas bon url
 
 ]
