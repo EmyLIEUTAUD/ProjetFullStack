@@ -11,6 +11,7 @@ import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.ReservationService;
 import org.polytech.covid.model.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/public")
@@ -43,23 +45,25 @@ public class PublicController {
     private CentreRepository centreRepository;
 
     @GetMapping("/centres")
-    public List<Centre> voirCentres() {
-        return centreServices.voirCentres();
+    public ResponseEntity<List<Centre>> voirCentres() {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(centreServices.voirCentres());
     }
 
     @GetMapping("/centres/id/{gid}")
     public ResponseEntity<Centre> rechercheCentreByGid(@PathVariable(value = "gid") Integer gid) {
         Optional<Centre> centreData = centreRepository.findById(gid);
         if (centreData.isPresent()) {
-            return new ResponseEntity<>(centreData.get(), HttpStatus.OK);
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(centreData.get());
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping(path = "/centres/{com_nom}")
-    public List<Centre> rechercheCentreByVille(@PathVariable(value = "com_nom") String com_nom) {
-        return centreServices.rechercheCentreByVille(com_nom);
+    public ResponseEntity<List<Centre>> rechercheCentreByVille(@PathVariable(value = "com_nom") String com_nom) {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(centreServices.rechercheCentreByVille(com_nom));
     }
 
     // rajoute 10 tokens toutes les minutes
@@ -91,7 +95,8 @@ public class PublicController {
                 reservationRequest.setPersonne(personneSave);
                 reservationRepository.save(reservationRequest);
                 // return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
-                return ResponseEntity.ok().headers(headers).body(reservationRequest);
+                return ResponseEntity.ok().headers(headers).cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                        .body(reservationRequest);
             } else {
                 Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
                     reservationRequest.setPersonne(personne);
@@ -100,7 +105,8 @@ public class PublicController {
                 });
 
                 // return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
-                return ResponseEntity.ok().headers(headers).body(reservation.get());
+                return ResponseEntity.ok().headers(headers).cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                        .body(reservation.get());
             }
         }
         // return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
@@ -145,7 +151,8 @@ public class PublicController {
         if (personneData.isPresent()) {
             Personne _personne;
             _personne = personneService.modifierPublic(personneData, personne);
-            return new ResponseEntity<>(personneRepository.save(_personne), HttpStatus.OK);
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                    .body(personneRepository.save(_personne));
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

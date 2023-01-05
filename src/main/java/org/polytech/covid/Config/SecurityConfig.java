@@ -112,7 +112,8 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public ShallowEtagHeaderFilter shallowEtagHeaderFilter() {
-        return new CustomETagFilter();
+        // return new CustomETagFilter();
+        return new ShallowEtagHeaderFilter();
     }
 
     @Bean

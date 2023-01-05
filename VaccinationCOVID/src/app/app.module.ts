@@ -32,6 +32,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { GlobalErrorHandlerService } from './global-error-handler.service';
 import { GeneralHttpInterceptorService } from './general-http-interceptor.service';
 import { ModalComponent } from './modal/modal.component';
+import { AddHeaderInterceptor } from './add-header.interceptor';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { ModalComponent } from './modal/modal.component';
   {provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
   { provide: HTTP_INTERCEPTORS, useClass: GeneralHttpInterceptorService, multi: true },
   { provide: ErrorHandler, useClass:GlobalErrorHandlerService},
+  /*{ provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true},*/
   authInterceptorProviders],
   bootstrap: [AppComponent]
   

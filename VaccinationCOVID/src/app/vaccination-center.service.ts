@@ -18,6 +18,7 @@ export class VaccinationCenterService {
   constructor(private  httpClient: HttpClient) { }
 
   getAllVaccinationCenter(comnom: string) : Observable<ChoixCentre[]>{
+    console.log("Je récupère les centres pour la ville de "+comnom);
     return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom);
   }
   getVaccinationCenterById(gid: number) : Observable<ChoixCentre>{
