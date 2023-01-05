@@ -123,7 +123,10 @@ public class SecurityConfig {
             }
         };
     }
-
+    @Bean
+    public JwtRequestFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtRequestFilter();
+    }
     @Bean
     public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
             ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier,
