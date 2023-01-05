@@ -9,7 +9,10 @@ import org.polytech.covid.Repository.ReservationRepository;
 import org.polytech.covid.Service.CentreServices;
 import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.ReservationService;
+import org.polytech.covid.model.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +27,7 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/public")
@@ -41,23 +45,25 @@ public class PublicController {
     private CentreRepository centreRepository;
 
     @GetMapping("/centres")
-    public List<Centre> voirCentres() {
-        return centreServices.voirCentres();
+    public ResponseEntity<List<Centre>> voirCentres() {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(centreServices.voirCentres());
     }
 
     @GetMapping("/centres/id/{gid}")
     public ResponseEntity<Centre> rechercheCentreByGid(@PathVariable(value = "gid") Integer gid) {
         Optional<Centre> centreData = centreRepository.findById(gid);
         if (centreData.isPresent()) {
-            return new ResponseEntity<>(centreData.get(), HttpStatus.OK);
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(centreData.get());
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping(path = "/centres/{com_nom}")
-    public List<Centre> rechercheCentreByVille(@PathVariable(value = "com_nom") String com_nom) {
-        return centreServices.rechercheCentreByVille(com_nom);
+    public ResponseEntity<List<Centre>> rechercheCentreByVille(@PathVariable(value = "com_nom") String com_nom) {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(centreServices.rechercheCentreByVille(com_nom));
     }
 
     // rajoute 10 tokens toutes les minutes
@@ -66,11 +72,18 @@ public class PublicController {
     Bandwidth limit = Bandwidth.classic(10, refill);
     Bucket bucket = Bucket.builder().addLimit(limit).build();
 
+    final String remaining = "X-Rate-Limit-Remaining";
+    final String retryAfter = "X-Rate-Limit-Retry-After-Seconds";
+
     @PostMapping(path = "/inscription")
     @Timed(value = "rendez-vous.temps.enregistrement", description = "Temps d'enregistrement d'un rendez-vous")
     @Counted(value = "rendez-vous.nombre", description = "Nombre de rendez-vous pris")
+    @CrossOrigin(exposedHeaders = { remaining, retryAfter })
     public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservationRequest) {
-        if (bucket.tryConsume(1)) {
+        HttpHeaders headers = new HttpHeaders();
+        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+        if (probe.isConsumed()) {
+            headers.add("X-Rate-Limit-Remaining", Long.toString(probe.getRemainingTokens()));
             Optional<Personne> personneRequest = personneRepository
                     .findByMail(reservationRequest.getPersonne().getMail());
 
@@ -81,7 +94,9 @@ public class PublicController {
                 personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
                 reservationRequest.setPersonne(personneSave);
                 reservationRepository.save(reservationRequest);
-                return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
+                // return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
+                return ResponseEntity.ok().headers(headers).cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                        .body(reservationRequest);
             } else {
                 Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
                     reservationRequest.setPersonne(personne);
@@ -89,26 +104,42 @@ public class PublicController {
                     return reservationRepository.save(reservationRequest);
                 });
 
-                return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
+                // return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
+                return ResponseEntity.ok().headers(headers).cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                        .body(reservation.get());
             }
         }
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
-    }
-
-    @GetMapping(value = "/inscription/infos")
-    public ResponseEntity<String> infos() {
-
-        ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
-        if (probe.isConsumed()) {
-            return ResponseEntity.ok()
-                    .header("X-Rate-Limit-Remaining", Long.toString(probe.getRemainingTokens()))
-                    .body("infos");
-        }
+        // return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
         long delaiEnSeconde = probe.getNanosToWaitForRefill() / 1_000_000_000;
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                .header("X-Rate-Limit-Retry-After-Seconds", String.valueOf(delaiEnSeconde))
-                .build();
+        headers.add("X-Rate-Limit-Retry-After-Seconds", String.valueOf(delaiEnSeconde));
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).headers(headers).build();
     }
+
+    /*
+     * final String remaining = "X-Rate-Limit-Remaining";
+     * final String retryAfter = "X-Rate-Limit-Retry-After-Seconds";
+     *
+     * @CrossOrigin(exposedHeaders = { remaining, retryAfter })
+     *
+     * @GetMapping(value = "/inscription/infos")
+     * public ResponseEntity<Data> infos() {
+     * HttpHeaders headers = new HttpHeaders();
+     * ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+     * if (probe.isConsumed()) {
+     * headers.add("X-Rate-Limit-Remaining",
+     * Long.toString(probe.getRemainingTokens()));
+     * return ResponseEntity.ok()
+     * .headers(headers)
+     * .body(new Data("infos"));
+     * }
+     * long delaiEnSeconde = probe.getNanosToWaitForRefill() / 1_000_000_000;
+     * headers.add("X-Rate-Limit-Retry-After-Seconds",
+     * String.valueOf(delaiEnSeconde));
+     * return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+     * .headers(headers)
+     * .build();
+     * }
+     */
 
     @Autowired
     private PersonneService personneService;
@@ -120,7 +151,8 @@ public class PublicController {
         if (personneData.isPresent()) {
             Personne _personne;
             _personne = personneService.modifierPublic(personneData, personne);
-            return new ResponseEntity<>(personneRepository.save(_personne), HttpStatus.OK);
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                    .body(personneRepository.save(_personne));
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
