@@ -53,6 +53,12 @@ export class ListeCentreComponent implements OnInit {
     this.router.navigate(['rdv',center.gid]);
   
   }
+  modifierCenter(center: ChoixCentre){
+    this.selected=center;
+    this.service3.centre = center;
+    console.log(center);
+    this.router.navigate(['editCentre',center.gid]);
+  }
 
   onDeleted(center: ChoixCentre){
     delete this.selected;

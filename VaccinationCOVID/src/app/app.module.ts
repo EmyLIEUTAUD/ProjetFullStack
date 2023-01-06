@@ -36,6 +36,7 @@ import { ModalSuperAdminComponent } from './modal-super-admin/modal-super-admin.
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalSuperConfigComponent } from './modal-super-config/modal-super-config.component';
 import { AddHeaderInterceptor } from './add-header.interceptor';
+import { ChangeCentreComponent } from './change-centre/change-centre.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AddHeaderInterceptor } from './add-header.interceptor';
     ModalComponent,
     BoardSuperadminComponent,
     ModalSuperAdminComponent,
-    ModalSuperConfigComponent
+    ModalSuperConfigComponent,
+    ChangeCentreComponent
   ],
   imports: [
     BrowserModule,
@@ -71,13 +73,12 @@ import { AddHeaderInterceptor } from './add-header.interceptor';
     MatFormFieldModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
     MatProgressBarModule
   ],
-  providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy}, //permet d'éviter whitelabel lors du refresh de la page /public
+  providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy},MdbModalService, //permet d'éviter whitelabel lors du refresh de la page /public
   {provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
   { provide: HTTP_INTERCEPTORS, useClass: GeneralHttpInterceptorService, multi: true },
   { provide: ErrorHandler, useClass:GlobalErrorHandlerService},

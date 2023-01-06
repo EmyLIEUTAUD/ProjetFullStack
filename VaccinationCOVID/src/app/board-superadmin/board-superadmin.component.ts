@@ -16,8 +16,7 @@ export class BoardSuperadminComponent  implements OnInit  {
 
 
   allSuperadmins;
-  constructor(private modalService: MdbModalService,
-    private http: HttpClient) {}
+  constructor(private modalService: MdbModalService) {}
 
   openModalSuperAdmin() {
     this.modalRef = this.modalService.open(ModalSuperAdminComponent)

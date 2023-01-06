@@ -12,7 +12,7 @@ import { BoardMedecinComponent } from './board-medecin/board-medecin.component';
 import { BoardSuperadminComponent } from './board-superadmin/board-superadmin.component';
 import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
 import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
-
+import {ChangeCentreComponent} from './change-centre/change-centre.component';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -28,7 +28,8 @@ const routes: Routes = [
   {path: '', redirectTo: '/public', pathMatch: 'full'},
   {path: "public",title: 'Accueil', component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Inscription', component: RendezVousComponent},
-  {path: '', redirectTo: '/public', pathMatch: 'full'}
+  {path: '', redirectTo: '/public', pathMatch: 'full'},
+  {path: 'editCentre/:git', component: ChangeCentreComponent}
 
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
