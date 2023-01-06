@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ChoixCentre } from './choix-centre/choix-centre';
+import { HttpHeaders  } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,19 @@ export class VaccinationCenterService {
   constructor(private  httpClient: HttpClient) { }
 
   getAllVaccinationCenter(comnom: string) : Observable<ChoixCentre[]>{
-    console.log("Je récupère les centres pour la ville de "+comnom);
-    return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom);
+    const httpOptions = {
+      headers: new HttpHeaders(
+        { 
+         
+           'Content-Type': 'application/json'
+        })
+    }
+    return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom, httpOptions);
   }
   getVaccinationCenterById(gid: number) : Observable<ChoixCentre>{
     return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid);
+  }
+  editVaccinationCentreById(gid: number, editCentre: any): Observable<ChoixCentre>{
+    return this.httpClient.put<ChoixCentre>("admin/centres/modifier/"+gid, JSON.stringify(editCentre));
   }
 }

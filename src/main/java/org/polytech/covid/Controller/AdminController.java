@@ -4,12 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import org.polytech.covid.Entity.Admin;
-import org.polytech.covid.Entity.Centre;
-import org.polytech.covid.Entity.Medecin;
-import org.polytech.covid.Entity.Personne;
-import org.polytech.covid.Entity.Public;
-import org.polytech.covid.Entity.Reservation;
+import org.polytech.covid.Entity.*;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.AdminRepository;
@@ -127,7 +122,10 @@ public class AdminController {
     public List<Admin> voirAdmins() {
         return superAdminServices.voirAdmins();
     }
-
+    @GetMapping("/administrateurs/superadministrateurs")
+    public List<Superadmin> voirSuperAdmins() {
+        return superAdminServices.voirSuperAdmins();
+    }
     @Autowired
     private PersonneService personneService;
 

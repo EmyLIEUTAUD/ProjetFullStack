@@ -45,7 +45,7 @@ export class EnvoiFormulaireService {
     console.log("test : ",inscription);
     /*this.httpClient.post<string>("public/inscription",inscription).subscribe(
       data => {
-         console.log("succès")
+         console.log("succés")
          console.log(data)
       }
    );*/

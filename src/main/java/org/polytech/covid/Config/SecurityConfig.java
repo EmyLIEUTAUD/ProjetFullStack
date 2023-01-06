@@ -43,7 +43,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.micrometer.core.aop.CountedAspect;
@@ -54,8 +53,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-@EnableWebMvc
-public class SecurityConfig implements WebMvcConfigurer {
+public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -112,8 +110,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public ShallowEtagHeaderFilter shallowEtagHeaderFilter() {
-        // return new CustomETagFilter();
-        return new ShallowEtagHeaderFilter();
+        return new CustomETagFilter();
     }
 
     @Bean
@@ -126,7 +123,10 @@ public class SecurityConfig implements WebMvcConfigurer {
             }
         };
     }
-
+    @Bean
+    public JwtRequestFilter authenticationTokenFilterBean() throws Exception {
+        return new JwtRequestFilter();
+    }
     @Bean
     public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
             ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier,
@@ -165,11 +165,6 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public CountedAspect countedAspect(MeterRegistry registry) {
         return new CountedAspect(registry);
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
     }
 
 }

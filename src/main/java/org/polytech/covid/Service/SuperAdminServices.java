@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.Entity.Admin;
+import org.polytech.covid.Entity.Superadmin;
 
 public interface SuperAdminServices {
 
     List<Admin> voirAdmins();
+    List<Superadmin> voirSuperAdmins();
 
     Admin creerAdmin(Admin admin);
 

@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders, HttpHeaderResponse, HttpResponse } from '@angu
   styleUrls: ['./rendez-vous.component.scss']
 })
 export class RendezVousComponent implements OnInit {
-  
+
   centre: ChoixCentre;
   prenom: string;
   nom: string;
@@ -60,7 +60,7 @@ export class RendezVousComponent implements OnInit {
       this.isNotSuccessful = true;
       this.wait = false;
     }
-    
+
   }
 
   convertDate(date) { // convertion date en format yyyy-mm-dd

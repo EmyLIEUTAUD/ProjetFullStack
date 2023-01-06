@@ -135,8 +135,5 @@
       }
     }
   },
-  "defaultProject": "VaccinationCOVID",
-  "cli": {
-    "analytics": false
-  }
+  "defaultProject": "VaccinationCOVID"
 }

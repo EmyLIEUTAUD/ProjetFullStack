@@ -120,9 +120,9 @@ public class PublicController {
     /*
      * final String remaining = "X-Rate-Limit-Remaining";
      * final String retryAfter = "X-Rate-Limit-Retry-After-Seconds";
-     * 
+     *
      * @CrossOrigin(exposedHeaders = { remaining, retryAfter })
-     * 
+     *
      * @GetMapping(value = "/inscription/infos")
      * public ResponseEntity<Data> infos() {
      * HttpHeaders headers = new HttpHeaders();

@@ -7,7 +7,7 @@
       <a href="#" class="navbar-brand">VaccinationCOVID</a>
       <ul class="navbar-nav mr-auto" routerLinkActive="active">
         <li class="nav-item">
-          <a href="/home" class="nav-link" routerLink="home">Home </a>
+          <a href="/home" class="nav-link" routerLink="home" *ngIf="!isLoggedIn">Home </a>
         </li>
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
@@ -18,9 +18,7 @@
         <li class="nav-item" *ngIf="showSuperAdminBoard">
           <a href="/superAdmin" class="nav-link" routerLink="superAdmin">SuperAdmin Board</a>
         </li>
-        <li class="nav-item">
-          <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
-        </li>
+        
       </ul>
   
       <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
