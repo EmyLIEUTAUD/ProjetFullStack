@@ -43,9 +43,12 @@ services:
 ### End Jenkins part
 
   back:
-    build: .
+    build: 
+      context: .
+      dockerfile: build/back/Dockerfile
+    user: root
     ports:
-      - 8081:8080
+      - 8080:8080
     container_name: covid-api-back
     depends_on:
       - db
@@ -68,3 +71,21 @@ services:
       - POSTGRES_PASSWORD=postgre
       - POSTGRES_USER=postgres
       - POSTGRES_DB=covid-db
+    volumes:
+      - ./src/main/resources/:/tmp
+
+  front:
+    build: 
+      context: .
+      dockerfile: build/front/Dockerfile
+    ports: 
+      - 4200:80
+    container_name: covid-api-front
+    depends_on:
+      - back
+    environment:
+      #- BACK_URL=http://back:8080/
+      - PROXY_HOST=back
+      - PROXY_PORT=8080
+    links:
+      - back:back
