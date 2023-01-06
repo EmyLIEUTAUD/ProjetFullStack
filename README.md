@@ -77,14 +77,14 @@ mdp : superAdminPassword
 - Admin 1 : <br>
 mail : admin1@gmail.com<br>
 mdp : admin1
-- Admin 2
+- Admin 2 : <br>
 mail : admin2@gmail.com<br>
 mdp : admin2
 ### Médecins
 - Médecin 1 : <br>
 mail : medecin1@gmail.com<br>
 mdp : medecin1
-- Médecin 2
+- Médecin 2 : <br>
 mail : medecin2@gmail.com<br>
 mdp : medecin2
 
