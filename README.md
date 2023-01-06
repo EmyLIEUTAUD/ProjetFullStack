@@ -69,6 +69,25 @@ Il peut :
 - rechercher une personne dans son centre par son nom (**GET /admin/personnes/{nom}**)
 - valider la vaccination d'une personne (**PUT /admin/personnes/validerVaccination/{id}**)
 
+## Comptes pré-créés
+### SuperAdmin
+mail : superAdmin@gmail.com
+mdp : superAdminPassword
+### Admins
+- Admin 1 : <br>
+mail : admin1@gmail.com<br>
+mdp : admin1
+- Admin 2
+mail : admin2@gmail.com<br>
+mdp : admin2
+### Médecins
+- Médecin 1 : <br>
+mail : medecin1@gmail.com<br>
+mdp : medecin1
+- Médecin 2
+mail : medecin2@gmail.com<br>
+mdp : medecin2
+
 ## Métriques
 Pour accéder aux métriques, il est nécessaire d'avoir appelé au moins une fois l'endpoint lié. 
 
