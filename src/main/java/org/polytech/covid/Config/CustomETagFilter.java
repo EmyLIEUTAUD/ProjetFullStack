@@ -37,10 +37,6 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
             return;
         }
 
-        System.out.println("Méthode : " + request.getMethod());
-        System.out.println("NotModified : " + notModified(request));
-        System.out.println("Taille du cache : " + cache.size());
-        System.out.println("URI de la requête : " + request.getRequestURI());
         super.doFilterInternal(request, response, filterChain);
 
         updateCache(request, response);
@@ -57,8 +53,6 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
     private boolean notModified(HttpServletRequest request) {
         String ifNoneMatchEtag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
         if (Strings.isNotBlank(ifNoneMatchEtag)) {
-            System.out.println("Contient le ETag : " + cache.contains(ifNoneMatchEtag));
-            System.out.println("Taille du cache : " + cache.size());
             return !cache.contains(ifNoneMatchEtag);
         }
         return false;
@@ -69,13 +63,6 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
         if (Strings.isNotBlank(ifMatchEtag)) {
             cache.remove(ifMatchEtag);
         }
-
-        /*
-         * String ifNoneMatchEtag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
-         * if (Strings.isNotBlank(ifNoneMatchEtag)) {
-         * cache.remove(ifNoneMatchEtag);
-         * }
-         */
 
         String etag = response.getHeader(HttpHeaders.ETAG);
         if (Strings.isNotBlank(etag)) {

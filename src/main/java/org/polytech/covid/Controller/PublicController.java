@@ -95,7 +95,8 @@ public class PublicController {
                 reservationRequest.setPersonne(personneSave);
                 reservationRepository.save(reservationRequest);
                 // return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
-                return ResponseEntity.ok().headers(headers).cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
+                        .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
                         .body(reservationRequest);
             } else {
                 Optional<Reservation> reservation = personneRequest.map((Personne personne) -> {
@@ -105,7 +106,8 @@ public class PublicController {
                 });
 
                 // return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
-                return ResponseEntity.ok().headers(headers).cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
+                return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
+                        .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
                         .body(reservation.get());
             }
         }
