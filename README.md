@@ -71,7 +71,7 @@ Il peut :
 
 ## Comptes pré-créés
 ### SuperAdmin
-mail : superAdmin@gmail.com
+mail : superAdmin@gmail.com<br>
 mdp : superAdminPassword
 ### Admins
 - Admin 1 : <br>
