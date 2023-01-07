@@ -37,6 +37,7 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalSuperConfigComponent } from './modal-super-config/modal-super-config.component';
 import { AddHeaderInterceptor } from './add-header.interceptor';
 import { ChangeCentreComponent } from './change-centre/change-centre.component';
+import { QueueComponent } from './queue/queue.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ChangeCentreComponent } from './change-centre/change-centre.component';
     BoardSuperadminComponent,
     ModalSuperAdminComponent,
     ModalSuperConfigComponent,
-    ChangeCentreComponent
+    ChangeCentreComponent,
+    QueueComponent
   ],
   imports: [
     BrowserModule,

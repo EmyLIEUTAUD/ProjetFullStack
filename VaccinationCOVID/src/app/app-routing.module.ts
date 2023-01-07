@@ -13,6 +13,7 @@ import { BoardSuperadminComponent } from './board-superadmin/board-superadmin.co
 import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
 import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 import {ChangeCentreComponent} from './change-centre/change-centre.component';
+import { QueueComponent } from './queue/queue.component';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -29,7 +30,8 @@ const routes: Routes = [
   {path: "public",title: 'Accueil', component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Inscription', component: RendezVousComponent},
   {path: '', redirectTo: '/public', pathMatch: 'full'},
-  {path: 'editCentre/:git', component: ChangeCentreComponent}
+  {path: 'editCentre/:git', component: ChangeCentreComponent},
+  {path: 'queue/:temps', component: QueueComponent}
 
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
