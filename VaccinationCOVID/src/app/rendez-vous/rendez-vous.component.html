@@ -26,7 +26,7 @@
     Date du rendez-vous
     <mat-form-field appearance="fill">
       <mat-label>Choisissez une date</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="dateRdv">
+      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="fermeture" [(ngModel)]="dateRdv">
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

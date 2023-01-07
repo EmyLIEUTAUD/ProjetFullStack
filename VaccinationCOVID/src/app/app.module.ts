@@ -15,6 +15,7 @@ import { ListeCentreComponent } from './liste-centre/liste-centre.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ValidationComponent } from './validation/validation.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
         ChoixVilleComponent,
         RendezVousComponent,
         ListeCentreComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        ValidationComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy}, //permet d'éviter whitelabel lors du refresh de la page /public
