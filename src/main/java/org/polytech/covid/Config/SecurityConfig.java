@@ -83,13 +83,13 @@ public class SecurityConfig implements WebMvcConfigurer {
 
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests()
+                .authorizeRequests(auth -> {auth
                 .antMatchers(HttpMethod.POST, "/login/**", "/public/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/public/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/public/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
+                .antMatchers(HttpMethod.GET, "/admin/centres/**").hasRole("SUPER_ADMIN")
                 .antMatchers(HttpMethod.POST, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
-                .antMatchers(HttpMethod.PUT, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
+                .antMatchers(HttpMethod.PUT, "/admin/centres/**").hasRole("SUPER_ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/admin/centres/**").hasAuthority("SUPER_ADMIN")
                 .antMatchers(HttpMethod.GET, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
                 .antMatchers(HttpMethod.POST, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
@@ -102,11 +102,10 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/personnes/**").hasAuthority("MEDECIN")
                 .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
-
+        });
         http.addFilterBefore(
                 jwtRequestFilter,
                 UsernamePasswordAuthenticationFilter.class);
-
         http.cors();
         return http.build();
     }

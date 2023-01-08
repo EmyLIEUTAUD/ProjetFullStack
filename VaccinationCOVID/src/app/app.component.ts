@@ -32,14 +32,12 @@ title = 'VaccinationCOVID';
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-      this.roles = user.scopes;
+      this.roles = user.authorities;
 
-      if (this.roles === 'SUPER_ADMIN'){
-        this.showSuperAdminBoard = true;
-      }
-      if (this.roles === 'ADMIN'){
-        this.showAdminBoard = true;
-      }
+      
+      this.showSuperAdminBoard = this.roles.includes('SUPER_ADMIN');
+      this.showAdminBoard = this.roles.includes('ADMIN');
+  
       this.showMedecinBoard = this.roles.includes('MEDECIN');
 
       this.username = user.sub;

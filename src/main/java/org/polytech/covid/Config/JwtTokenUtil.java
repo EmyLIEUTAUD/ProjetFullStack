@@ -65,9 +65,15 @@ public class JwtTokenUtil implements Serializable {
 
     //generate token for user
     public String generateToken(UserDetails userDetails) {
+        Collection<String> authorities = userDetails.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
         Map<String, Object> claims = new HashMap<>();
+        claims.put("authorities",authorities);
         return doGenerateToken(claims, userDetails.getUsername());
     }
+
 
     public String generateJwtToken(Authentication authentication) {
         final String authorities = authentication.getAuthorities().stream()
@@ -90,6 +96,7 @@ public class JwtTokenUtil implements Serializable {
     private String doGenerateToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+                .addClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes(Charset.forName("UTF-8"))).compact();
     }

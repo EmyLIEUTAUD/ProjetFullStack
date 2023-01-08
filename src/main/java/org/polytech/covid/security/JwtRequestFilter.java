@@ -8,7 +8,9 @@ import org.polytech.covid.Service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.SignatureException;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.aspectj.util.LangUtil.isEmpty;
@@ -30,15 +33,18 @@ public class JwtRequestFilter extends OncePerRequestFilter  {
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
 
-    @Value("${jwt.token.prefix}")
+    @Value("${jwt.token.prefix} ")
     public String TOKEN_PREFIX;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
+
+
 
         String username = null;
         String jwtToken = null;
@@ -67,7 +73,14 @@ public class JwtRequestFilter extends OncePerRequestFilter  {
             // if token is valid configure Spring Security to manually set
             // authentication
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(jwtToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
+             /** UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(jwtToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
+**/
+            String role ="";
+
+            role = userDetails.getAuthorities().toString();
+
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, Arrays.asList(new SimpleGrantedAuthority (role)));
 
                 //UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication
@@ -75,7 +88,7 @@ public class JwtRequestFilter extends OncePerRequestFilter  {
                 // After setting the Authentication in the context, we specify
                 // that the current user is authenticated. So it passes the
                 // Spring Security Configurations successfully.
-                logger.info("authenticated user " + username + ", setting security context");
+                logger.info("authenticated user " + authentication + ", setting security context");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
