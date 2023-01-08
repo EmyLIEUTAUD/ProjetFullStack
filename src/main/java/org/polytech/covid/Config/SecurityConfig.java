@@ -49,6 +49,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import io.micrometer.core.aop.CountedAspect;
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -176,4 +177,8 @@ public class SecurityConfig implements WebMvcConfigurer {
         registry.addMapping("/**");
     }
 
+    @Bean
+    public InternalResourceViewResolver defaultViewResolver() {
+        return new InternalResourceViewResolver();
+    }
 }
