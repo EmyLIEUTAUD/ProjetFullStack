@@ -30,7 +30,7 @@ export class EnvoiFormulaireService {
     console.log(inscription);
   } */
 
-  saveRdv(centre: ChoixCentre,prenom: string,nom: string,mail: string,date_reservation: string){
+  async saveRdv(centre: ChoixCentre,prenom: string,nom: string,mail: string,date_reservation: string): Promise<void>{
 
     const personne = {
       prenom: prenom,
@@ -49,10 +49,11 @@ export class EnvoiFormulaireService {
          console.log(data)
       }
    );*/
-  
+    let flag2
+    let flagPromise: Promise<void> = new Promise((flag => flag2 = flag))
     console.log("infos :");
     let temps: any;
-    return this.httpClient.post<Observable<string>>('/public/inscription/', inscription, {observe: 'response'})
+    this.httpClient.post<Observable<string>>('/public/inscription/', inscription, {observe: 'response'})
     .subscribe({
       next: (resp) => {
       console.log("succès");
@@ -61,20 +62,24 @@ export class EnvoiFormulaireService {
       console.log(keys);
       const nbToken =  resp.headers.get('X-Rate-Limit-Remaining')
       this.infos = `${nbToken} tokens restant`
-      this.flag = true;
-      this.end = true;
-    },
-    error:  (err) => {
-      console.log("C'est une erreur");
-      //this.isNotSuccessful = true;
-      console.error(err);
-      const keys = err.headers.keys();
-      console.log(keys);
-      temps =  err.headers.get('X-Rate-Limit-Retry-After-Seconds')
-      this.infos = `Ressayer après ${temps} secondes`;
-      this.flag = false;
-      this.end = true;
-    }
+      console.log(parseInt(nbToken))
+      this.flag = true
+      flag2(this.flag)
+      //this.flag = true;
+      //this.end = true;
+      },
+      error:  (err) => {
+        console.log("C'est une erreur");
+        //this.isNotSuccessful = true;
+        console.error(err);
+        const keys = err.headers.keys();
+        console.log(keys);
+        temps =  err.headers.get('X-Rate-Limit-Retry-After-Seconds')
+        this.infos = `Ressayer après ${temps} secondes`;
+        console.log("infos dans la requête : ", this.infos);
+        this.flag = false;
+      }
+    
   });
   /*if(this.flag == true){
     console.log("flag is true");
@@ -84,5 +89,6 @@ export class EnvoiFormulaireService {
   return false;*/
     /*return this.httpClient.post<String>("public/inscription",inscription1);
     console.log("test2",inscription);*/
+    return flagPromise
   }
 }

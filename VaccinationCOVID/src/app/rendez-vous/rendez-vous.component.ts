@@ -14,9 +14,9 @@ import { HttpClient, HttpHeaders, HttpHeaderResponse, HttpResponse } from '@angu
 export class RendezVousComponent implements OnInit {
 
   centre: ChoixCentre;
-  prenom: string;
-  nom: string;
-  email: string;
+  #prenom: string;
+  #nom: string;
+  #email: string;
   dateRdv: string;
   isSuccessful = false;
   day: number;
@@ -26,6 +26,13 @@ export class RendezVousComponent implements OnInit {
   infos = '';
   isNotSuccessful = false;
   wait = false;
+  ferme = false;
+  form: any = {
+    nom:null,
+    prenom:null,
+    username:null,
+    dateRdv:null
+  };
 
   constructor(private route: ActivatedRoute, private service: VaccinationCenterService,private service2: EnvoiFormulaireService, private readonly http: HttpClient, private readonly router: Router) { }
 
@@ -36,31 +43,45 @@ export class RendezVousComponent implements OnInit {
     }));
   }
 
-  EnvoyerForm(centre: ChoixCentre,prenom: string,nom: string,email: string,dateRdv: string): void{
-    dateRdv = this.convertDate(dateRdv);
-    this.jour = this.GetDayOfDate(dateRdv);
-    if(this.horaires != 'fermé'){
-      this.service2.saveRdv(centre, prenom, nom, email, dateRdv);
-      if(this.service2.flag == true && this.service2.end == true){
-        console.log("c'est true");
-        this.isSuccessful = true;
-        this.isNotSuccessful = false;
-        this.wait = false;
-      }
-      else if(this.service2.flag == false && this.service2.end == true){
-        console.log("c'est false");
-        this.isSuccessful = false;
-        this.isNotSuccessful = false;
-        this.infos = this.service2.infos;
-        this.wait = true;
-      }
+  onSubmit(): void {
+    console.log("je submit le form");
+    const {nom, prenom, username, dateRdv} = this.form;
+    console.log(this.form);
+    this.EnvoyerForm(this.centre, prenom, nom, username, dateRdv);
+
+  }
+
+  EnvoyerForm(centre: ChoixCentre,prenom: string,nom: string,email: string,date: Date){
+    console.log("J'envoie le form");
+    /*this.dateRdv = this.convertDate(date);
+    this.jour = this.GetDayOfDate(this.dateRdv);
+    console.log(this.jour);
+    if(this.horaires != 'fermé'){*/
+    this.centreIsOpen(date);
+    if(this.ferme == false){
+      this.service2.saveRdv(centre, prenom, nom, email, this.dateRdv).then(() => {
+        if(this.service2.flag == true){
+          console.log("c'est true");
+          this.isSuccessful = true;
+          this.isNotSuccessful = false;
+          this.wait = false;
+        }
+        else if(this.service2.flag == false){
+          console.log("c'est false");
+          this.isSuccessful = false;
+          this.isNotSuccessful = false;
+          this.infos = this.service2.infos;
+          this.wait = true;
+        }
+      })
     }
     else{
       this.isSuccessful = false;
       this.isNotSuccessful = true;
       this.wait = false;
+      console.log("le centre est fermé")
     }
-
+    return this.isSuccessful
   }
 
   convertDate(date) { // convertion date en format yyyy-mm-dd
@@ -104,6 +125,19 @@ export class RendezVousComponent implements OnInit {
     else{
       this.horaires = this.centre.horairesDimanche;
       return "dimanche";
+    }
+  }
+
+  centreIsOpen(date){
+    this.dateRdv = this.convertDate(date);
+    this.jour = this.GetDayOfDate(this.dateRdv);
+    if(this.horaires == "fermé"){
+      console.log("le centre est fermé dans centreIsOpen");
+      this.ferme = true;
+    }
+    else{
+      console.log("le centre est ouvert");
+      this.ferme = false;
     }
   }
 

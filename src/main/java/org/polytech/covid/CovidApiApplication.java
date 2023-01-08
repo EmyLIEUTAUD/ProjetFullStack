@@ -12,6 +12,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
@@ -107,7 +108,9 @@ public class CovidApiApplication implements CommandLineRunner {
 			centresVaccinationPath = "/tmp/centres-vaccination.csv";
 		} else {
 			file = new File(res.getFile());
-			centresVaccinationPath = file.getAbsolutePath();
+			Files.copy(file.toPath(), (new File("C:\\Users\\Public\\" + file.getName())).toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+			centresVaccinationPath = "C:\\Users\\Public\\centres-vaccination.csv";
 		}
 		// BufferedReader reader = new BufferedReader(new
 		// InputStreamReader(centresVaccinationPath));

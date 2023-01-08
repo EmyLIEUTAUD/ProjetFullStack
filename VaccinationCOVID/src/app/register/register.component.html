@@ -48,7 +48,7 @@
                       maxlength="20"
                       #prenom="ngModel"
                     />
-                    <div class="alert-danger" *ngIf="nom.errors && f.submitted">
+                    <div class="alert-danger" *ngIf="prenom.errors && f.submitted">
                       <div *ngIf="prenom.errors.required">Veuillez saisir votre prénom</div>
                       <div *ngIf="prenom.errors.minlength">
                         Au moin 3 characters sont necessaires !

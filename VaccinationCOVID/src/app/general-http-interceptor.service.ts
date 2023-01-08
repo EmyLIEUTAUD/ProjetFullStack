@@ -13,6 +13,8 @@ import { ModalComponent } from './modal/modal.component';
 export class GeneralHttpInterceptorService implements HttpInterceptor {
 
   modalRef: MdbModalRef<ModalComponent> | null = null;
+  infos = '';
+  temps = 0;
 
   constructor(public router: Router) { }
 
@@ -46,6 +48,14 @@ export class GeneralHttpInterceptorService implements HttpInterceptor {
                 break;
               case 412:  //precondition failed
                 console.log("proposer à l'utilisateur de recharger la ressource");
+                handled = true;
+                break;
+              case 429: // too many requests
+                this.temps =  error.headers.get('X-Rate-Limit-Retry-After-Seconds');
+                let url: string;
+                url = "/queue/" + this.temps;
+                this.router.navigateByUrl(url);
+                console.log("rediriger l'utilisateur vers la file d'attente");
                 handled = true;
                 break;
               }
