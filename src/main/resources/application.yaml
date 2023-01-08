@@ -43,5 +43,5 @@ logging:
     io:
       micrometer: DEBUG
 
-path:
-  centres: D:\Polytech\5A\Fullstack\Projet\covid-api\src\main\resources\centres-vaccination.csv
+#path:
+#  centres: D:\Polytech\5A\Fullstack\Projet\covid-api\src\main\resources\centres-vaccination.csv
