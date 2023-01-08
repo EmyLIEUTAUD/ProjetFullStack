@@ -32,6 +32,6 @@ export class VaccinationCenterService {
     return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid);
   }
   editVaccinationCentreById(gid: number, editCentre: any): Observable<ChoixCentre>{
-    return this.httpClient.put<ChoixCentre>("admin/centres/modifier/"+gid, JSON.stringify(editCentre));
+    return this.httpClient.put<ChoixCentre>("http://localhost:8080/admin/centres/modifier/"+gid, JSON.stringify(editCentre));
   }
 }

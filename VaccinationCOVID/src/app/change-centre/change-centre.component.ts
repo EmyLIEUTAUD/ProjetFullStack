@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild  } from '@angular/core';
 import { ChoixCentre } from '../choix-centre/choix-centre';
-import { HttpClient } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import {VaccinationCenterService} from '../vaccination-center.service'
+
+
+
 @Component({
   selector: 'app-change-centre',
   templateUrl: './change-centre.component.html',
@@ -11,15 +12,14 @@ import {VaccinationCenterService} from '../vaccination-center.service'
   
 })
 export class ChangeCentreComponent implements OnInit{
-centreData: any = {};
-@ViewChild('centreForm') form: NgForm;
-id = this.route.params['id'];
+
+
 centre: ChoixCentre;
 
-constructor(private http: HttpClient,
-  public centreService: VaccinationCenterService,
+constructor(
+  private centreService: VaccinationCenterService,
   private route: ActivatedRoute,
-  public router: Router){}
+  private router : Router,){}
 
 ngOnInit(): void {
   this.route.params.subscribe((params: Params) => this.centreService.getVaccinationCenterById(params['gid']).subscribe(resultCenters=> {
@@ -30,7 +30,11 @@ ngOnInit(): void {
 }
 onCentreEdit(){
 
-  
+  if(window.confirm('Are you sure, you want to update?')){
+    this.centreService.editVaccinationCentreById(this.centre.gid, this.centre).subscribe(data => {
+      this.router.navigate(['/editCentre/:gid'])
+    })
+  }
 
 }
 

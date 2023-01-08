@@ -44,7 +44,7 @@ public class LoginController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequet authenticationRequest) throws Exception {
 
         //authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        final Authentication authentication = authenticationManager.authenticate(
+        /**final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()
@@ -52,6 +52,14 @@ public class LoginController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateJwtToken(authentication);
+        return ResponseEntity.ok(new JwtResponse(token));**/
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getUsername());
+
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
         return ResponseEntity.ok(new JwtResponse(token));
 
       

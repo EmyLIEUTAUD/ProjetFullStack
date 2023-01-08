@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,12 +34,14 @@ public class JwtTokenUtil implements Serializable {
 
     //retrieve username from jwt token
     public String getUsernameFromToken(String token) {
+
         return getClaimFromToken(token, Claims::getSubject);
     }
 
 
     //retrieve expiration date from jwt token
     public Date getExpirationDateFromToken(String token) {
+
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
@@ -49,7 +52,9 @@ public class JwtTokenUtil implements Serializable {
 
     //for retrieveing any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        //return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secret.getBytes(Charset.forName("UTF-8"))).parseClaimsJws(token.replace("{", "").replace("}","")).getBody();
+
     }
 
     //check if the token has expired
@@ -59,6 +64,10 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //generate token for user
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        return doGenerateToken(claims, userDetails.getUsername());
+    }
 
     public String generateJwtToken(Authentication authentication) {
         final String authorities = authentication.getAuthorities().stream()
@@ -82,7 +91,7 @@ public class JwtTokenUtil implements Serializable {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+                .signWith(SignatureAlgorithm.HS512, secret.getBytes(Charset.forName("UTF-8"))).compact();
     }
 
     //validate token

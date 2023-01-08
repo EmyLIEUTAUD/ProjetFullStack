@@ -1,9 +1,10 @@
 <div class="container centres-container">
+    <div *ngIf="centre" class="centre">
     <div class="col-md-12">   
         <div class="form-group">
       
        Nom
-        <input class="form-control" placeholder="{{this.centre.nom}}" [(ngModel)]="centre.nom" />
+        <input class="form-control" [(ngModel)]="centre.nom" />
       </div>
    
       <div class="form-group">
@@ -28,4 +29,5 @@
     <div class="form-group">
     <button class="btn btn-success btn-lg btn-block" (click)="onCentreEdit()">Mettre à jour</button>
  </div>
+</div>
 </div>

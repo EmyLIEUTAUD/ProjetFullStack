@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: "public",title: 'Accueil', component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Inscription', component: RendezVousComponent},
   {path: '', redirectTo: '/public', pathMatch: 'full'},
-  {path: 'editCentre/:git', component: ChangeCentreComponent}
+  {path: 'editCentre/:gid', component: ChangeCentreComponent}
 
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
