@@ -16,7 +16,7 @@ export class GeneralHttpInterceptorService implements HttpInterceptor {
   infos = '';
   temps = 0;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private modalService: MdbModalService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
     console.log("J'intercepte les erreurs http");
@@ -47,6 +47,7 @@ export class GeneralHttpInterceptorService implements HttpInterceptor {
                 handled = true;
                 break;
               case 412:  //precondition failed
+                this.modalRef = this.modalService.open(ModalComponent);
                 console.log("proposer à l'utilisateur de recharger la ressource");
                 handled = true;
                 break;
