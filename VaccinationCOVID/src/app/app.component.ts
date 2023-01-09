@@ -19,6 +19,7 @@ export class AppComponent {
   showMedecinBoard = false;
   showAdminBoard = false;
   showSuperAdminBoard = false;
+  showProfessionnalBoard = false;
   username?: string;
 title = 'VaccinationCOVID';
 
@@ -37,7 +38,11 @@ title = 'VaccinationCOVID';
       
       this.showSuperAdminBoard = this.roles.includes('SUPER_ADMIN');
       this.showAdminBoard = this.roles.includes('ADMIN');
-  
+      if(this.roles.length == 0){
+        this.showProfessionnalBoard = true;
+      }
+      console.log("professionnel : "+this.showProfessionnalBoard);
+      console.log("role = ", this.roles);
       this.showMedecinBoard = this.roles.includes('MEDECIN');
 
       this.username = user.sub;

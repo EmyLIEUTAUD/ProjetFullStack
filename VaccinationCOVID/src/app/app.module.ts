@@ -37,6 +37,7 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalSuperConfigComponent } from './modal-super-config/modal-super-config.component';
 import { ChangeCentreComponent } from './change-centre/change-centre.component';
 import { QueueComponent } from './queue/queue.component';
+import { BoardProfessionnelComponent } from './board-professionnel/board-professionnel.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { QueueComponent } from './queue/queue.component';
     ModalSuperAdminComponent,
     ModalSuperConfigComponent,
     ChangeCentreComponent,
-    QueueComponent
+    QueueComponent,
+    BoardProfessionnelComponent
   ],
   imports: [
     BrowserModule,

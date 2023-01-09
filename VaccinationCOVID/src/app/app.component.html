@@ -18,7 +18,9 @@
         <li class="nav-item" *ngIf="showSuperAdminBoard">
           <a href="/superAdmin" class="nav-link" routerLink="superAdmin">SuperAdmin Board</a>
         </li>
-        
+        <li class="nav-item" *ngIf="showProfessionnalBoard">
+          <a href="/professionnel" class="nav-link" routerLink="professionnel">Professionnel Board</a>
+        </li>
       </ul>
   
       <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">

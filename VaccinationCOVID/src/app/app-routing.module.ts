@@ -14,6 +14,7 @@ import { ChoixVilleComponent } from './choix-ville/choix-ville.component';
 import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 import {ChangeCentreComponent} from './change-centre/change-centre.component';
 import { QueueComponent } from './queue/queue.component';
+import { BoardProfessionnelComponent } from './board-professionnel/board-professionnel.component';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'admin', component: BoardAdminComponent},
   {path: 'medecin', component: BoardMedecinComponent},
   {path: 'superAdmin', component: BoardSuperadminComponent},
+  {path: 'professionnel', component: BoardProfessionnelComponent},
   {path: '', redirectTo: 'home',pathMatch: 'full'  },
   {path: "villes", component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Page de rendez-vous', component: RendezVousComponent},
