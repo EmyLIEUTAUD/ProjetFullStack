@@ -38,7 +38,8 @@ import { ModalSuperConfigComponent } from './modal-super-config/modal-super-conf
 import { AddHeaderInterceptor } from './add-header.interceptor';
 import { ChangeCentreComponent } from './change-centre/change-centre.component';
 import { QueueComponent } from './queue/queue.component';
-
+import {JwtInterceptor} from './_helpers/jwt.interceptor';
+import { TokenStorageService } from './_services/token-storage.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +85,10 @@ import { QueueComponent } from './queue/queue.component';
   {provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
   { provide: HTTP_INTERCEPTORS, useClass: GeneralHttpInterceptorService, multi: true },
   { provide: ErrorHandler, useClass:GlobalErrorHandlerService},
+  TokenStorageService,
+  //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
   authInterceptorProviders],
   bootstrap: [AppComponent]
 

@@ -16,6 +16,9 @@ export class TokenStorageService {
   
  
   
+  getAuthToken():string {
+    return JSON.parse(sessionStorage.getItem(USER_KEY))
+    }
 
   signOut(): void {
     window.sessionStorage.clear();
@@ -27,7 +30,7 @@ export class TokenStorageService {
   }
 
   public getToken(): string | null {
-    return window.sessionStorage.getItem(TOKEN_KEY);
+    return sessionStorage.getItem(TOKEN_KEY);
   }
 
   public saveUser(user: any): void {
@@ -43,5 +46,7 @@ export class TokenStorageService {
     }
 
     return {};
+    
+
   }
 }

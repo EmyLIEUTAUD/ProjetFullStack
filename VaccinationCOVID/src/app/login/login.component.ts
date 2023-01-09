@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
           this.isLoggedIn = true;
           this.roles = this.tokenStorage.getUser().authorities;
           this.router.navigate([''])
-
+          
         }
       }
   
@@ -41,13 +41,14 @@ export class LoginComponent implements OnInit {
     
         this.authenticationService.login(username, password).subscribe({
           next : (data) => {
-            this.tokenStorage.saveToken(data.accessToken);
-            this.tokenStorage.saveUser(data);
-    
+            this.tokenStorage.saveToken(data);
+            this.tokenStorage.saveUser(data.token);
+            this.roles = this.tokenStorage.getUser().authorities;
+
             this.isLoginFailed = false;
             this.isLoggedIn = true;
-            this.roles = this.tokenStorage.getUser().authorities;
             this.reloadPage();
+            
           },
           error : (err) => {
             this.errorMessage = err.error.message;

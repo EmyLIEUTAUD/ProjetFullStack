@@ -12,14 +12,16 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class AuthInterceptor implements HttpInterceptor {
 
-
   constructor(private token: TokenStorageService) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> { 
+    let tokentest = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlckFkbWluQGdtYWlsLmNvbSIsImV4cCI6MTY3MzMxMDQzNCwiaWF0IjoxNjczMjkyNDM0LCJhdXRob3JpdGllcyI6WyJTVVBFUl9BRE1JTiJdfQ.hX0GyND5sOpM2dry1VGphfDlQrAgU-EWMo1rUq4UuaK_LisWGZDCMRWnI_ichFRpgK4h5H-XoN4k368YQjPusg'
+
     let authReq = req;
-    const token = this.token.getToken();
+    const token = this.token.getAuthToken();
     if (token != null) {
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + tokentest) });
+      console.log(token)
     }
     return next.handle(authReq);
   }
