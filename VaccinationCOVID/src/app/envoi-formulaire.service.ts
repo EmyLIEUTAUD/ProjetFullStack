@@ -14,6 +14,7 @@ export class EnvoiFormulaireService {
   infos = '';
   flag = false;
   end = false;
+  etag: Array<string>;
   
   constructor(private  httpClient: HttpClient, private router: Router) { }
 
@@ -53,7 +54,11 @@ export class EnvoiFormulaireService {
     let flagPromise: Promise<void> = new Promise((flag => flag2 = flag))
     console.log("infos :");
     let temps: any;
-    this.httpClient.post<Observable<string>>('/public/inscription/', inscription, {observe: 'response'})
+    let ifMatch;
+    if(this.etag != null){
+      ifMatch = new HttpHeaders({"If-Match": this.etag});
+    }
+    this.httpClient.post<Observable<string>>('/public/inscription/', inscription, {observe: 'response', headers: ifMatch})
     .subscribe({
       next: (resp) => {
       console.log("succès");
@@ -65,6 +70,8 @@ export class EnvoiFormulaireService {
       console.log(parseInt(nbToken))
       this.flag = true
       flag2(this.flag)
+      this.etag = [resp.headers.get('ETag')];
+      console.log("etag : "+this.etag);
       //this.flag = true;
       //this.end = true;
       },

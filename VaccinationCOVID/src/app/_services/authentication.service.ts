@@ -3,10 +3,7 @@ import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
-
-const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+const HEADERS = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   
 @Injectable({ providedIn: 'root' })
@@ -30,7 +27,7 @@ export class AuthenticationService {
         return this.http.post('http://localhost:8080/login/authenticate', {
           username,
           password
-        }, httpOptions);
+        }, {observe: "response", headers : HEADERS});
       }
 
     register(nom : string, prenom: string,username: string , password: string): Observable<any> {
@@ -39,7 +36,7 @@ export class AuthenticationService {
           prenom,
           username,
           password
-        },httpOptions);
+        }, {observe: "response", headers: HEADERS});
       }
 
     logout() {

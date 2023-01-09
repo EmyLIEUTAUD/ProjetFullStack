@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     password:null
   };
   isSuccessful = false;
-  isSignupFailed = false;
+  isSignUpFailed = false;
   errorMessage = '';
 
   constructor(private authService: AuthenticationService, private service: SignUpEnvoiFormService, private router: Router) { }
@@ -42,12 +42,22 @@ export class RegisterComponent implements OnInit {
     const {nom, prenom, username, pwd} = this.form;
 
     console.log("password = "+pwd);
-    this.service.saveCompte(username, pwd, nom, prenom);
-    this.isSignupFailed = this.service.isSignupFailed;
-    this.isSuccessful = this.service.isSuccessful;
-    this.errorMessage = this.service.errorMessage;
+    this.service.saveCompte(username, pwd, nom, prenom).then(() => {
+      if(this.service.flag == true){
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      }
+      else{
+        this.isSuccessful = false;
+        this.isSignUpFailed = true;
+        this.errorMessage = "Mail déjà utilisé";
+      }
+      //this.isSignUpFailed = this.service.isSignupFailed;
+      //this.isSuccessful = this.service.isSuccessful;
+      console.log("isSignUpFailed : "+this.isSignUpFailed)
+    });
 
-    this.isSuccessful = true;
+    //this.isSuccessful = true;
 
   }
 }

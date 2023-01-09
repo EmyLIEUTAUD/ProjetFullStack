@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import {VaccinationCenterService} from '../vaccination-center.service'
+import { HttpHeaders } from '@angular/common/http';
 
 
 
@@ -15,6 +16,7 @@ export class ChangeCentreComponent implements OnInit{
 
 
 centre: ChoixCentre;
+etag: Array<string> = [];
 
 constructor(
   private centreService: VaccinationCenterService,
@@ -31,7 +33,9 @@ ngOnInit(): void {
 onCentreEdit(){
 
   if(window.confirm('Are you sure, you want to update?')){
-    this.centreService.editVaccinationCentreById(this.centre.gid, this.centre).subscribe(data => {
+    this.centreService.editVaccinationCentreById(this.centre.gid, this.centre, this.etag).subscribe(data => {
+      this.etag = [data.headers.get("ETag")];
+      console.log(data.body);
       this.reloadPage();
     })
   }
