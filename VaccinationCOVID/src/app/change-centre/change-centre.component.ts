@@ -24,7 +24,7 @@ constructor(
 ngOnInit(): void {
   this.route.params.subscribe((params: Params) => this.centreService.getVaccinationCenterById(params['gid']).subscribe(resultCenters=> {
     this.centre = resultCenters;
-    console.log("test centre"+this.centre.gid);
+    console.log("test centre"+this.centre.gid+this.centre.numAdresse);
   }));
 
 }
@@ -32,10 +32,13 @@ onCentreEdit(){
 
   if(window.confirm('Are you sure, you want to update?')){
     this.centreService.editVaccinationCentreById(this.centre.gid, this.centre).subscribe(data => {
-      this.router.navigate(['/editCentre/:gid'])
+      this.reloadPage();
     })
   }
 
+}
+reloadPage(): void {
+  window.location.reload();
 }
 
 

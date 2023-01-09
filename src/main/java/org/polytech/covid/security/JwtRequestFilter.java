@@ -5,9 +5,12 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import org.polytech.covid.Config.JwtTokenUtil;
 import org.polytech.covid.Service.JwtUserDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +33,8 @@ import java.util.List;
 import static org.aspectj.util.LangUtil.isEmpty;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter  {
+    private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
+
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
 
@@ -52,6 +57,9 @@ public class JwtRequestFilter extends OncePerRequestFilter  {
         // only the Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.replace(TOKEN_PREFIX,"");
+
+            log.info("Verification du token {}", jwtToken);
+
             try{
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
@@ -73,15 +81,15 @@ public class JwtRequestFilter extends OncePerRequestFilter  {
             // if token is valid configure Spring Security to manually set
             // authentication
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-             /** UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(jwtToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
-**/
-            String role ="";
+              UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(jwtToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
+
+           /** String role ="";
 
             role = userDetails.getAuthorities().toString();
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     userDetails, null, Arrays.asList(new SimpleGrantedAuthority (role)));
-
+**/
                 //UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
