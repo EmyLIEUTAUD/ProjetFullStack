@@ -116,10 +116,7 @@ public class AdminController {
     public List<Admin> voirAdmins() {
         return superAdminServices.voirAdmins();
     }
-    @GetMapping("/administrateurs/superadministrateurs")
-    public List<Superadmin> voirSuperAdmins() {
-        return superAdminServices.voirSuperAdmins();
-    }
+
     @Autowired
     private PersonneService personneService;
 

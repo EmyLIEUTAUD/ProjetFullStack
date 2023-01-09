@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @RestController
 @RequestMapping("/login")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -40,22 +39,27 @@ public class LoginController {
     PersonneRepository personneRepository;
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequet authenticationRequest) throws Exception {
 
-        //authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        /**final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getUsername(),
-                        authenticationRequest.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = jwtTokenUtil.generateJwtToken(authentication);
-        return ResponseEntity.ok(new JwtResponse(token));**/
+        // authenticate(authenticationRequest.getUsername(),
+        // authenticationRequest.getPassword());
+        /**
+         * final Authentication authentication = authenticationManager.authenticate(
+         * new UsernamePasswordAuthenticationToken(
+         * authenticationRequest.getUsername(),
+         * authenticationRequest.getPassword()
+         * )
+         * );
+         * SecurityContextHolder.getContext().setAuthentication(authentication);
+         * final String token = jwtTokenUtil.generateJwtToken(authentication);
+         * return ResponseEntity.ok(new JwtResponse(token));
+         **/
 
         final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+                        authenticationRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final UserDetails userDetails = userDetailsService
@@ -65,7 +69,6 @@ public class LoginController {
 
         return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), userDetails.getAuthorities()));
 
-      
     }
 
     private void authenticate(String username, String password) throws Exception {
@@ -78,10 +81,9 @@ public class LoginController {
         }
     }
 
-
     @RequestMapping(value = "/nouveau", method = RequestMethod.POST)
-    public ResponseEntity<?> createPersonne(@RequestBody UserDTO user)  throws Exception{
-        if (personneRepository.existsByMail(user.getUsername())){
+    public ResponseEntity<?> createPersonne(@RequestBody UserDTO user) throws Exception {
+        if (personneRepository.existsByMail(user.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
         return ResponseEntity.ok(userDetailsService.save(user));

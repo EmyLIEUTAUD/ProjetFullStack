@@ -87,22 +87,19 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .antMatchers(HttpMethod.POST, "/login/**", "/public/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/public/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/public/**").permitAll()
-               /** .antMatchers(HttpMethod.GET, "/admin/centres").hasAuthority("SUPER_ADMIN")
-                .antMatchers(HttpMethod.POST, "/admin/centres").hasAuthority("SUPER_ADMIN")
-                .antMatchers(HttpMethod.PUT, "/admin/centres").hasAuthority("SUPER_ADMIN")**/
-                .antMatchers("/admin/centres/**").hasAuthority("[SUPER_ADMIN]")
-                .antMatchers("/admin/administrateurs/**").hasAuthority("[SUPER_ADMIN]")
-                /**.antMatchers(HttpMethod.POST, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
-                .antMatchers(HttpMethod.PUT, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/admin/administrateurs/**").hasAuthority("SUPER_ADMIN")**/
+                .antMatchers(HttpMethod.GET, "/admin/centres/**").hasAuthority("[SUPER_ADMIN]")
+                .antMatchers(HttpMethod.POST, "/admin/administrateurs/**").hasAuthority("[SUPER_ADMIN]")
+                .antMatchers(HttpMethod.PUT, "/admin/administrateurs/**").hasAuthority("[SUPER_ADMIN]")
+                .antMatchers(HttpMethod.DELETE, "/admin/administrateurs/**").hasAuthority("[SUPER_ADMIN]")
                 .antMatchers(HttpMethod.POST, "/admin/csv/upload/**").hasAuthority("[SUPER_ADMIN]")
-                .antMatchers( "/admin/medecins/**").hasAuthority("[ADMIN]")
-                /**.antMatchers(HttpMethod.POST, "/admin/medecins/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/admin/medecins/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("ADMIN")**/
+                .antMatchers(HttpMethod.POST, "/admin/medecins/**").hasAuthority("[ADMIN]")
+                .antMatchers(HttpMethod.PUT, "/admin/medecins/**").hasAuthority("[ADMIN]")
+                .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("[ADMIN]")
+                .antMatchers(HttpMethod.GET, "/reservations/**").hasAuthority("[ADMIN]")
+                .antMatchers(HttpMethod.DELETE, "/reservations/**").hasAuthority("[ADMIN]")
                 .antMatchers(HttpMethod.GET, "/personnes/**").hasAuthority("[MEDECIN]")
-                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
-                ;
+                .antMatchers(HttpMethod.PUT, "/personnes/**").hasAuthority("[MEDECIN]")
+                .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
 
         http.addFilterBefore(
                 jwtRequestFilter,
