@@ -3,7 +3,7 @@ import * as jwt_decode from 'jwt-decode';
 
 const TOKEN_KEY = 'token';
 const USER_KEY = 'auth-user';
-
+const AUTHTOKEN_KEY = 'authtoken';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +16,13 @@ export class TokenStorageService {
   
  
   
-  getAuthToken():string {
-    return JSON.parse(sessionStorage.getItem(USER_KEY))
+  public getAuthToken():string {
+    return JSON.parse(sessionStorage.getItem(AUTHTOKEN_KEY))
+    }
+
+  public saveAuthToken(token: any): void{
+      window.sessionStorage.removeItem(AUTHTOKEN_KEY);
+    window.sessionStorage.setItem(AUTHTOKEN_KEY, JSON.stringify(token));
     }
 
   signOut(): void {
