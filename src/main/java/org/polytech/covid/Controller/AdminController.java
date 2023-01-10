@@ -66,7 +66,7 @@ public class AdminController {
 
     @GetMapping("/centres")
     public ResponseEntity<List<Centre>> voirCentres() {
-        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+        return ResponseEntity.ok()
                 .body(centreServices.voirCentres());
     }
 

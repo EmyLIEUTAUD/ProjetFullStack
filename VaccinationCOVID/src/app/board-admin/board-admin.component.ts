@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { first } from 'rxjs/operators';
+import { ChangeMedecinComponent } from '../change-medecin/change-medecin.component';
+import { ListeMedecinsComponent } from '../liste-medecins/liste-medecins.component';
+import { MedecinsService } from '../medecins.service';
 import { ModalListMedecinsComponent } from '../modal-list-medecins/modal-list-medecins.component';
 import { ModalListReservationsComponent } from '../modal-list-reservations/modal-list-reservations.component';
 
@@ -13,6 +16,8 @@ import { UserService } from '../_services/user.service';
 export class BoardAdminComponent implements OnInit {
   modalRefReservations: MdbModalRef<ModalListReservationsComponent> | null = null;
   modalRefMedecins: MdbModalRef<ModalListMedecinsComponent> | null = null;
+
+  ifSuccessful = false;
 
   allMedecins;
   allReservations;
