@@ -5,6 +5,7 @@ import { VaccinationAdminServiceService } from '../vaccination-admin-service.ser
 import { Admin } from '../_models/admin';
 import { ModalListMedecinsComponent } from '../modal-list-medecins/modal-list-medecins.component';
 import { Router } from '@angular/router';
+import { AdminChoixServiceService } from '../admin-choix-service.service';
 
 @Component({
   selector: 'app-modal-super-config',
@@ -15,15 +16,14 @@ export class ModalSuperConfigComponent implements OnInit{
  selected?: Admin;
 
   constructor(public modalRef: MdbModalRef<ModalSuperConfigComponent>,
-    private http: HttpClient,
     private adminservice: VaccinationAdminServiceService,
-    public modalRefMedecins: MdbModalRef<ModalListMedecinsComponent> | null = null,
-    private modalService: MdbModalService,
     private router : Router,
+    private service: AdminChoixServiceService
     ) {}
 
   ngOnInit() {
     this.loadAdmins();
+
   }
 
   loadAdmins(){
@@ -39,11 +39,11 @@ export class ModalSuperConfigComponent implements OnInit{
       });
     }
   }
-  editAdmin(admin : Admin){
-    if(window.confirm('Are you sure, you want to update?')){
-      this.selected = admin;
-      this.router.navigate(['editAdmin',admin.id_admin]);
-      }
+  editAdmin(adminSelected : Admin){
+      this.selected = adminSelected;
+      //this.service.admin = adminSelected;
+      this.router.navigate(['editAdmin',1]);
+      
     }
 
 

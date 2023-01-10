@@ -16,7 +16,17 @@ export class VaccinationAdminServiceService {
     return this.httpClient.get<Admin>("http://localhost:8080/admin/administrateurs",{headers: headers});
   }
 
+  getVaccinationAdminById(id: number) : Observable<Admin>{
+    return this.httpClient.get<Admin>("http://localhost:8080/admin/administrateurs/modifier/"+id);
+  }
+
   deleteVaccinationAdmin(id: any){
     return this.httpClient.delete<Admin>("http://localhost:8080/admin/administrateurs/supprimer/"+id);
   }
+
+  editVaccinationAdmin(id: number,editAdmin: any, etag: Array<string>): Observable<HttpResponse<Admin>>{
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'If-Match': etag})
+    return this.httpClient.put<Admin>("http://localhost:8080/admin/administrateurs/modifier/"+id, JSON.stringify(editAdmin), {observe: "response", headers: headers});
+  }
+
 }
