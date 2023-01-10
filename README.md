@@ -117,3 +117,5 @@ Java (jdk) : 17.0.5<br>
 Maven : 3.6.3<br>
 Node : 18.12.1<br>
 npm : 8.19.2<br>
+<br>
+/!\ Ne fonctionne que sur Windows 10 et 11
