@@ -36,7 +36,7 @@ const routes: Routes = [
   {path: 'editCentre/:gid', component: ChangeCentreComponent},
   {path: 'queue/:temps', component: QueueComponent},
   {path: 'editMedecin/:idMedecin', component: ChangeMedecinComponent}
-
+  {path: 'editAdmin/:idAdmin', component: ChangeMedecinComponent}
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
 

@@ -26,7 +26,7 @@ export class VaccinationCenterService {
     return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid);
   }
   editVaccinationCentreById(gid: number, editCentre: any, etag: Array<string>): Observable<HttpResponse<ChoixCentre>>{
-    let headers = new HttpHeaders({'Content-Type': 'application/json', 'If-Match': etag});
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'If-Match': etag})
 
     return this.httpClient.put<ChoixCentre>("admin/centres/modifier/"+gid, JSON.stringify(editCentre), {observe: "response", headers: headers});
   }
