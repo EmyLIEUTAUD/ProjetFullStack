@@ -19,14 +19,15 @@ export class VaccinationCenterService {
   constructor(private  httpClient: HttpClient) { }
 
   getAllVaccinationCenter(comnom: string) : Observable<ChoixCentre[]>{
-    const headers = new HttpHeaders({'Content-Type': 'application/json'})
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
     return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom, {headers: headers});
   }
   getVaccinationCenterById(gid: number) : Observable<ChoixCentre>{
-    return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid);
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+    return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid, {headers: headers});
   }
   editVaccinationCentreById(gid: number, editCentre: any, etag: Array<string>): Observable<HttpResponse<ChoixCentre>>{
-    let headers = new HttpHeaders({'Content-Type': 'application/json', 'If-Match': etag})
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'If-Match': etag});
 
     return this.httpClient.put<ChoixCentre>("admin/centres/modifier/"+gid, JSON.stringify(editCentre), {observe: "response", headers: headers});
   }

@@ -56,7 +56,7 @@ export class EnvoiFormulaireService {
     let temps: any;
     let ifMatch;
     if(this.etag != null){
-      ifMatch = new HttpHeaders({"If-Match": this.etag});
+      ifMatch = new HttpHeaders({'Cache-Control': 'no-cache', "If-Match": this.etag});
     }
     this.httpClient.post<Observable<string>>('/public/inscription/', inscription, {observe: 'response', headers: ifMatch})
     .subscribe({

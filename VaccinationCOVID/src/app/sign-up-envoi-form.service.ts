@@ -22,7 +22,7 @@ export class SignUpEnvoiFormService {
       prenom: prenom
     };
 
-    let ifMatch = new HttpHeaders({"If-Match": this.etag})
+    let ifMatch = new HttpHeaders({'Cache-Control': 'no-cache', "If-Match": this.etag})
     let flag2;
     let flagPromise: Promise<void> = new Promise((flag => flag2 = flag));
     this.httpClient.post<string>("login/nouveau",compte, {observe: "response", headers: ifMatch}).subscribe({

@@ -12,8 +12,8 @@ export class VaccinationAdminServiceService {
   constructor(private  httpClient: HttpClient) { }
 
   getAllVaccinationAdmin() : Observable<Admin>{
-    const headers = new HttpHeaders({'Content-Type': 'application/json'})
-    return this.httpClient.get<Admin>("http://localhost:8080/admin/administrateurs",{headers: headers});
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+    return this.httpClient.get<Admin>("admin/administrateurs",{headers: headers});
   }
 
   getVaccinationAdminById(id: number) : Observable<Admin>{
@@ -21,7 +21,8 @@ export class VaccinationAdminServiceService {
   }
 
   deleteVaccinationAdmin(id: any){
-    return this.httpClient.delete<Admin>("http://localhost:8080/admin/administrateurs/supprimer/"+id);
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+    return this.httpClient.delete<Admin>("admin/administrateurs/supprimer/"+id);
   }
 
   editVaccinationAdmin(id: number,editAdmin: any, etag: Array<string>): Observable<HttpResponse<Admin>>{
