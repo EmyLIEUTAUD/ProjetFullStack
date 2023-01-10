@@ -6,7 +6,20 @@ Données sur les lieux de vaccination : https://www.data.gouv.fr/fr/datasets/lie
 
 ## Structure du back
 Projet JAVA basé sur Maven : les dépendances sont donc décrites dans le fichier *pom.xml*.<br>
-Plusieurs méthodes existent pour lancer le back : 
+Technologies implémentées :<br>
+- Basic Auth
+- Contrôleur REST
+- ETag
+- Hibernate
+- JWT
+- Liquibase
+- Métriques avec Micrometer
+- PostgreSQL
+- RateLimit via Token Bucket
+- Spring (Web, Security)
+- Swagger <br>
+
+Plusieurs méthodes existent pour lancer le back : <br>
 - avec VScode : <br>
 Il faut premièrement ouvrir le projet dans VScode.<br>
 Ensuite, il faut faire un **clique droit sur la classe *CovidApiApplication.java*** qui se trouve dans src/main/java/org/polytech/covid/.<br>
@@ -26,6 +39,13 @@ Le back est maintenant accessible sur le navigateur sur **localhost:8080**.
 
 ## Structure du front
 Projet Angular.<br>
+Technologies implémentées :<br>
+- Bootstrap
+- File d'attente
+- Formulaire BasicAuth
+- Interceptor
+- Material <br>
+
 Pour lancer le front, il faut tout d'abord **aller dans le dossier VaccinationCOVID**.<br>
 Ensuite, il suffit d'exécuter la commande suivante : ```ng serve```.<br>
 Le front est maintenant accessible sur le navigateur sur **localhost:4200**.
