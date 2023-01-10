@@ -62,7 +62,7 @@ export class EnvoiFormulaireService {
     .subscribe({
       next: (resp) => {
       console.log("succès");
-      console.log(resp);
+      console.log("resp : " + resp);
       const keys = resp.headers.keys();
       console.log(keys);
       const nbToken =  resp.headers.get('X-Rate-Limit-Remaining')
@@ -80,7 +80,7 @@ export class EnvoiFormulaireService {
         //this.isNotSuccessful = true;
         console.error(err);
         const keys = err.headers.keys();
-        console.log(keys);
+        console.log("keys : "+keys);
         temps =  err.headers.get('X-Rate-Limit-Retry-After-Seconds')
         this.infos = `Ressayer après ${temps} secondes`;
         console.log("infos dans la requête : ", this.infos);

@@ -40,6 +40,8 @@ import { QueueComponent } from './queue/queue.component';
 import { BoardProfessionnelComponent } from './board-professionnel/board-professionnel.component';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import { TokenStorageService } from './_services/token-storage.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,15 +84,16 @@ import { TokenStorageService } from './_services/token-storage.service';
     MatButtonModule,
     MatProgressBarModule
   ],
-  providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy},MdbModalService, //permet d'éviter whitelabel lors du refresh de la page /public
+  providers: [ {provide: LocationStrategy, useClass: HashLocationStrategy},//permet d'éviter whitelabel lors du refresh de la page /public
+    MdbModalService, 
   {provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
   { provide: HTTP_INTERCEPTORS, useClass: GeneralHttpInterceptorService, multi: true },
   { provide: ErrorHandler, useClass:GlobalErrorHandlerService},
   TokenStorageService,
-  //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 
-  authInterceptorProviders],
+  //authInterceptorProviders
+],
   bootstrap: [AppComponent]
 
 })

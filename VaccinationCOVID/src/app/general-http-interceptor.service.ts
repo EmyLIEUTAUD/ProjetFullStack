@@ -20,7 +20,7 @@ export class GeneralHttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
     console.log("J'intercepte les erreurs http");
-    const token: string = 'invald token';
+    const token: string = 'invalid token';
     //req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     req = req.clone();
     return next.handle(req).pipe(

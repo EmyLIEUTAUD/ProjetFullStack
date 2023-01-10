@@ -19,7 +19,8 @@ export class ListeCentreComponent implements OnInit {
   selected?: ChoixCentre
   isLoggedIn = false;
   isLoginFailed = false;
-  roles: string[] = [];
+  roles: string;
+  isSuperAdmin = false;
 
   constructor(private router : Router,
     private service: VaccinationCenterService, 
@@ -34,7 +35,12 @@ export class ListeCentreComponent implements OnInit {
       this.service.getAllVaccinationCenter(nomVille).subscribe(resultCenters=>{
         this.centers = resultCenters;
       });
-    })
+    });
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.authorities;
+      this.isSuperAdmin = this.roles.includes('SUPER_ADMIN');
+    }
   }
 
   isSpecialCenter(center: ChoixCentre){

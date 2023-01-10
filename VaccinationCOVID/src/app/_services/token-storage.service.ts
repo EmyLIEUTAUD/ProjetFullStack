@@ -17,7 +17,7 @@ export class TokenStorageService {
  
   
   public getAuthToken():string {
-    return JSON.parse(sessionStorage.getItem(AUTHTOKEN_KEY))
+    return JSON.parse(sessionStorage.getItem(AUTHTOKEN_KEY));
     }
 
   public saveAuthToken(token: any): void{
