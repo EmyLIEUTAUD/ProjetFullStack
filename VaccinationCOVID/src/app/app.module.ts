@@ -40,6 +40,11 @@ import { QueueComponent } from './queue/queue.component';
 import { BoardProfessionnelComponent } from './board-professionnel/board-professionnel.component';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import { TokenStorageService } from './_services/token-storage.service';
+import { ModalListMedecinsComponent } from './modal-list-medecins/modal-list-medecins.component';
+import { ModalListReservationsComponent } from './modal-list-reservations/modal-list-reservations.component';
+import { ListeMedecinsComponent } from './liste-medecins/liste-medecins.component';
+import { ChoixMedecinComponent } from './choix-medecin/choix-medecin.component';
+import { ChangeMedecinComponent } from './change-medecin/change-medecin.component';
 
 
 @NgModule({
@@ -65,7 +70,12 @@ import { TokenStorageService } from './_services/token-storage.service';
     ModalSuperConfigComponent,
     ChangeCentreComponent,
     QueueComponent,
-    BoardProfessionnelComponent
+    BoardProfessionnelComponent,
+    ModalListMedecinsComponent,
+    ModalListReservationsComponent,
+    ListeMedecinsComponent,
+    ChoixMedecinComponent,
+    ChangeMedecinComponent
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,7 @@ public class Personne {
     @Column(nullable = false)
     private String mail;
     @Column
-    @JsonIgnore
+    // @JsonIgnore
     private String mdp;
 
     @ElementCollection(fetch = FetchType.EAGER)
