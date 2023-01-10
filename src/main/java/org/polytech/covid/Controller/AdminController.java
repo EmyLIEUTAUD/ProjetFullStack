@@ -177,6 +177,20 @@ public class AdminController {
                 .body(adminServices.voirMedecins());
     }
 
+    @GetMapping("/medecins/id/{id_medecin}")
+    public ResponseEntity<Medecin> rechercheCentreByGid(@PathVariable(value = "id_medecin") Integer id_medecin) {
+        Optional<Medecin> medecinData = medecinRepository.findById(id_medecin);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Personne personne = personneRepository.findByMail(authentication.getName()).get();
+        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+        if (medecinData.isPresent() && medecinData.get().getCentre() == centre) {
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(medecinData.get());
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/medecins/nouveau")
     public ResponseEntity<Medecin> createMedecin(@RequestBody Medecin medecin) {
         try {

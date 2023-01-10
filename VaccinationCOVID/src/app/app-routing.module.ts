@@ -15,6 +15,7 @@ import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 import {ChangeCentreComponent} from './change-centre/change-centre.component';
 import { QueueComponent } from './queue/queue.component';
 import { BoardProfessionnelComponent } from './board-professionnel/board-professionnel.component';
+import { ChangeMedecinComponent } from './change-medecin/change-medecin.component';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -33,7 +34,8 @@ const routes: Routes = [
   {path: "rdv/:gid", title: 'Inscription', component: RendezVousComponent},
   {path: '', redirectTo: '/public', pathMatch: 'full'},
   {path: 'editCentre/:gid', component: ChangeCentreComponent},
-  {path: 'queue/:temps', component: QueueComponent}
+  {path: 'queue/:temps', component: QueueComponent},
+  {path: 'editMedecin/:idMedecin', component: ChangeMedecinComponent}
 
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 

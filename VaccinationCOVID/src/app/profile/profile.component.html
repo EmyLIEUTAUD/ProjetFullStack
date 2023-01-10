@@ -9,15 +9,22 @@
   <div class="container" *ngIf="currentUser; else loggedOut">
     <header class="jumbotron">
       <h3>
-        <strong>Email:</strong>{{ currentUser.sub }}
+        <strong>Email : </strong>{{ currentUser.sub }}
       </h3>
     </header>
    
     
-    <strong>Roles:</strong>
+    <strong>Roles : </strong>
     
       
         {{ currentUser.authorities}}
+
+    
+    <br>
+    <strong>Centre affilié : </strong>
+
+
+        <!--{{ }}-->
       
     
   </div>
