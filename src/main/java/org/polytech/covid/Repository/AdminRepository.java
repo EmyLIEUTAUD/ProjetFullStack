@@ -17,4 +17,6 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
     @Query("SELECT a FROM Admin a WHERE a.personne.identifiant = :identifiant")
     Optional<Admin> findByIdentifiant(@Param("identifiant") Integer identifiant);
 
+    @Query("SELECT a FROM Admin a WHERE a.centre.gid = :gid")
+    List<Admin> findByGid(@Param("gid") Integer gid);
 }

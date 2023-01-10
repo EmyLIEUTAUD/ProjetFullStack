@@ -9,6 +9,7 @@ import org.polytech.covid.Entity.Superadmin;
 public interface SuperAdminServices {
 
     List<Admin> voirAdmins();
+    List<Admin> voirAdminsByCentre(Integer gid);
     List<Superadmin> voirSuperAdmins();
 
     Admin creerAdmin(Admin admin);

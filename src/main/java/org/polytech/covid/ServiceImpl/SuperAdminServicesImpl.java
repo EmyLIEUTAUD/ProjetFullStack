@@ -29,6 +29,12 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
         return listAdmins;
     }
 
+
+    public List<Admin> voirAdminsByCentre(Integer gid) {
+        List<Admin> listAdmins = adminRepository.findByGid(gid);
+        return listAdmins;
+    }
+
     public List<Superadmin> voirSuperAdmins() {
         List<Superadmin> listSuperadmin = superadminRepository.findAll();
         return listSuperadmin;

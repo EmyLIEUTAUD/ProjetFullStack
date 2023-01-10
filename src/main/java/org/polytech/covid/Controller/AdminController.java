@@ -117,6 +117,11 @@ public class AdminController {
         return superAdminServices.voirAdmins();
     }
 
+    @GetMapping("/administrateurs/{gid}")
+    public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer id) {
+        return superAdminServices.voirAdmins();
+    }
+
     @Autowired
     private PersonneService personneService;
 
