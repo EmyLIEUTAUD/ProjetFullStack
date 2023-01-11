@@ -62,7 +62,7 @@ Il n'appartient pas à un centre précis. <br>
 Il peut :
 - gérer les centres (**/admin/centres**) : 
   - créer un centre (**POST /admin/centres/nouveau**)
-  - afficher les centres (**GET /admin/centres**)
+  - afficher les centres (**GET /admin/centres** et **GET /public/centres** et **GET /public/centres/id/{id}**)
   - modifier un centre (**PUT /admin/centres/modifier/{gid}**)
   - supprimer un centre (**DELETE /admin/centres/supprimer/{gid}**)
 - gérer les administrateurs (**/admin/administrateurs**) : 
@@ -76,7 +76,7 @@ Il est lié à un centre.<br>
 Il peut : 
 - gérer les médecins de son centre (**admin/medecins**) : 
   - créer un médecin (**POST /admin/medecins/nouveau**)
-  - afficher les médecins (**GET /admin/medecins**)
+  - afficher les médecins (**GET /admin/medecins** et **GET /admin/medecins/id/{id}**)
   - modifier un médecin (**PUT /admin/medecins/modifier/{id}**)
   - supprimer un médecin (**DELETE /admin/medecins/supprimer/{id}**)
 - gérer les réservations de son centre (**/admin/reservations**) : 
