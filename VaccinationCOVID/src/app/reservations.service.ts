@@ -21,12 +21,6 @@ export class ReservationsService {
     return this.httpClient.get<Reservation>("admin/reservations/id/"+id_reservation, {headers: headers});
   }
 
-  editReservationById(idReservation: number, editReservation: any, etag: Array<string>): Observable<HttpResponse<Reservation>>{
-    let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'If-Match': etag});
-    console.log("editReservation : ",editReservation);
-    return this.httpClient.put<Reservation>("admin/reservations/modifier/"+idReservation, JSON.stringify(editReservation), {observe: "response", headers: headers});
-  }
-
   deleteReservation(idReservation: number){
     return this.httpClient.delete<Reservation>("admin/reservations/supprimer/"+idReservation);
   }

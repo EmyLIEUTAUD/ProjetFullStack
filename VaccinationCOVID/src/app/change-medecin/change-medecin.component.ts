@@ -33,7 +33,7 @@ export class ChangeMedecinComponent implements OnInit {
       this.medecinService.editMedecinById(this.medecin.id_medecin, this.medecin, this.etag).subscribe(data => {
         this.etag = [data.headers.get("ETag")];
         console.log(data.body);
-        //this.reloadPage();
+        this.reloadPage();
       })
     }
   

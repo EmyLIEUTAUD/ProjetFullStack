@@ -140,7 +140,7 @@ public class CovidApiApplication implements CommandLineRunner {
 			System.out.println("Le role ADMIN de Admin1 a bien été importé");
 		}
 
-		String importAdminAdmin1 = "INSERT INTO Admin (identifiant, gid) VALUES (2, 2727);";
+		String importAdminAdmin1 = "INSERT INTO Admin (identifiant, gid) VALUES (2, 3157);";
 		int rawAdminAdmin1 = jdbcTemplate.update(importAdminAdmin1);
 		if (rawAdminAdmin1 > 0) {
 			System.out.println("Admin1 a bien été ajouté dans la table Admin");
@@ -180,7 +180,7 @@ public class CovidApiApplication implements CommandLineRunner {
 			System.out.println("Le role MEDECIN de Medecin1 a bien été importé");
 		}
 
-		String importMedecinMedecin1 = "INSERT INTO Medecin (identifiant, gid) VALUES (4, 2727);";
+		String importMedecinMedecin1 = "INSERT INTO Medecin (identifiant, gid) VALUES (4, 3157);";
 		int rawMedecinMedecin1 = jdbcTemplate.update(importMedecinMedecin1);
 		if (rawMedecinMedecin1 > 0) {
 			System.out.println("Medecin1 a bien été ajouté dans la table Medecin");
@@ -218,6 +218,12 @@ public class CovidApiApplication implements CommandLineRunner {
 		int rawPublicPublic1 = jdbcTemplate.update(importPublicPublic1);
 		if (rawPublicPublic1 > 0) {
 			System.out.println("Public1 a bien été ajouté dans la table Public");
+		}
+
+		String importReservation1 = "INSERT INTO Reservation (date_reservation, gid, identifiant) VALUES ('2023-02-01', 3157, 6);";
+		int rawReservation1 = jdbcTemplate.update(importReservation1);
+		if (rawReservation1 > 0) {
+			System.out.println("Reservation1 a bien été ajoutée dans la table Reservation");
 		}
 
 	}
