@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.polytech.covid.Entity.Admin;
-import org.polytech.covid.Entity.Personne;
-import org.polytech.covid.Entity.Superadmin;
+import org.polytech.covid.Entity.*;
 import org.polytech.covid.Repository.AdminRepository;
 import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Repository.SuperadminRepository;
@@ -58,5 +56,6 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
         _admin.setPersonne(admin.getPersonne());
         return _admin;
     }
+
 
 }

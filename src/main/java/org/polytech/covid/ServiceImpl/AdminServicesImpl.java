@@ -64,11 +64,8 @@ public class AdminServicesImpl implements AdminServices {
 
     public Medecin modifierMedecin(Optional<Medecin> medecinData, Medecin medecin) {
         Medecin _medecin = medecinData.get();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Personne personne = personneRepository.findByMail(authentication.getName()).get();
-        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
-        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
-        _medecin.setCentre(centre);
+
+        _medecin.setCentre(medecin.getCentre());
         _medecin.setPersonne(medecin.getPersonne());
         return _medecin;
     }
