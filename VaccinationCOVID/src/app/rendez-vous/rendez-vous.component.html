@@ -1,4 +1,137 @@
-<p>Prise de rendez-vous vaccination</p>
+<section class="vh-100" >
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <h3 class="mb-5">Prise de rendez-vous vaccination</h3>
+              <form
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate
+              >
+              <!-- ############################ -->
+              <div *ngIf="centre" class="centre">
+                <div>
+                    {{this.centre.nom}}
+                    <br>
+                    {{this.centre.numAdresse}} {{this.centre.adresse}}, {{this.centre.cp}} {{this.centre.comnom}} 
+                </div>
+              </div>
+              <!-- ############################ -->
+              <div class="form-outline mb-4">
+                <br><label class="form-label" for="typePasswordX-2">Nom</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  name="nom"
+                  [(ngModel)]="form.nom"
+                  required
+                  minlength="3"
+                  maxlength="20"
+                  #nom="ngModel"
+                />
+
+                  <div class="alert-danger" *ngIf="nom.errors && f.submitted">
+                    <div *ngIf="nom.errors.required">Veuillez saisir votre nom</div>
+                    <div *ngIf="nom.errors.minlength">
+                      Au moin 3 characters sont necessaire!
+                    </div>
+                    <div *ngIf="nom.errors.maxlength">
+                      Au maximum 20 caractères!
+                    </div>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="typePasswordX-2">Prénom</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg"
+                      name="prenom"
+                      [(ngModel)]="form.prenom"
+                      required
+                      minlength="3"
+                      maxlength="20"
+                      #prenom="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="prenom.errors && f.submitted">
+                      <div *ngIf="prenom.errors.required">Veuillez saisir votre prénom</div>
+                      <div *ngIf="prenom.errors.minlength">
+                        Au moin 3 characters sont necessaires !
+                      </div>
+                      <div *ngIf="prenom.errors.maxlength">
+                        Au maximum 20 caractères !
+                      </div>
+                    </div>
+                  </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="typePasswordX-2">Email</label>
+                  <input
+                    type="username"
+                    class="form-control form-control-lg"
+                    name="username"
+                    [(ngModel)]="form.username"
+                    required
+                    username
+                    #username="ngModel"
+                    placeholder="name@example.com"
+                  />
+                  <div class="alert-danger" *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors.required">Veuillez saisir votre adresse mail</div>
+                    <div *ngIf="username.errors.username">
+                      L'adresse mail est invalide
+                    </div>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="typePasswordX-2">Date du rendez-vous</label><br>
+                  <mat-form-field appearance="fill">
+                    <!--<mat-label>Choisissez une date</mat-label>-->
+                    <input  
+                      matInput [matDatepicker]="picker" 
+                      class="form-control form-control-lg"
+                      name="dateRdv"
+                      [(ngModel)]="form.dateRdv"
+                      required
+                      dateRdv
+                      #dateRdv="ngModel"
+                      placeholder="jj/mm/aaaa"/>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  <div class="alert-danger" *ngIf="dateRdv.errors && f.submitted">
+                    <div *ngIf="dateRdv.errors.required">Veuillez choisir une date</div>
+                  </div>
+                  <div class="alert alert-danger" *ngIf="ferme">
+                    Le centre est fermé le {{jour}}.<br>
+                    Veuillez choisir un autre jour.
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary btn-block">S'inscrire</button>
+                </div>
+                <!--<div class="alert alert-warning" *ngIf="wait">
+                  {{infos}}<br />{{ errorMessage }}
+                </div>-->
+                </form>
+  
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Votre rendez-vous a bien été pris en compte !<br>
+        Voici les horaires d'ouverture du centre le {{jour}} : <br>
+        {{horaires}}
+      </div>
+
+    </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</section>
+
+<!--
 <div *ngIf="centre" class="centre">
   <div>
       {{this.centre.nom}}
@@ -35,3 +168,16 @@
   </button>
   </div>
 </div>
+<div class="alert alert-success" *ngIf="isSuccessful">
+  Votre rendez-vous a bien été pris en compte !<br>
+  Voici les horaires d'ouverture du centre le {{jour}} : <br>
+  {{horaires}}
+</div>
+<div class="alert alert-danger" *ngIf="isNotSuccessful">
+Le centre est fermé le {{jour}}.<br>
+Veuillez choisir un autre jour.
+</div>
+<div class="alert alert-warning" *ngIf="wait">
+{{infos}}
+</div>
+-->

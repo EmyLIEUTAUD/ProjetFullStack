@@ -1,0 +1,33 @@
+<div class="container centres-container">
+    <div *ngIf="centre" class="centre">
+    <div class="col-md-12">   
+        <div class="form-group">
+      
+       Nom
+        <input class="form-control" [(ngModel)]="centre.nom" />
+      </div>
+   
+      <div class="form-group">
+        NumAdresse
+      <input class="form-control" [(ngModel)]="centre.numAdresse"/>
+    </div>
+
+    <div class="form-group">
+        Adresse
+      <input class="form-control" [(ngModel)]="centre.adresse"/>
+    </div>
+
+    <div class="form-group">
+        Code postal
+      <input class="form-control" [(ngModel)]="centre.cp"/>
+    </div>
+
+    <div class="form-group">
+        Ville
+      <input class="form-control" [(ngModel)]="centre.comnom"/>
+    </div>
+    <div class="form-group">
+    <button class="btn btn-success btn-lg btn-block" (click)="onCentreEdit()">Mettre à jour</button>
+ </div>
+</div>
+</div>

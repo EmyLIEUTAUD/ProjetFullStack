@@ -1,7 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ChoixCentre } from './choix-centre/choix-centre';
+import { HttpHeaders  } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,16 @@ export class VaccinationCenterService {
   constructor(private  httpClient: HttpClient) { }
 
   getAllVaccinationCenter(comnom: string) : Observable<ChoixCentre[]>{
-    return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom);
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+    return this.httpClient.get<ChoixCentre[]>("public/centres/"+comnom, {headers: headers});
   }
   getVaccinationCenterById(gid: number) : Observable<ChoixCentre>{
-    return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid);
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+    return this.httpClient.get<ChoixCentre>("public/centres/id/"+gid, {headers: headers});
+  }
+  editVaccinationCentreById(gid: number, editCentre: any, etag: Array<string>): Observable<HttpResponse<ChoixCentre>>{
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'If-Match': etag});
+
+    return this.httpClient.put<ChoixCentre>("admin/centres/modifier/"+gid, JSON.stringify(editCentre), {observe: "response", headers: headers});
   }
 }

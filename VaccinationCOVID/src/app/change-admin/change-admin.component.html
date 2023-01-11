@@ -1,0 +1,43 @@
+<div class="container admin-container">
+    <div *ngIf="admin" class="admin">
+    <div class="col-md-12">   
+        <div class="form-group">
+      
+       Nom
+        <input class="form-control" [(ngModel)]="admin.personne.nom" />
+      </div>
+   
+      <div class="form-group">
+        Prénom
+      <input class="form-control" [(ngModel)]="admin.personne.prenom"/>
+    </div>
+
+    <div class="form-group">
+        Email
+      <input class="form-control" [(ngModel)]="admin.personne.mail"/>
+    </div>
+
+    <div class="form-group">
+        Mot de passe
+      <input class="form-control" type="password" minlength="6" maxlength="20" [(ngModel)]="admin.personne.mdp"/><!--  -->
+    </div>
+
+    <div class="form-group">
+        Role
+      <!--<input class="form-control" [(ngModel)]="admin.personne.roles"/>-->
+      <select class="form-select" aria-label="Roles" disabled>
+        <option selected>{{admin.personne.roles}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+        Centre
+      <!--<input class="form-control" [(ngModel)]="admin.personne.roles"/>-->
+      <select class="form-select" aria-label="Centre" disabled>
+        <option selected>{{admin.centre.nom}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+    <button class="btn btn-success btn-lg btn-block" (click)="onadminEdit()">Mettre à jour</button>
+ </div>
+</div>
+</div>

@@ -1,15 +1,51 @@
-<h1>{{title}}</h1>
-<header>
-    
-</header>
+<!--<div>
+    <router-outlet></router-outlet>
+</div>-->
 
-<body>
-    <div>
-<!--<app-choix-ville></app-choix-ville>-->
-        <router-outlet></router-outlet>
+<div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark" >
+      <a href="#" class="navbar-brand">VaccinationCOVID</a>
+      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+        <li class="nav-item">
+          <a href="/home" class="nav-link" routerLink="home" *ngIf="!isLoggedIn">Home </a>
+        </li>
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+        </li>
+        <li class="nav-item" *ngIf="showMedecinBoard">
+          <a href="/medecin" class="nav-link" routerLink="medecin">Medecin Board</a>
+        </li>
+        <li class="nav-item" *ngIf="showSuperAdminBoard">
+          <a href="/superAdmin" class="nav-link" routerLink="superAdmin">SuperAdmin Board</a>
+        </li>
+        <li class="nav-item" *ngIf="showProfessionnalBoard">
+          <a href="/professionnel" class="nav-link" routerLink="professionnel">Professionnel Board</a>
+        </li>
+      </ul>
+  
+      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a href="/login" class="nav-link" routerLink="login">Login</a>
+        </li></ul>
+      
+  
+      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+        <li class="nav-item">
+          <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        </li>
+        <li class="nav-item">
+          <a href class="nav-link" (click)="logout()">LogOut</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <div class="container">
+      <router-outlet></router-outlet>
+
     </div>
-</body>
 
-<footer>
-    
-</footer>
+
+  </div>

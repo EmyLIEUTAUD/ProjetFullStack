@@ -27,6 +27,11 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        if (HttpMethod.GET.toString().contains(request.getMethod()) && notModified(request)) {
+            response.sendError(HttpStatus.NOT_MODIFIED.value());
+            return;
+        }
+
         if (modifyMethod.contains(request.getMethod()) && preconditionFailed(request)) {
             response.sendError(HttpStatus.PRECONDITION_FAILED.value());
             return;
@@ -39,9 +44,16 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
 
     private boolean preconditionFailed(HttpServletRequest request) {
         String ifMatchEtag = request.getHeader(HttpHeaders.IF_MATCH);
-        System.out.println("ifMatch Etag : " + ifMatchEtag);
         if (Strings.isNotBlank(ifMatchEtag)) {
             return !cache.contains(ifMatchEtag);
+        }
+        return false;
+    }
+
+    private boolean notModified(HttpServletRequest request) {
+        String ifNoneMatchEtag = request.getHeader(HttpHeaders.IF_NONE_MATCH);
+        if (Strings.isNotBlank(ifNoneMatchEtag)) {
+            return !cache.contains(ifNoneMatchEtag);
         }
         return false;
     }
@@ -55,6 +67,7 @@ public class CustomETagFilter extends ShallowEtagHeaderFilter {
         String etag = response.getHeader(HttpHeaders.ETAG);
         if (Strings.isNotBlank(etag)) {
             cache.add(etag);
+            System.out.println("Etag ajouté au cache");
         }
     }
 

@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface MedecinServices {
     List<Reservation> rechercherPersonne(String nom, Integer idCentre);
 
-    void validerVaccination();
 
     Public modifierPublic(Optional<Public> publicData, Public personnePublic);
 

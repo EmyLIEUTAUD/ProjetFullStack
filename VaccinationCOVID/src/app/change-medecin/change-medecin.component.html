@@ -1,0 +1,43 @@
+<div class="container medecin-container">
+    <div *ngIf="medecin" class="medecin">
+    <div class="col-md-12">   
+        <div class="form-group">
+      
+       Nom
+        <input class="form-control" [(ngModel)]="medecin.personne.nom" />
+      </div>
+   
+      <div class="form-group">
+        Prénom
+      <input class="form-control" [(ngModel)]="medecin.personne.prenom"/>
+    </div>
+
+    <div class="form-group">
+        Email
+      <input class="form-control" [(ngModel)]="medecin.personne.mail"/>
+    </div>
+
+    <div class="form-group">
+        Mot de passe
+      <input class="form-control" type="password" minlength="6" maxlength="20" [(ngModel)]="medecin.personne.mdp"/><!--  -->
+    </div>
+
+    <div class="form-group">
+        Role
+      <!--<input class="form-control" [(ngModel)]="medecin.personne.roles"/>-->
+      <select class="form-select" aria-label="Roles" disabled>
+        <option selected>{{medecin.personne.roles}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+        Centre
+      <!--<input class="form-control" [(ngModel)]="medecin.personne.roles"/>-->
+      <select class="form-select" aria-label="Centre" disabled>
+        <option selected>{{medecin.centre.nom}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+    <button class="btn btn-success btn-lg btn-block" (click)="onMedecinEdit()">Mettre à jour</button>
+ </div>
+</div>
+</div>

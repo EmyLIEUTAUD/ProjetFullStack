@@ -2,13 +2,9 @@ package org.polytech.covid.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
-import org.polytech.covid.Entity.Admin;
-import org.polytech.covid.Entity.Centre;
-import org.polytech.covid.Entity.Medecin;
-import org.polytech.covid.Entity.Personne;
-import org.polytech.covid.Entity.Public;
-import org.polytech.covid.Entity.Reservation;
+import org.polytech.covid.Entity.*;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
 import org.polytech.covid.Repository.AdminRepository;
@@ -24,23 +20,18 @@ import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/admin")
+
 public class AdminController {
 
     @Autowired
@@ -74,8 +65,9 @@ public class AdminController {
     CentreServices centreServices;
 
     @GetMapping("/centres")
-    public List<Centre> voirCentres() {
-        return centreServices.voirCentres();
+    public ResponseEntity<List<Centre>> voirCentres() {
+        return ResponseEntity.ok()
+                .body(centreServices.voirCentres());
     }
 
     @PostMapping("/centres/nouveau")
@@ -83,7 +75,8 @@ public class AdminController {
         try {
             Centre _centre;
             _centre = centreServices.creerCentre(centre);
-            return new ResponseEntity<>(_centre, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                    .body(_centre);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -96,7 +89,8 @@ public class AdminController {
         if (centreData.isPresent()) {
             Centre _centre;
             _centre = centreServices.modifierCentre(centreData, centre);
-            return new ResponseEntity<>(centreRepository.save(_centre), HttpStatus.OK);
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                    .body(centreRepository.save(_centre));
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -123,6 +117,11 @@ public class AdminController {
         return superAdminServices.voirAdmins();
     }
 
+    @GetMapping("/administrateurs/{gid}")
+    public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer gid) {
+        return superAdminServices.voirAdminsByCentre(gid);
+    }
+
     @Autowired
     private PersonneService personneService;
 
@@ -131,7 +130,8 @@ public class AdminController {
         try {
             Admin _admin;
             _admin = superAdminServices.creerAdmin(admin);
-            return new ResponseEntity<>(_admin, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                    .body(_admin);
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -145,7 +145,8 @@ public class AdminController {
         if (adminData.isPresent()) {
             Admin _admin;
             _admin = superAdminServices.modifierAdmin(adminData, admin);
-            return new ResponseEntity<>(adminRepository.save(_admin), HttpStatus.OK);
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                    .body(adminRepository.save(_admin));
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -171,8 +172,23 @@ public class AdminController {
     private PersonneRepository personneRepository;
 
     @GetMapping("/medecins")
-    public List<Medecin> voirMedecins() {
-        return adminServices.voirMedecins();
+    public ResponseEntity<List<Medecin>> voirMedecins() {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(adminServices.voirMedecins());
+    }
+
+    @GetMapping("/medecins/id/{id_medecin}")
+    public ResponseEntity<Medecin> rechercheCentreByGid(@PathVariable(value = "id_medecin") Integer id_medecin) {
+        Optional<Medecin> medecinData = medecinRepository.findById(id_medecin);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Personne personne = personneRepository.findByMail(authentication.getName()).get();
+        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+        if (medecinData.isPresent() && medecinData.get().getCentre() == centre) {
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(medecinData.get());
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/medecins/nouveau")
@@ -184,7 +200,8 @@ public class AdminController {
             Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
             Medecin _medecin;
             _medecin = adminServices.creerMedecin(medecin.getPersonne(), centre);
-            return new ResponseEntity<>(_medecin, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                    .body(_medecin);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -201,7 +218,8 @@ public class AdminController {
             if (medecinData.get().getCentre().getGid() == centre.getGid()) {
                 Medecin _medecin;
                 _medecin = adminServices.modifierMedecin(medecinData, medecin);
-                return new ResponseEntity<>(medecinRepository.save(_medecin), HttpStatus.OK);
+                return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                        .body(medecinRepository.save(_medecin));
             } else {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -230,8 +248,9 @@ public class AdminController {
     }
 
     @GetMapping("/reservations")
-    public List<Reservation> voirReservations() {
-        return adminServices.voirReservations();
+    public ResponseEntity<List<Reservation>> voirReservations() {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(adminServices.voirReservations());
     }
 
     @Autowired
@@ -260,12 +279,13 @@ public class AdminController {
     private MedecinServices medecinServices;
 
     @GetMapping(path = "/personnes/{nom}")
-    public List<Reservation> rechercherPersonne(@PathVariable(value = "nom") String nom) {
+    public ResponseEntity<List<Reservation>> rechercherPersonne(@PathVariable(value = "nom") String nom) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Personne personne = personneRepository.findByMail(authentication.getName()).get();
         Medecin medecin = medecinRepository.findById(personne.getIdentifiant()).get();
         Centre centre = centreRepository.findById(medecin.getCentre().getGid()).get();
-        return medecinServices.rechercherPersonne(nom, centre.getGid());
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(medecinServices.rechercherPersonne(nom, centre.getGid()));
     }
 
     @Autowired
@@ -287,7 +307,8 @@ public class AdminController {
         if (publicData.isPresent()) {
             Public _public;
             _public = medecinServices.modifierPublic(publicData, personnePublic);
-            return new ResponseEntity<>(publicRepository.save(_public), HttpStatus.OK);
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                    .body(publicRepository.save(_public));
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

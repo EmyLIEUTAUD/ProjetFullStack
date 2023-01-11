@@ -37,10 +37,7 @@ public class MedecinServiceImpl implements MedecinServices {
         return reservationList;
     }
 
-    @Override
-    public void validerVaccination() {
 
-    }
 
     @Override
     public Public modifierPublic(Optional<Public> publicData, Public personnePublic) {

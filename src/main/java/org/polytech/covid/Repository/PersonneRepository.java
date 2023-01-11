@@ -15,11 +15,13 @@ import javax.transaction.Transactional;
 
 @Repository
 public interface PersonneRepository extends JpaRepository<Personne, Integer> {
-    List<Personne> findByNom(String nom);
+    Personne findByNom(String nom);
 
     @Query("SELECT p FROM Personne p WHERE p.mail = :mail")
     Optional<Personne> findByMail(@Param("mail") String mail);
 
     // @Query("SELECT p FROM Personne p WHERE p.identifiant = :identifiant")
     Optional<Personne> findById(@Param("identifiant") Integer identifiant);
+
+    Boolean existsByMail(String email);
 }

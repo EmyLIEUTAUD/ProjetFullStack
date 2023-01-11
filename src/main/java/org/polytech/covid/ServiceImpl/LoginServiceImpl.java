@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class LoginServiceImpl implements UserDetailsService {
+public class LoginServiceImpl {
 
     private static Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
     private final PersonneRepository personneRepository;
@@ -58,20 +58,6 @@ public class LoginServiceImpl implements UserDetailsService {
         superadminRepository.save(sa);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(final String mail) throws UsernameNotFoundException {
-        log.info("recuperation de {}", mail);
 
-        Optional<Personne> optionalPersonne = personneRepository.findByMail(mail);
-        if (optionalPersonne.isPresent()) {
-            Personne personne = optionalPersonne.get();
-            return new User(personne.getMail(), personne.getMdp(),
-                    personne.getRoles().stream().map(SimpleGrantedAuthority::new).toList());
-        } else {
-            throw new UsernameNotFoundException("L'utilisateur" + mail + " n'existe pas");
-        }
-
-    }
 
 }

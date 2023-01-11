@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class ChoixdelavilleService {
 
-  _nomVilleSubject: Subject<string> = new Subject<string>; // utiliser comme file d'attente pour actualiser nomVille
+  _nomVilleSubject: Subject<string> = new Subject<string>(); // utiliser comme file d'attente pour actualiser nomVille
 
   nomVille: string;
 

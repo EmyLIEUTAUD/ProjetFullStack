@@ -31,3 +31,6 @@ data
 
 ### VS Code ###
 .vscode/
+
+### Angular ###
+VaccinationCOVID/.angular/*

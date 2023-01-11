@@ -16,6 +16,32 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 2MB
+  main:
+    allow-circular-references: true
+    #web-application-type: none
+  devtools:
+    restart:
+      enabled: false
+jwt:
+  secret: covidcentre
+  token:
+    prefix: Bearer
 
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: info,health,beans,metrics,endpoints,mappings
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
 
+#server:
+#  port: 12037
+logging:
+  level:
+    io:
+      micrometer: DEBUG
 
+#path:
+#  centres: D:\Polytech\5A\Fullstack\Projet\covid-api\src\main\resources\centres-vaccination.csv

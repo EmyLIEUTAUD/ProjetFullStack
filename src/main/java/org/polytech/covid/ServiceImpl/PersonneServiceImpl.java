@@ -1,6 +1,7 @@
 package org.polytech.covid.ServiceImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Repository.PublicRepository;
 import org.polytech.covid.Service.PersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,5 +67,9 @@ public class PersonneServiceImpl implements PersonneService {
         System.out.println("Professionnel modifié");
         return _personne;
     }
+    private Collection<? extends GrantedAuthority> authorities;
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 }
