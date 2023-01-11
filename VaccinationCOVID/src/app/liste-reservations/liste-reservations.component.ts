@@ -30,12 +30,6 @@ export class ListeReservationsComponent {
       })   
     }
 
-    modifierReservation(reservation: Reservation){
-      console.log("Je veux modifier la réservation ",reservation);
-      console.log("idReservation : ",reservation.id_reservation);
-      this.router.navigate(['editReservation',reservation.id_reservation]);
-    }
-
   deleteReservation(id_reservation: number){
     if (window.confirm('Are you sure, you want to delete?')) {
       this.reservationsService.deleteReservation(id_reservation).subscribe((data) => {
