@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 data
+tmp/
 
 ### STS ###
 .apt_generated
