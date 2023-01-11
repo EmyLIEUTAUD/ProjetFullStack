@@ -1,8 +1,11 @@
 import { Component, Input, OnInit  } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { HttpClient} from '@angular/common/http';
 import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
 import { Admin } from '../_models/admin';
+import { ModalListMedecinsComponent } from '../modal-list-medecins/modal-list-medecins.component';
+import { Router } from '@angular/router';
+import { AdminChoixServiceService } from '../admin-choix-service.service';
 
 @Component({
   selector: 'app-modal-super-config',
@@ -10,13 +13,17 @@ import { Admin } from '../_models/admin';
 })
 export class ModalSuperConfigComponent implements OnInit{
  admins: any=[];
+ selected?: Admin;
 
   constructor(public modalRef: MdbModalRef<ModalSuperConfigComponent>,
-    private http: HttpClient,
-    private adminservice: VaccinationAdminServiceService) {}
+    private adminservice: VaccinationAdminServiceService,
+    private router : Router,
+    private service: AdminChoixServiceService
+    ) {}
 
   ngOnInit() {
     this.loadAdmins();
+
   }
 
   loadAdmins(){
@@ -30,7 +37,14 @@ export class ModalSuperConfigComponent implements OnInit{
       this.adminservice.deleteVaccinationAdmin(id).subscribe((data) => {
         this.loadAdmins();
       });
+    }
   }
-}
+  editAdmin(adminSelected : Admin){
+      this.selected = adminSelected;
+      //this.service.admin = adminSelected;
+      this.router.navigate(['editAdmin',1]);
+      
+    }
+
 
 }

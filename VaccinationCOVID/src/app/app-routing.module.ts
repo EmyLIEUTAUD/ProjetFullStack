@@ -16,6 +16,7 @@ import {ChangeCentreComponent} from './change-centre/change-centre.component';
 import { QueueComponent } from './queue/queue.component';
 import { BoardProfessionnelComponent } from './board-professionnel/board-professionnel.component';
 import { ChangeMedecinComponent } from './change-medecin/change-medecin.component';
+import { ChangeAdminComponent } from './change-admin/change-admin.component';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -35,8 +36,8 @@ const routes: Routes = [
   {path: '', redirectTo: '/public', pathMatch: 'full'},
   {path: 'editCentre/:gid', component: ChangeCentreComponent},
   {path: 'queue/:temps', component: QueueComponent},
-  {path: 'editMedecin/:idMedecin', component: ChangeMedecinComponent}
-
+  {path: 'editMedecin/:idMedecin', component: ChangeMedecinComponent},
+  {path: 'editAdmin/:idAdmin', component: ChangeAdminComponent}
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
 
