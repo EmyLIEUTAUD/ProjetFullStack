@@ -78,7 +78,7 @@ import { ChangeAdminComponent } from './change-admin/change-admin.component';
     ListeMedecinsComponent,
     ChoixMedecinComponent,
     ChangeMedecinComponent,
-    ListeReservationsComponent
+    ListeReservationsComponent,
     ChangeAdminComponent
   ],
   imports: [
