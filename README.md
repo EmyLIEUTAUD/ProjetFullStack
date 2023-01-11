@@ -96,17 +96,23 @@ mdp : superAdminPassword
 ### Admins
 - Admin 1 : <br>
 mail : admin1@gmail.com<br>
-mdp : admin1
+mdp : admin1<br>
+Appartient au centre numéro 3157
 - Admin 2 : <br>
 mail : admin2@gmail.com<br>
-mdp : admin2
+mdp : admin2<br>
+Appartient au centre numéro 1072
 ### Médecins
 - Médecin 1 : <br>
 mail : medecin1@gmail.com<br>
-mdp : medecin1
+mdp : medecin1<br>
+Appartient au centre numéro 3157
 - Médecin 2 : <br>
 mail : medecin2@gmail.com<br>
-mdp : medecin2
+mdp : medecin2<br>
+Appartient au centre numéro 188<br>
+<br>
+Une réservation est également pré-crée dans le centre numéro 3157.
 
 ## Métriques
 Pour accéder aux métriques, il est nécessaire d'avoir appelé au moins une fois l'endpoint lié. 
