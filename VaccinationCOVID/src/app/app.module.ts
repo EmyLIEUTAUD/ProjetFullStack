@@ -45,6 +45,7 @@ import { ModalListReservationsComponent } from './modal-list-reservations/modal-
 import { ListeMedecinsComponent } from './liste-medecins/liste-medecins.component';
 import { ChoixMedecinComponent } from './choix-medecin/choix-medecin.component';
 import { ChangeMedecinComponent } from './change-medecin/change-medecin.component';
+import { ListeReservationsComponent } from './liste-reservations/liste-reservations.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { ChangeMedecinComponent } from './change-medecin/change-medecin.componen
     ModalListReservationsComponent,
     ListeMedecinsComponent,
     ChoixMedecinComponent,
-    ChangeMedecinComponent
+    ChangeMedecinComponent,
+    ListeReservationsComponent
   ],
   imports: [
     BrowserModule,
