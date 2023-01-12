@@ -23,7 +23,7 @@ public class Reservation {
     private Integer id_reservation;
     private LocalDate date_reservation;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Personne personne;
