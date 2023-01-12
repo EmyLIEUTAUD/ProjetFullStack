@@ -1,5 +1,6 @@
 package org.polytech.covid.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.Entity.Personne;
@@ -13,5 +14,7 @@ public interface PersonneService {
     Personne modifierPublic(Optional<Personne> personneData, Personne personne);
 
     Personne modifierProfessionnel(Optional<Personne> personneData, Personne personne);
+
+    List<Personne> getProfessionnels();
 
 }

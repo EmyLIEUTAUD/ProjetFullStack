@@ -45,6 +45,11 @@ export class ListeMedecinsComponent implements OnInit {
       this.router.navigate(['editMedecin',medecin.id_medecin]);
     }
 
+    ajouterMedecin(){
+      console.log("Je veux ajouter le médecin");
+      this.router.navigate(['addMedecin']);
+    }
+
   deleteMedecin(id_medecin: number){
     if (window.confirm('Are you sure, you want to delete?')) {
       this.medecinsService.deleteMedecin(id_medecin).subscribe((data) => {

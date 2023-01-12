@@ -67,6 +67,12 @@ public class PersonneServiceImpl implements PersonneService {
         System.out.println("Professionnel modifié");
         return _personne;
     }
+
+    public List<Personne> getProfessionnels() {
+        List<Personne> professionnelsList = personneRepository.findProfessionnels();
+        return professionnelsList;
+    }
+
     private Collection<? extends GrantedAuthority> authorities;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

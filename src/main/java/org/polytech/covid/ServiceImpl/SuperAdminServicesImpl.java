@@ -22,14 +22,14 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
     private PersonneRepository personneRepository;
     @Autowired
     private SuperadminRepository superadminRepository;
+
     public List<Admin> voirAdmins() {
         List<Admin> listAdmins = adminRepository.findAll();
         return listAdmins;
     }
 
-
-    public List<Admin> voirAdminsByCentre(Integer gid) {
-        List<Admin> listAdmins = adminRepository.findByGid(gid);
+    public Optional<Admin> voirAdminsById(Integer id) {
+        Optional<Admin> listAdmins = adminRepository.findById(id);
         return listAdmins;
     }
 
@@ -56,6 +56,5 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
         _admin.setPersonne(admin.getPersonne());
         return _admin;
     }
-
 
 }

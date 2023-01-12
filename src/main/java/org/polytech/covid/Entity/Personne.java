@@ -13,6 +13,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -32,6 +34,7 @@ public class Personne {
     // @JsonIgnore
     private String mdp;
 
+    // @Fetch(FetchMode.JOIN)
     @ElementCollection(fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     private List<String> roles;

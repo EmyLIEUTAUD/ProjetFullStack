@@ -117,9 +117,15 @@ public class AdminController {
         return superAdminServices.voirAdmins();
     }
 
-    @GetMapping("/administrateurs/{gid}")
-    public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer gid) {
-        return superAdminServices.voirAdminsByCentre(gid);
+    @GetMapping("/administrateurs/id/{id}")
+    public ResponseEntity<Admin> voirAdminsById(@PathVariable("id") Integer id) {
+        Optional<Admin> adminData = adminRepository.findById(id);
+        if (adminData.isPresent()) {
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(adminData.get());
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        // return superAdminServices.voirAdminsById(id);
     }
 
     @Autowired
@@ -182,7 +188,7 @@ public class AdminController {
     }
 
     @GetMapping("/medecins/id/{id_medecin}")
-    public ResponseEntity<Medecin> rechercheCentreByGid(@PathVariable(value = "id_medecin") Integer id_medecin) {
+    public ResponseEntity<Medecin> rechercheMedecinByGid(@PathVariable(value = "id_medecin") Integer id_medecin) {
         Optional<Medecin> medecinData = medecinRepository.findById(id_medecin);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Personne personne = personneRepository.findByMail(authentication.getName()).get();
@@ -319,6 +325,11 @@ public class AdminController {
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/professionnels")
+    public ResponseEntity<List<Personne>> getProfessionnels() {
+        return ResponseEntity.ok().body(personneService.getProfessionnels());
     }
 
 }
