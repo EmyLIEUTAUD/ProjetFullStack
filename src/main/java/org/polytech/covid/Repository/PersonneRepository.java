@@ -30,5 +30,5 @@ public interface PersonneRepository extends JpaRepository<Personne, Integer> {
     // @Query("SELECT p FROM Personne p WHERE p.mdp != '' and NOT EXISTS (SELECT
     // pr.roles FROM Personne p JOIN Personne_roles pr WHERE pr.identifiant =
     // p.identifiant)")
-    List<Personne> findProfessionnels();
+    //List<Personne> findProfessionnels();
 }

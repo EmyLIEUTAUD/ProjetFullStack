@@ -66,6 +66,11 @@ export class ListeCentreComponent implements OnInit {
     this.router.navigate(['editCentre',center.gid]);
   }
 
+  centreAdmins(center: ChoixCentre){
+    this.selected = center;
+    this.router.navigate(['admins/centre/',center.gid])
+  }
+
   onDeleted(center: ChoixCentre){
     delete this.selected;
     this.centers.splice(this.centers.indexOf(center),1);

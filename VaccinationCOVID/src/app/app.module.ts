@@ -48,6 +48,8 @@ import { ChangeMedecinComponent } from './change-medecin/change-medecin.componen
 import { ListeReservationsComponent } from './liste-reservations/liste-reservations.component';
 import { ChangeAdminComponent } from './change-admin/change-admin.component';
 import { AddMedecinComponent } from './add-medecin/add-medecin.component';
+import { CentreAdminComponent } from './centre-admin/centre-admin.component';
+import { ModalMedecinPlanningComponent } from './modal-medecin-planning/modal-medecin-planning.component';
 
 
 @NgModule({
@@ -81,7 +83,9 @@ import { AddMedecinComponent } from './add-medecin/add-medecin.component';
     ChangeMedecinComponent,
     ListeReservationsComponent,
     ChangeAdminComponent,
-    AddMedecinComponent
+    AddMedecinComponent,
+    CentreAdminComponent,
+    ModalMedecinPlanningComponent
   ],
   imports: [
     BrowserModule,

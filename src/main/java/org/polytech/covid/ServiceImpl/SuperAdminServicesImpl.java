@@ -28,8 +28,8 @@ public class SuperAdminServicesImpl implements SuperAdminServices {
         return listAdmins;
     }
 
-    public Optional<Admin> voirAdminsById(Integer id) {
-        Optional<Admin> listAdmins = adminRepository.findById(id);
+    public List<Admin> voirAdminsByCentre(Integer gid) {
+        List<Admin> listAdmins = adminRepository.findByGid(gid);
         return listAdmins;
     }
 

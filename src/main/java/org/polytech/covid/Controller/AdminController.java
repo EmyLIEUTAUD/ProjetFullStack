@@ -127,6 +127,10 @@ public class AdminController {
         }
         // return superAdminServices.voirAdminsById(id);
     }
+    @GetMapping("/administrateurs/centre/{gid}")
+    public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer gid) {
+       return adminRepository.findByGid(gid);
+    }
 
     @Autowired
     private PersonneService personneService;
@@ -187,8 +191,10 @@ public class AdminController {
                 .body(adminServices.voirMedecins());
     }
 
+
+
     @GetMapping("/medecins/id/{id_medecin}")
-    public ResponseEntity<Medecin> rechercheMedecinByGid(@PathVariable(value = "id_medecin") Integer id_medecin) {
+    public ResponseEntity<Medecin> rechercheMedecinById(@PathVariable(value = "id_medecin") Integer id_medecin) {
         Optional<Medecin> medecinData = medecinRepository.findById(id_medecin);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Personne personne = personneRepository.findByMail(authentication.getName()).get();

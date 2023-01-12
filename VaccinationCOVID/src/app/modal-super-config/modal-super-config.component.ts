@@ -42,9 +42,15 @@ export class ModalSuperConfigComponent implements OnInit{
   editAdmin(adminSelected : Admin){
       this.selected = adminSelected;
       //this.service.admin = adminSelected;
-      this.router.navigate(['editAdmin',1]);
+      this.router.navigate(['editAdmin',adminSelected.id_admin]);
       
     }
+
+    ajouterAdmin(){
+      this.router.navigate(['addAdmin']);
+    }
+
+
 
 
 }

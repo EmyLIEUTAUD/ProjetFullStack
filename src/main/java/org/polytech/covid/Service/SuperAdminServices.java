@@ -10,7 +10,7 @@ public interface SuperAdminServices {
 
     List<Admin> voirAdmins();
 
-    Optional<Admin> voirAdminsById(Integer id);
+    List<Admin> voirAdminsByCentre(Integer id);
 
     List<Superadmin> voirSuperAdmins();
 

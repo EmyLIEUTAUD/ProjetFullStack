@@ -69,8 +69,8 @@ public class PersonneServiceImpl implements PersonneService {
     }
 
     public List<Personne> getProfessionnels() {
-        List<Personne> professionnelsList = personneRepository.findProfessionnels();
-        return professionnelsList;
+        //List<Personne> professionnelsList = personneRepository.findProfessionnels();
+        return null;
     }
 
     private Collection<? extends GrantedAuthority> authorities;
