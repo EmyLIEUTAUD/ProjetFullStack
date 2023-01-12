@@ -26,7 +26,7 @@ export class VaccinationAdminServiceService {
   }
 
   editVaccinationAdmin(id: number,editAdmin: any, etag: Array<string>): Observable<HttpResponse<Admin>>{
-    let headers = new HttpHeaders({'Content-Type': 'application/json', 'If-Match': etag})
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache','If-Match': etag})
     return this.httpClient.put<Admin>("http://localhost:8080/admin/administrateurs/modifier/"+id, JSON.stringify(editAdmin), {observe: "response", headers: headers});
   }
 

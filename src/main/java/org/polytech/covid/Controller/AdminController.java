@@ -214,22 +214,22 @@ public class AdminController {
     @PutMapping("/medecins/modifier/{id}")
     public ResponseEntity<Medecin> updateMedecin(@PathVariable("id") Integer id, @RequestBody Medecin medecin) {
         Optional<Medecin> medecinData = medecinRepository.findById(id);
-        /***Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Personne personne = personneRepository.findByMail(authentication.getName()).get();
         Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
-        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();**/
+        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
         if (medecinData.isPresent()) {
-            //if (medecinData.get().getCentre().getGid() == centre.getGid()) {
+            if (medecinData.get().getCentre().getGid() == centre.getGid()) {
                 Medecin _medecin;
                 _medecin = adminServices.modifierMedecin(medecinData, medecin);
                 personneRepository.save(_medecin.getPersonne());
                 centreRepository.save(_medecin.getCentre());
                 return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
                         .body(medecinRepository.save(_medecin));
-            } /**else {
+            } else {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        } **/else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
