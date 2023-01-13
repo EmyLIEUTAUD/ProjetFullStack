@@ -25,7 +25,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let reservation of reservations">
-              <td>{{reservation.date_reservation}}</td>
+              <td>{{ reservation.date_reservation[2] }}/{{ reservation.date_reservation[1] }}/{{ reservation.date_reservation[0] }}</td>
               <td>{{reservation.personne.nom}} {{reservation.personne.prenom}}</td>
               <td *ngIf="isValide">{{ public.dose }}</td>
               <td><button type="button" class="btn btn-secondary" (click)="valider(reservation.personne.identifiant)">
