@@ -2,6 +2,7 @@ package org.polytech.covid.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import liquibase.pro.packaged.ho;
@@ -22,6 +23,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_reservation;
     private LocalDate date_reservation;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // pour pouvoir post
     // @ManyToOne //pour pouvoir get et delete
