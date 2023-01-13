@@ -273,8 +273,21 @@ public class AdminController {
 
     @GetMapping("/reservations/centre")
     public ResponseEntity<List<Reservation>> voirReservationsByCentre() {
-        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
-                .body(adminServices.voirReservations());
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Personne personne = personneRepository.findByMail(authentication.getName()).get();
+            Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
+            Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
+            Reservation reservation = reservationRepository.findById(id).get();
+            if (reservation.getCentre().getGid() == centre.getGid()) {
+                reservationRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Autowired

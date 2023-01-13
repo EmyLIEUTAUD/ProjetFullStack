@@ -51,8 +51,8 @@ export class CentreAdminComponent implements OnInit{
       
     }
 
-    ajouterAdmin(){
-      this.router.navigate(['addAdmin']);
+    ajouterAdmin(centreSelected : ChoixCentre){
+      this.router.navigate(['addAdmin',centreSelected.gid]);
     }
 
     reloadPage(): void {

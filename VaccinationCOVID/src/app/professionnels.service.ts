@@ -31,4 +31,24 @@ export class ProfessionnelsService {
     return this.httpClient.post<User>("admin/medecins/nouveau", Ajout, {observe: "response", headers: headers});
   }
 
+  addAdminById(professionnel: any,gidCentre:any, etag: Array<string>): Observable<HttpResponse<User>>{
+    let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'If-Match': etag});
+    console.log("addAdmin : ",professionnel.identifiant);
+
+    const Personne = {
+      identifiant: professionnel.identifiant
+    }
+
+    const ChoixCentre = {
+      gid: gidCentre
+    }
+    const Ajout = {
+      personne: Personne,
+      centre : ChoixCentre
+    }
+
+    return this.httpClient.post<User>("admin/administrateurs/nouveau", Ajout, {observe: "response", headers: headers});
+  }
+
+
 }
