@@ -127,6 +127,7 @@ public class AdminController {
         }
         // return superAdminServices.voirAdminsById(id);
     }
+
     @GetMapping("/administrateurs/centre/{gid}")
     public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer gid) {
         return adminRepository.findByGid(gid);
@@ -190,8 +191,6 @@ public class AdminController {
         return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
                 .body(adminServices.voirMedecins());
     }
-
-
 
     @GetMapping("/medecins/id/{id_medecin}")
     public ResponseEntity<Medecin> rechercheMedecinById(@PathVariable(value = "id_medecin") Integer id_medecin) {
@@ -308,12 +307,12 @@ public class AdminController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Personne personne = personneRepository.findByMail(authentication.getName()).get();
         Optional<Medecin> _medecin = medecinRepository.findMedecinByID(personne.getIdentifiant());
-        if (_medecin.isPresent()){
+        if (_medecin.isPresent()) {
             Medecin medecin = _medecin.get();
             Centre centre = centreRepository.findById(medecin.getCentre().getGid()).get();
             return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
                     .body(medecinServices.rechercherPersonne(nom, centre.getGid()));
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

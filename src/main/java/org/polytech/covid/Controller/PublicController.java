@@ -2,9 +2,11 @@ package org.polytech.covid.Controller;
 
 import org.polytech.covid.Entity.Centre;
 import org.polytech.covid.Entity.Personne;
+import org.polytech.covid.Entity.Public;
 import org.polytech.covid.Entity.Reservation;
 import org.polytech.covid.Repository.CentreRepository;
 import org.polytech.covid.Repository.PersonneRepository;
+import org.polytech.covid.Repository.PublicRepository;
 import org.polytech.covid.Repository.ReservationRepository;
 import org.polytech.covid.Service.CentreServices;
 import org.polytech.covid.Service.PersonneService;
@@ -46,6 +48,8 @@ public class PublicController {
     private ReservationRepository reservationRepository;
     @Autowired
     private CentreRepository centreRepository;
+    @Autowired
+    private PublicRepository publicRepository;
 
     @GetMapping("/centres")
     public ResponseEntity<List<Centre>> voirCentres() {
@@ -95,8 +99,11 @@ public class PublicController {
                 personneSave.setNom(reservationRequest.getPersonne().getNom());
                 personneSave.setMail(reservationRequest.getPersonne().getMail());
                 personneSave.setPrenom(reservationRequest.getPersonne().getPrenom());
+                personneRepository.save(personneSave);
                 reservationRequest.setPersonne(personneSave);
                 reservationRepository.save(reservationRequest);
+                Public publicSave = new Public(personneSave, 0);
+                publicRepository.save(publicSave);
                 // return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
                 return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
                         .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
