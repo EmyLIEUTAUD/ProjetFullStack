@@ -13,7 +13,7 @@
         <tr *ngFor="let reservation of reservations">
           <td>{{ reservation.id_reservation }}</td>
           <td>{{ reservation.personne.nom }} {{ reservation.personne.prenom }}<br>
-              {{reservation.date}}</td>
+              {{ reservation.date_reservation[2] }}/{{ reservation.date_reservation[1] }}/{{ reservation.date_reservation[0] }}</td>
           <td>
             <button class="deleteReservationBtn" (click)="deleteReservation(reservation.id_reservation)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
