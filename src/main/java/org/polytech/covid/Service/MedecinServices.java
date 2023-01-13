@@ -10,6 +10,6 @@ public interface MedecinServices {
     List<Reservation> rechercherPersonne(String nom, Integer idCentre);
 
 
-    Public modifierPublic(Optional<Public> publicData, Public personnePublic);
+    Public modifierPublic(Optional<Public> publicData);
 
 }

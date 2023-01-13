@@ -272,6 +272,12 @@ public class AdminController {
                 .body(adminServices.voirReservations());
     }
 
+    @GetMapping("/reservations/centre")
+    public ResponseEntity<List<Reservation>> voirReservationsByCentre() {
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(adminServices.voirReservations());
+    }
+
     @Autowired
     private ReservationRepository reservationRepository;
 
@@ -298,22 +304,27 @@ public class AdminController {
     private MedecinServices medecinServices;
 
     @GetMapping(path = "/personnes/{nom}")
-    public ResponseEntity<List<Reservation>> rechercherPersonne(@PathVariable(value = "nom") String nom) {
+    public ResponseEntity<List<Reservation>> rechercherPersonne(@PathVariable("nom") String nom) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Personne personne = personneRepository.findByMail(authentication.getName()).get();
-        Medecin medecin = medecinRepository.findById(personne.getIdentifiant()).get();
-        Centre centre = centreRepository.findById(medecin.getCentre().getGid()).get();
-        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
-                .body(medecinServices.rechercherPersonne(nom, centre.getGid()));
+        Optional<Medecin> _medecin = medecinRepository.findMedecinByID(personne.getIdentifiant());
+        if (_medecin.isPresent()){
+            Medecin medecin = _medecin.get();
+            Centre centre = centreRepository.findById(medecin.getCentre().getGid()).get();
+            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                    .body(medecinServices.rechercherPersonne(nom, centre.getGid()));
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @Autowired
     private PublicRepository publicRepository;
 
     @PutMapping("/personnes/validerVaccination/{id}")
-    public ResponseEntity<Public> updateVaccination(@PathVariable("id") Integer id,
-            @RequestBody Public personnePublic) {
-        Optional<Public> publicData = publicRepository.findById(id);
+    public ResponseEntity<Public> updateVaccination(@PathVariable("id") Integer id) {
+        Optional<Public> publicData = publicRepository.findByIdentifiant(id);
         // TODO : voir si besoin de vérifier que la personne a bien eu son rendez-vous
         // Authentication authentication =
         // SecurityContextHolder.getContext().getAuthentication();
@@ -325,7 +336,7 @@ public class AdminController {
         // centreRepository.findById(medecin.getCentre().getGid()).get();
         if (publicData.isPresent()) {
             Public _public;
-            _public = medecinServices.modifierPublic(publicData, personnePublic);
+            _public = medecinServices.modifierPublic(publicData);
             return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
                     .body(publicRepository.save(_public));
         } else {

@@ -1,1 +1,43 @@
-<p>modal-medecin-planning works!</p>
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+        <div *ngFor="let reservation of reservations">
+            {{reservation.centre.nom}}
+            <br>
+            {{reservation.centre.numAdresse}} {{reservation.centre.adresse}}, {{reservation.centre.cp}} {{reservation.centre.comnom}} 
+        </div>
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <div class="modal-body">Liste des reservations
+    <div class="container">
+        <div class="row">
+          <div class="search-personne">
+            <input id="nomPersonne" [(ngModel)]="nomPersonne"  placeholder="Search" (change)="searchByNom(nomPersonne)"/>
+          </div>
+          <table class="table table-striped">
+            <thead>
+           
+            </thead>
+            <tbody>
+            <tr *ngFor="let reservation of reservations">
+              <td>{{reservation.date_reservation}}</td>
+              <td>{{reservation.personne.nom}} {{reservation.personne.prenom}}</td>
+              <td *ngIf="isValide">{{ public.dose }}</td>
+              <td><button type="button" class="btn btn-secondary" (click)="valider(reservation.personne.identifiant)">
+                Valider
+              </button>
+            </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+   
+  </div>

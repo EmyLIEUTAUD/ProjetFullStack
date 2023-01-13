@@ -40,10 +40,10 @@ public class MedecinServiceImpl implements MedecinServices {
 
 
     @Override
-    public Public modifierPublic(Optional<Public> publicData, Public personnePublic) {
+    public Public modifierPublic(Optional<Public> publicData) {
         Public _public = publicData.get();
-        _public.setDose(personnePublic.getDose() + 1);
-        _public.setPersonne(personnePublic.getPersonne());
+        _public.setDose(_public.getDose() + 1);
+        _public.setPersonne(_public.getPersonne());
         return _public;
     }
 

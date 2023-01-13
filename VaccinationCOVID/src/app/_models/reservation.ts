@@ -6,6 +6,7 @@ export interface Reservation {
     id_reservation: number,
     date_reservation: string,
     centre: ChoixCentre,
-    identifiant: User
+    identifiant: User,
+    
 
 }
