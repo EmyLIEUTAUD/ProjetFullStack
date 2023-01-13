@@ -97,6 +97,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .antMatchers(HttpMethod.DELETE, "/admin/medecins/**").hasAuthority("[ADMIN]")
                 .antMatchers(HttpMethod.GET, "/reservations/**").hasAuthority("[ADMIN]")
                 .antMatchers(HttpMethod.DELETE, "/reservations/**").hasAuthority("[ADMIN]")
+                .antMatchers(HttpMethod.GET, "/admin/professionnels/**").hasAnyAuthority("[ADMIN]", "[SUPER_ADMIN]")
                 .antMatchers(HttpMethod.GET, "/personnes/**").hasAuthority("[MEDECIN]")
                 .antMatchers(HttpMethod.PUT, "/personnes/**").hasAuthority("[MEDECIN]")
                 .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
