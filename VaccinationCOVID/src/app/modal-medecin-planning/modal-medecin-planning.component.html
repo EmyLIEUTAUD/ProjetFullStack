@@ -26,7 +26,7 @@
             <tbody>
             <tr *ngFor="let reservation of reservations">
               <td>{{ reservation.date_reservation[2] }}/{{ reservation.date_reservation[1] }}/{{ reservation.date_reservation[0] }}</td>
-              <td>{{reservation.personne.nom}} {{reservation.personne.prenom}}</td>
+              <td>{{ reservation.personne.nom }} {{ reservation.personne.prenom }}</td>
               <td *ngIf="isValide">{{ public.dose }}</td>
               <td><button type="button" class="btn btn-secondary" (click)="valider(reservation.personne.identifiant)">
                 Valider
@@ -39,5 +39,7 @@
       </div>
   </div>
   <div class="modal-footer">
-   
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+      Close
+    </button>
   </div>

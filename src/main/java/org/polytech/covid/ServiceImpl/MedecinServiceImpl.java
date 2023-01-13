@@ -33,11 +33,10 @@ public class MedecinServiceImpl implements MedecinServices {
         // List<Personne> personneList = personneRepository.findByNom(nom);
         // List<Reservation> reservationList =
         // reservationRepository.findByPersonneInAndCentre(personneList, gid);
-        List<Reservation> reservationList = reservationRepository.findByPersonneAndCentre(nom, gid);
+        String name = nom.substring(0, 1).toUpperCase() + nom.substring(1).toLowerCase();
+        List<Reservation> reservationList = reservationRepository.findByPersonneAndCentre(name, gid);
         return reservationList;
     }
-
-
 
     @Override
     public Public modifierPublic(Optional<Public> publicData) {

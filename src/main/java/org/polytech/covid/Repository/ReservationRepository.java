@@ -21,9 +21,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     // List<Reservation> findByPersonneInAndCentre(List<Personne> personne, Integer
     // gid);
 
-    //@Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid AND r.personne.identifiant = (SELECT p.identifiant FROM Personne p WHERE p.nom = :nom)")
-    @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid AND r.personne.nom = :nom")
-
+    // @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid AND
+    // r.personne.identifiant = (SELECT p.identifiant FROM Personne p WHERE p.nom =
+    // :nom)")
+    @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid AND r.personne.nom LIKE %:nom%")
     List<Reservation> findByPersonneAndCentre(@Param("nom") String nom, @Param("gid") Integer gid);
 
     @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid")
@@ -31,6 +32,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid AND r.date_reservation = :date")
     List<Reservation> findByDateAndCentre(@Param("date") String date, @Param("gid") Integer gid);
-
 
 }
