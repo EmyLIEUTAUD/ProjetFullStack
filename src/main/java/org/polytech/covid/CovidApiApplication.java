@@ -17,6 +17,7 @@ import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.sql.DriverManager;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl;
@@ -32,6 +33,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 public class CovidApiApplication implements CommandLineRunner {
+
 
 	@Autowired
 	public JdbcTemplate jdbcTemplate;

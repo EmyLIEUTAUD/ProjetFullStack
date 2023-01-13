@@ -338,4 +338,12 @@ public class AdminController {
         return ResponseEntity.ok().body(personneService.getProfessionnels());
     }
 
+    @GetMapping("/personne/")
+    public List<Personne> getListePersonne() {
+        List<Personne> personnes = personneRepository.getListPersonne();
+        List<Personne> roles = personneRepository.getListPersonneWithRole();
+        personnes.removeAll(roles);
+        return personnes;
+
+    }
 }

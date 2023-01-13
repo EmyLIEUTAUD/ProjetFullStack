@@ -31,4 +31,11 @@ public interface PersonneRepository extends JpaRepository<Personne, Integer> {
     // pr.roles FROM Personne p JOIN Personne_roles pr WHERE pr.identifiant =
     // p.identifiant)")
     //List<Personne> findProfessionnels();
+    @Query("SELECT pe FROM Personne pe JOIN FETCH pe.roles")
+    List<Personne> getListPersonneWithRole();
+
+    @Query("SELECT p FROM Personne p  where NOT p.mdp = ''")
+    List<Personne> getListPersonne();
+
+
 }
