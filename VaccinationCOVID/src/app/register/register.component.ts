@@ -41,13 +41,13 @@ export class RegisterComponent implements OnInit {
   });*/
     const {nom, prenom, username, pwd} = this.form;
 
-    console.log("password = "+pwd);
     this.service.saveCompte(username, pwd, nom, prenom).then(() => {
       if(this.service.flag == true){
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       }
-      else{
+      else if(this.service.flag == false){
+        console.log("J'ai flag == false");
         this.isSuccessful = false;
         this.isSignUpFailed = true;
         this.errorMessage = "Mail déjà utilisé";

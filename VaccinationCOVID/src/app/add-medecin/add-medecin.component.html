@@ -3,8 +3,8 @@
     <table class="table table-bordered">
       <thead>
         <tr *ngFor="let professionnel of professionnels">
-          <td>{{ professionnel.id_professionnel }}</td>
-          <td>{{ professionnel.personne.nom }} {{ professionnel.personne.prenom }}</td>
+          <td>{{ professionnel.identifiant }}</td>
+          <td>{{ professionnel.nom }} {{ professionnel.prenom }}</td>
           <td>
            <button class="editMedecinBtn" (click)="ajouterMedecin(professionnel)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">

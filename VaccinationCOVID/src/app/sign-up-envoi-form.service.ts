@@ -32,14 +32,15 @@ export class SignUpEnvoiFormService {
         this.isSuccessful = true;
         this.isSignupFailed = false;
         this.etag = [data.headers.get("ETag")];
-        this.flag = true
+        this.flag = true;
         flag2(this.flag)
       },
       error: (err) => {
         this.errorMessage = err.error.message;
         this.isSignupFailed = true;
         this.isSuccessful = false;
-        this.flag = false
+        this.flag = false;
+        flag2(this.flag)
       }
   });/*
       data => {
@@ -47,6 +48,7 @@ export class SignUpEnvoiFormService {
          console.log(data)
       }
    );*/
+   return flagPromise;
   }
 
 }

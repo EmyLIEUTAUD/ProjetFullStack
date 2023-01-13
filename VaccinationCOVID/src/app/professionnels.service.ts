@@ -18,8 +18,17 @@ export class ProfessionnelsService {
 
   addMedecinById(professionnel: any, etag: Array<string>): Observable<HttpResponse<User>>{
     let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'If-Match': etag});
-    console.log("addMedecin : ",professionnel);
-    return this.httpClient.put<User>("admin/medecins/nouveau", JSON.stringify(professionnel), {observe: "response", headers: headers});
+    console.log("addMedecin : ",professionnel.identifiant);
+
+    const Personne = {
+      identifiant: professionnel.identifiant
+    }
+
+    const Ajout = {
+      personne: Personne
+    }
+
+    return this.httpClient.post<User>("admin/medecins/nouveau", Ajout, {observe: "response", headers: headers});
   }
 
 }

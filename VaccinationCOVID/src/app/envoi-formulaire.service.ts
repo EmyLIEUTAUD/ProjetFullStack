@@ -85,6 +85,7 @@ export class EnvoiFormulaireService {
         this.infos = `Ressayer après ${temps} secondes`;
         console.log("infos dans la requête : ", this.infos);
         this.flag = false;
+        flag2(this.flag)
       }
     
   });
