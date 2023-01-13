@@ -23,8 +23,9 @@ public class Reservation {
     private Integer id_reservation;
     private LocalDate date_reservation;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // pour pouvoir post
-    // @ManyToOne //pour pouvoir get et delete
+    // @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // pour pouvoir
+    // post
+    @ManyToOne // pour pouvoir get et delete
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
     // @OnDelete(action = OnDeleteAction.CASCADE)
     private Personne personne;

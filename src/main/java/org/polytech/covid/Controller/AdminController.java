@@ -127,9 +127,10 @@ public class AdminController {
         }
         // return superAdminServices.voirAdminsById(id);
     }
+
     @GetMapping("/administrateurs/centre/{gid}")
     public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer gid) {
-       return adminRepository.findByGid(gid);
+        return adminRepository.findByGid(gid);
     }
 
     @Autowired
@@ -190,8 +191,6 @@ public class AdminController {
         return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
                 .body(adminServices.voirMedecins());
     }
-
-
 
     @GetMapping("/medecins/id/{id_medecin}")
     public ResponseEntity<Medecin> rechercheMedecinById(@PathVariable(value = "id_medecin") Integer id_medecin) {
@@ -268,7 +267,7 @@ public class AdminController {
 
     @GetMapping("/reservations")
     public ResponseEntity<List<Reservation>> voirReservations() {
-        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES))
                 .body(adminServices.voirReservations());
     }
 
@@ -334,16 +333,11 @@ public class AdminController {
     }
 
     @GetMapping("/professionnels")
-    public ResponseEntity<List<Personne>> getProfessionnels() {
-        return ResponseEntity.ok().body(personneService.getProfessionnels());
-    }
-
-    @GetMapping("/personne/")
-    public List<Personne> getListePersonne() {
+    public ResponseEntity<List<Personne>> getListePersonne() {
         List<Personne> personnes = personneRepository.getListPersonne();
         List<Personne> roles = personneRepository.getListPersonneWithRole();
         personnes.removeAll(roles);
-        return personnes;
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(personnes);
 
     }
 }
