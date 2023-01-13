@@ -129,7 +129,7 @@ public class AdminController {
     }
     @GetMapping("/administrateurs/centre/{gid}")
     public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer gid) {
-       return adminRepository.findByGid(gid);
+        return adminRepository.findByGid(gid);
     }
 
     @Autowired
@@ -334,16 +334,11 @@ public class AdminController {
     }
 
     @GetMapping("/professionnels")
-    public ResponseEntity<List<Personne>> getProfessionnels() {
-        return ResponseEntity.ok().body(personneService.getProfessionnels());
-    }
-
-    @GetMapping("/personne/")
-    public List<Personne> getListePersonne() {
+    public ResponseEntity<List<Personne>> getListePersonne() {
         List<Personne> personnes = personneRepository.getListPersonne();
         List<Personne> roles = personneRepository.getListPersonneWithRole();
         personnes.removeAll(roles);
-        return personnes;
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(personnes);
 
     }
 }
