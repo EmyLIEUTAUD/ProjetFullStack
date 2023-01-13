@@ -44,10 +44,17 @@ public class AdminServicesImpl implements AdminServices {
     public List<Reservation> voirReservations() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Personne personne = personneRepository.findByMail(authentication.getName()).get();
-        Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
-        Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
-        List<Reservation> listReservations = reservationRepository.findByGid(centre.getGid());
-        return listReservations;
+        Optional<Admin> admin = adminRepository.findByIdentifiant(personne.getIdentifiant());
+        Optional<Medecin> medecin = medecinRepository.findByIdentifiant(personne.getIdentifiant());
+        if (admin.isPresent()) {
+            Centre centre = centreRepository.findById(admin.get().getCentre().getGid()).get();
+            List<Reservation> listReservations = reservationRepository.findByGid(centre.getGid());
+            return listReservations;
+        } else {
+            Centre centre = centreRepository.findById(medecin.get().getCentre().getGid()).get();
+            List<Reservation> listReservations = reservationRepository.findByGid(centre.getGid());
+            return listReservations;
+        }
     }
 
     public Medecin creerMedecin(Personne personne, Centre centre) {
