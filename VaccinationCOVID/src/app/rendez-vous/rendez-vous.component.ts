@@ -47,7 +47,7 @@ export class RendezVousComponent implements OnInit, IDeactivate {
   //Check if there any unsaved data etc. If yes then as for confirmation 
   canExit() : boolean {
 
-    if (confirm("Voulez-vous vraiment quitter cette page ? Vos données seront perdues.")) {
+    if (confirm("Voulez-vous vraiment quitter cette page ? Vos données seront perdues si le message de confirmation n'est pas affiché.")) {
       return true
     } else {
       return false
