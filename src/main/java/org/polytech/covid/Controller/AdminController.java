@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import javax.persistence.Cache;
+
 import org.polytech.covid.Entity.*;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
@@ -125,7 +127,12 @@ public class AdminController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        // return superAdminServices.voirAdminsById(id);
+    }
+
+    @GetMapping("/administrateurs/idPersonne/{id}")
+    public ResponseEntity<Admin> voirAdminsByIdentifiant(@PathVariable("id") Integer id) {
+        Admin admin = adminRepository.findByIdentifiant(id).get();
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(admin);
     }
 
     @GetMapping("/administrateurs/centre/{gid}")
@@ -204,6 +211,12 @@ public class AdminController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/medecins/idPersonne/{id}")
+    public ResponseEntity<Medecin> voirMedecinByIdentifiant(@PathVariable("id") Integer id) {
+        Medecin medecin = medecinRepository.findByIdentifiant(id).get();
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(medecin);
     }
 
     @PostMapping("/medecins/nouveau")
@@ -350,5 +363,11 @@ public class AdminController {
         personnes.removeAll(roles);
         return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(personnes);
 
+    }
+
+    @GetMapping("/professionnels/email/{email}")
+    public ResponseEntity<Personne> getProfessionnelByEmail(@PathVariable("email") String email) {
+        Personne personne = personneRepository.getPersonneWithRole(email);
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS)).body(personne);
     }
 }

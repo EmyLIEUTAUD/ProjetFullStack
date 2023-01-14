@@ -21,6 +21,12 @@ export class MedecinsService {
     return this.httpClient.get<ChoixMedecin>("admin/medecins/id/"+id_medecin, {headers: headers});
   }
 
+  getMedecinByPersonneIdentifiant(id: number) : Observable<ChoixMedecin>{
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+
+    return this.httpClient.get<ChoixMedecin>("admin/medecins/idPersonne/"+id, {headers: headers});
+  }
+
   editMedecinById(idMedecin: number, editMedecin: any, etag: Array<string>): Observable<HttpResponse<ChoixMedecin>>{
     let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'If-Match': etag});
     console.log("editMedecin : ",editMedecin);

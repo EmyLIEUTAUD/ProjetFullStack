@@ -5,6 +5,7 @@ import { ChoixMedecin } from '../choix-medecin/choix-medecin';
 import { MedecinsService } from '../medecins.service';
 import { ModalListMedecinsComponent } from '../modal-list-medecins/modal-list-medecins.component';
 import { VaccinationCenterService } from '../vaccination-center.service';
+import { Reservation } from '../_models/reservation';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
