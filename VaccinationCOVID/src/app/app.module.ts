@@ -51,6 +51,7 @@ import { AddMedecinComponent } from './add-medecin/add-medecin.component';
 import { CentreAdminComponent } from './centre-admin/centre-admin.component';
 import { ModalMedecinPlanningComponent } from './modal-medecin-planning/modal-medecin-planning.component';
 import { ModalErrorLoginComponent } from './modal-error-login/modal-error-login.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { ModalErrorLoginComponent } from './modal-error-login/modal-error-login.
     AddMedecinComponent,
     CentreAdminComponent,
     ModalMedecinPlanningComponent,
-    ModalErrorLoginComponent
+    ModalErrorLoginComponent,
+    AddAdminComponent
   ],
   imports: [
     BrowserModule,

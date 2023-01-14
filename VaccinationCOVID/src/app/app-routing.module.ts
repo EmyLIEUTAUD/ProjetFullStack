@@ -19,6 +19,7 @@ import { ChangeMedecinComponent } from './change-medecin/change-medecin.componen
 import { ChangeAdminComponent } from './change-admin/change-admin.component';
 import { AddMedecinComponent } from './add-medecin/add-medecin.component';
 import { CentreAdminComponent } from './centre-admin/centre-admin.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -41,7 +42,8 @@ const routes: Routes = [
   {path: 'editMedecin/:idMedecin', component: ChangeMedecinComponent},
   {path: 'editAdmin/:idAdmin', component: ChangeAdminComponent},
   {path: 'addMedecin', component: AddMedecinComponent},
-  {path: 'admins/centre/:gid', component: CentreAdminComponent}
+  {path: 'admins/centre/:gid', component: CentreAdminComponent},
+  {path: 'addAdmin/:gid', component: AddAdminComponent},
 
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
