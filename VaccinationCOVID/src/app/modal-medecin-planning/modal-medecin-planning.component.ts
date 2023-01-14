@@ -11,7 +11,6 @@ import { ChoixCentre } from '../choix-centre/choix-centre';
 import { Role } from '../_models/role';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ProfessionnelsService } from '../professionnels.service';
-
 @Component({
   selector: 'app-modal-medecin-planning',
   templateUrl: './modal-medecin-planning.component.html',
@@ -23,19 +22,34 @@ export class ModalMedecinPlanningComponent implements OnInit{
   reservations!: Reservation[];
   public!: any;
   isValide = false;
+
+  
+  #prenom: string;
+  #nom: string;
+  #email: string;
   dateRdv: string;
+  isSuccessful = false;
+  day: number;
+  jour: string;
+  horaires : string;
+  word = '';
+  infos = '';
+  isNotSuccessful = false;
+  wait = false;
+  ferme = false;
+  form: any = {
+    dateRdv:null
+  };
   centre: ChoixCentre = {gid: 0, nom: "", comnom: "", numAdresse: "", adresse: "", horairesDimanche: "", horairesJeudi: "", horairesLundi: "", horairesMardi: "", horairesMercredi: "", horairesSamedi: "", horairesVendredi: "", cp: 0};
   currentUser: any;
   personne: User = {identifiant: 0, nom: "", prenom: "", username: "", password: "", role: Role.Medecin};
-
 
   constructor(public modalRef: MdbModalRef<ModalMedecinPlanningComponent>,
     private router : Router,
     private service: PersonneService,
     private medecinService: MedecinsService,
     private token: TokenStorageService,
-    private professionnelsService: ProfessionnelsService/*,
-    private datePipe: DatePipe*/
+    private professionnelsService: ProfessionnelsService,
     ) {}
 
     ngOnInit() :void{ 
@@ -54,8 +68,16 @@ export class ModalMedecinPlanningComponent implements OnInit{
       });
       });
       
+      
     }
-   
+    
+    onSubmit(): void {
+      console.log("je submit le form");
+      const {dateRdv} = this.form;
+      console.log(this.form);
+      this.getReservationByDate(dateRdv);
+  
+    }
     searchByNom(nomPersonne: string){
       this.service.setNomPersonne(nomPersonne);
     }
@@ -65,17 +87,16 @@ export class ModalMedecinPlanningComponent implements OnInit{
       this.service.validerReservation(id).subscribe((data)=>{
         this.public = data;
         this.isValide=true;
-      })
-      
-
+      })   
     }
 
-    /*getReservationByDate(date: string){
-      this.dateRdv = this.datePipe.transform(date,"yyyy-MM-dd")
-      this.medecinService.getReservationByDate(this.dateRdv)
-    }*/
+    getReservationByDate(date: string){
+      this.dateRdv = this.convertDate(date)
+      return this.medecinService.getReservationByDate(this.dateRdv).subscribe((resultReservations)=>{
+        this.reservations = resultReservations });
+    }
 
-    /**convertDate(date) { // convertion date en format yyyy-mm-dd
+    convertDate(date) { // convertion date en format yyyy-mm-dd
       var yyyy = date.getFullYear().toString();
       var mm = (date.getMonth()+1).toString();
       var dd  = date.getDate().toString();
@@ -84,9 +105,6 @@ export class ModalMedecinPlanningComponent implements OnInit{
       var ddChars = dd.split('');
     
       return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
-      }*/
-
-
-    
+      }
 
 }

@@ -13,19 +13,49 @@
       (click)="modalRef.close()"
     ></button>
   </div>
-  <div class="modal-body">Liste des reservations
+  <div class="modal-body"> 
 
-      
-
-    <div class="container">
-        <div class="row">
-          <div class="search-personne">
-            <input id="nomPersonne" [(ngModel)]="nomPersonne"  placeholder="Search" (change)="searchByNom(nomPersonne)"/>
+    <form
+          *ngIf="!isSuccessful"
+          name="form"
+          (ngSubmit)="f.form.valid && onSubmit()"
+          #f="ngForm"
+          novalidate
+        >
+        <div class="form-outline mb-4">
+          <label class="form-label" for="typePasswordX-2">Date du rendez-vous</label><br>
+          <mat-form-field appearance="fill">
+            <!--<mat-label>Choisissez une date</mat-label>-->
+            <input  
+              matInput [matDatepicker]="picker" 
+              class="form-control form-control-lg"
+              name="dateRdv"
+              [(ngModel)]="form.dateRdv"
+              required
+              dateRdv
+              #dateRdv="ngModel"
+              placeholder="jj/mm/aaaa"/>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div class="alert-danger" *ngIf="dateRdv.errors && f.submitted">
+            <div *ngIf="dateRdv.errors.required">Veuillez choisir une date</div>
           </div>
-          <table class="table table-striped">
-            <thead>
-           
-            </thead>
+          <div class="alert alert-danger" *ngIf="ferme">
+            Le centre est fermé le {{jour}}.<br>
+            Veuillez choisir un autre jour.
+          </div>
+        </div>
+        <div class="form-outline mb-4">
+          <button class="btn btn-primary btn-block">Search</button>
+        </div>
+      </form>
+
+
+          <div class="search-personne">
+            <input id="nomPersonne" [(ngModel)]="nomPersonne"  placeholder="Search Patient" (change)="searchByNom(nomPersonne)"/>
+          </div>
+          <table class="table table-bordered">Liste des reservations   
             <tbody>
             <tr *ngFor="let reservation of reservations">
               <td>{{ reservation.date_reservation[2] }}/{{ reservation.date_reservation[1] }}/{{ reservation.date_reservation[0] }}</td>
@@ -38,8 +68,7 @@
             </tr>
             </tbody>
           </table>
-        </div>
-      </div>
+        
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
