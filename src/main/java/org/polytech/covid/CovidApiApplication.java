@@ -34,7 +34,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class CovidApiApplication implements CommandLineRunner {
 
-
 	@Autowired
 	public JdbcTemplate jdbcTemplate;
 
@@ -130,7 +129,7 @@ public class CovidApiApplication implements CommandLineRunner {
 
 		// Ajout d'un premier admin
 
-		String importPersonneAdmin1 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('admin1', 'admin1', 'admin1@gmail.com', '$2y$10$SRk2GBReHHv/hacAZzFTwuf1zG37Ze5Ah7OFVbqyZ8C0PU.OstOEq');";
+		String importPersonneAdmin1 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('Admin1', 'Admin1', 'admin1@gmail.com', '$2y$10$SRk2GBReHHv/hacAZzFTwuf1zG37Ze5Ah7OFVbqyZ8C0PU.OstOEq');";
 		int rawPersonneAdmin1 = jdbcTemplate.update(importPersonneAdmin1);
 		if (rawPersonneAdmin1 > 0) {
 			System.out.println("La personne Admin1 a bien été importée");
@@ -150,7 +149,7 @@ public class CovidApiApplication implements CommandLineRunner {
 
 		// Ajout d'un deuxième admin
 
-		String importPersonneAdmin2 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('admin2', 'admin2', 'admin2@gmail.com', '$2y$10$qtdmVIOF.LIVScjL6k35geDDAULs9vcy.RkLCmkwGrbeNaqNWZEYq');";
+		String importPersonneAdmin2 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('Admin2', 'Admin2', 'admin2@gmail.com', '$2y$10$qtdmVIOF.LIVScjL6k35geDDAULs9vcy.RkLCmkwGrbeNaqNWZEYq');";
 		int rawPersonneAdmin2 = jdbcTemplate.update(importPersonneAdmin2);
 		if (rawPersonneAdmin2 > 0) {
 			System.out.println("La personne Admin2 a bien été importée");
@@ -170,7 +169,7 @@ public class CovidApiApplication implements CommandLineRunner {
 
 		// Ajout d'un premier médecin
 
-		String importPersonneMedecin1 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('medecin1', 'medecin1', 'medecin1@gmail.com', '$2y$10$kT/2RiZtCFCnczlJxp4a/.d6qirzp/4OdvBTAKLP4uMy3KhY1QK1W');";
+		String importPersonneMedecin1 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('Medecin1', 'Medecin1', 'medecin1@gmail.com', '$2y$10$kT/2RiZtCFCnczlJxp4a/.d6qirzp/4OdvBTAKLP4uMy3KhY1QK1W');";
 		int rawPersonneMedecin1 = jdbcTemplate.update(importPersonneMedecin1);
 		if (rawPersonneMedecin1 > 0) {
 			System.out.println("La personne Medecin1 a bien été importée");
@@ -190,7 +189,7 @@ public class CovidApiApplication implements CommandLineRunner {
 
 		// Ajout d'un deuxième médecin
 
-		String importPersonneMedecin2 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('medecin2', 'medecin2', 'medecin2@gmail.com', '$2y$10$FJdOT5ypWkshAsE6ac1HtOEd03qwI2nPGQERhhXQBgD0Zh7KvIY/C');";
+		String importPersonneMedecin2 = "INSERT INTO Personne (nom, prenom, mail, mdp) VALUES ('Medecin2', 'Medecin2', 'medecin2@gmail.com', '$2y$10$FJdOT5ypWkshAsE6ac1HtOEd03qwI2nPGQERhhXQBgD0Zh7KvIY/C');";
 		int rawPersonneMedecin2 = jdbcTemplate.update(importPersonneMedecin2);
 		if (rawPersonneMedecin2 > 0) {
 			System.out.println("La personne Medecin2 a bien été importée");
@@ -210,7 +209,7 @@ public class CovidApiApplication implements CommandLineRunner {
 
 		// Ajout d'une personne Public
 
-		String importPersonnePublic1 = "INSERT INTO Personne (nom, prenom, mail) VALUES ('public1', 'public1', 'public1@gmail.com');";
+		String importPersonnePublic1 = "INSERT INTO Personne (nom, prenom, mail) VALUES ('Public1', 'Public1', 'public1@gmail.com');";
 		int rawPersonnePublic1 = jdbcTemplate.update(importPersonnePublic1);
 		if (rawPersonnePublic1 > 0) {
 			System.out.println("La personne Public1 a bien été importée");

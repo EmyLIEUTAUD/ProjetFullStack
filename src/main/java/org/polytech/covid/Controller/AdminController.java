@@ -33,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/admin")
-
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
 
     @Autowired
