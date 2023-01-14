@@ -22,6 +22,12 @@ export class VaccinationAdminServiceService {
     return this.httpClient.get<Admin>("admin/administrateurs/id/"+id, {headers: headers});
   }
 
+  getVaccinationAdminByPersonneIdentifiant(id: number) : Observable<Admin>{
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+
+    return this.httpClient.get<Admin>("admin/administrateurs/idPersonne/"+id, {headers: headers});
+  }
+
   getVaccinationAdminByCentre(gid: number) : Observable<Admin>{
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
 

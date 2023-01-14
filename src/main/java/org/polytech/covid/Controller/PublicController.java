@@ -36,6 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/public")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PublicController {
 
     @Autowired

@@ -8,12 +8,30 @@ import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 })
 export class ProfessionnelsService {
 
+  personne: User;
+  flag: Boolean = false;
+
   constructor(private  httpClient: HttpClient) { }
 
   getAllProfessionnels(){
     console.log("Je veux get tous les professionnels");
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
     return this.httpClient.get<User[]>("admin/professionnels", {headers: headers});
+  }
+
+  getProfessionnelByEmail(email: String): Promise<User>{
+    let flag2
+    let flagPromise: Promise<User> = new Promise((flag => flag2 = flag))
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+    this.httpClient.get<User>("admin/professionnels/email/"+email, {observe: 'body', headers: headers}).subscribe({
+      next: (resultPersonne) => {
+        this.personne = resultPersonne;
+        console.log(this.personne);
+        this.flag = true
+        flag2(this.personne)
+      }
+    })
+    return flagPromise;
   }
 
   addMedecinById(professionnel: any, etag: Array<string>): Observable<HttpResponse<User>>{

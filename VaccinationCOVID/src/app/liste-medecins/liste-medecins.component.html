@@ -1,5 +1,11 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Medecins</h5>
+    <h5 class="modal-title" id="exampleModalLabel">
+      <div *ngFor="let medecin of medecins">
+          {{medecin.centre.nom}}
+          <br>
+          {{medecin.centre.numAdresse}} {{medecin.centre.adresse}}, {{medecin.centre.cp}} {{medecin.centre.comnom}} 
+      </div>
+  </h5>
     <button
       type="button"
       class="btn-close"

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalComponent } from './modal/modal.component';
+import { ModalErrorLoginComponent } from './modal-error-login/modal-error-login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,10 @@ import { ModalComponent } from './modal/modal.component';
 export class GeneralHttpInterceptorService implements HttpInterceptor {
 
   modalRef: MdbModalRef<ModalComponent> | null = null;
+  modalRedLogin: MdbModalRef<ModalErrorLoginComponent> | null = null;
   infos = '';
   temps = 0;
+  message = '';
 
   constructor(public router: Router, private modalService: MdbModalService) { }
 
@@ -33,8 +36,14 @@ export class GeneralHttpInterceptorService implements HttpInterceptor {
             switch (error.status) {
               case 401:    //unauthorized
                 console.log("erreur 401 : non authorisé")
-                this.router.navigateByUrl("/login");
-                console.log(`redirect to login`);
+                if(window.location.href == "http://localhost:4200/#/login"){
+                  this.modalRedLogin = this.modalService.open(ModalErrorLoginComponent);
+                  console.log("Erreur de login")
+                }
+                else{
+                  this.router.navigateByUrl("/login");
+                  console.log(`redirect to login`);
+                }
                 handled = true;
                 break;
               case 403:     //forbidden
