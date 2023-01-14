@@ -5,13 +5,14 @@ import { ChoixCentre } from '../choix-centre/choix-centre';
 import { EnvoiFormulaireService } from '../envoi-formulaire.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
 import { HttpClient, HttpHeaders, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
+import { IDeactivate } from '../i-deactivate';
 
 @Component({
   selector: 'app-rendez-vous',
   templateUrl: './rendez-vous.component.html',
   styleUrls: ['./rendez-vous.component.scss']
 })
-export class RendezVousComponent implements OnInit {
+export class RendezVousComponent implements OnInit, IDeactivate {
 
   centre: ChoixCentre;
   #prenom: string;
@@ -41,6 +42,16 @@ export class RendezVousComponent implements OnInit {
       this.centre = resultCenters;
       console.log("test centre"+this.centre.gid);
     }));
+  }
+
+  //Check if there any unsaved data etc. If yes then as for confirmation 
+  canExit() : boolean {
+
+    if (confirm("Voulez-vous vraiment quitter cette page ? Vos données seront perdues.")) {
+      return true
+    } else {
+      return false
+    }
   }
 
   onSubmit(): void {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IDeactivate } from '../i-deactivate';
 import { SignUpEnvoiFormService } from '../sign-up-envoi-form.service';
 import { AuthenticationService } from '../_services/authentication.service';
 
@@ -8,7 +9,7 @@ import { AuthenticationService } from '../_services/authentication.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, IDeactivate {
 
   form: any = {
     nom:null,
@@ -23,6 +24,16 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthenticationService, private service: SignUpEnvoiFormService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  //Check if there any unsaved data etc. If yes then as for confirmation 
+  canExit() : boolean {
+
+    if (confirm("Voulez-vous vraiment quitter cette page ? Vos données seront perdues.")) {
+      return true
+    } else {
+      return false
+    }
   }
 
   onSubmit(): void{
