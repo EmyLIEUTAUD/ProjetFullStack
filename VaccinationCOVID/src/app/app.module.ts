@@ -115,7 +115,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
   { provide: ErrorHandler, useClass:GlobalErrorHandlerService},
   TokenStorageService,
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-
+  
   //authInterceptorProviders
 ],
   bootstrap: [AppComponent]
