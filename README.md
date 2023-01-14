@@ -43,8 +43,10 @@ Technologies implémentées :<br>
 - Bootstrap
 - File d'attente
 - Formulaire BasicAuth
-- Interceptor
-- Material <br>
+- Interceptors
+- Material
+- Modales
+- Promises <br>
 
 Pour lancer le front, il faut tout d'abord **aller dans le dossier VaccinationCOVID**.<br>
 Ensuite, il suffit d'exécuter la commande suivante : ```ng serve```.<br>
@@ -59,13 +61,15 @@ Le front est maintenant accessible sur le navigateur sur **localhost:4200**.
 
 ### SuperAdmin
 Il n'appartient pas à un centre précis. <br>
+Un seul SuperAdmin existe.<br>
 Il peut :
-- gérer les centres (**/admin/centres**) : 
+- gérer les centres (**/admin/centres/**) : 
   - créer un centre (**POST /admin/centres/nouveau**)
   - afficher les centres (**GET /admin/centres** et **GET /public/centres** et **GET /public/centres/id/{id}**)
   - modifier un centre (**PUT /admin/centres/modifier/{gid}**)
   - supprimer un centre (**DELETE /admin/centres/supprimer/{gid}**)
-- gérer les administrateurs (**/admin/administrateurs**) : 
+- gérer les administrateurs (**/admin/administrateurs/**) : 
+  - récupérer les professionnels en attente d'affectation (**GET /admin/professionnels**)
   - créer un administrateur (**POST /admin/administrateurs/nouveau**)
   - afficher les administrateurs (**GET /admin/administrateurs**)
   - modifier un administrateur (**PUT /admin/administrateurs/modifier/{id}**)
@@ -74,13 +78,14 @@ Il peut :
 ### Admin
 Il est lié à un centre.<br>
 Il peut : 
-- gérer les médecins de son centre (**admin/medecins**) : 
+- gérer les médecins de son centre (**admin/medecins/**) : 
+  - récupérer les professionnels en attente d'affectation (**GET /admin/professionnels**)
   - créer un médecin (**POST /admin/medecins/nouveau**)
   - afficher les médecins (**GET /admin/medecins** et **GET /admin/medecins/id/{id}**)
   - modifier un médecin (**PUT /admin/medecins/modifier/{id}**)
   - supprimer un médecin (**DELETE /admin/medecins/supprimer/{id}**)
-- gérer les réservations de son centre (**/admin/reservations**) : 
-  - afficher les réservations (**GET /admin/reservations**)
+- gérer les réservations de son centre (**/admin/reservations/**) : 
+  - afficher les réservations (**GET /admin/reservations** et **GET /admin/reservations/centre**)
   - supprimer une réservation (**DELETE /admin/reservations/supprimer/{id}**)
 
 ### Medecin
