@@ -47,7 +47,7 @@ export class ModalSuperConfigComponent implements OnInit{
     }
 
     ajouterAdmin(){
-      this.router.navigate(['addAdmin']);
+      window.confirm('Pour ajouter un admin,il faut aller dans la modale Centres, chercher le centre dans lequel vous voulez ajouter un admin, puis cliquer sur person-icon')
     }
 
 
