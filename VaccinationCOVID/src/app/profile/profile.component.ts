@@ -11,6 +11,7 @@ import { ProfessionnelsService } from '../professionnels.service';
 import { User } from '../_models/user';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { MedecinsService } from '../medecins.service';
+import { Role } from '../_models/role';
 
 @Component({
   selector: 'app-profile',
@@ -20,8 +21,8 @@ import { MedecinsService } from '../medecins.service';
 export class ProfileComponent implements OnInit {
 
   currentUser: any;
-  personne: User;
-  centre: ChoixCentre;
+  personne: User = {identifiant: 0, nom: "", prenom: "", username: "", password: "", role: Role.Medecin};
+  centre: ChoixCentre = {gid: 0, nom: "", comnom: "", numAdresse: "", adresse: "", horairesDimanche: "", horairesJeudi: "", horairesLundi: "", horairesMardi: "", horairesMercredi: "", horairesSamedi: "", horairesVendredi: "", cp: 0};
   showCentre: Boolean = false;
   hasRole : Boolean = false;
 

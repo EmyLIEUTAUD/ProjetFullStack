@@ -16,7 +16,7 @@ export class ProfessionnelsService {
   getAllProfessionnels(){
     console.log("Je veux get tous les professionnels");
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    return this.httpClient.get<User[]>("admin/professionnels", {headers: headers});
+    return this.httpClient.get<User[]>("http://localhost:8080/admin/professionnels", {headers: headers});
   }
 
   getProfessionnelByEmail(email: String): Promise<User>{

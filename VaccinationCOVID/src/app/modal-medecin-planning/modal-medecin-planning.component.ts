@@ -7,6 +7,10 @@ import { Reservation } from '../_models/reservation';
 import { Public } from '../_models/public';
 import { MedecinsService } from '../medecins.service';
 import { DatePipe } from '@angular/common';
+import { ChoixCentre } from '../choix-centre/choix-centre';
+import { Role } from '../_models/role';
+import { TokenStorageService } from '../_services/token-storage.service';
+import { ProfessionnelsService } from '../professionnels.service';
 
 @Component({
   selector: 'app-modal-medecin-planning',
@@ -20,15 +24,30 @@ export class ModalMedecinPlanningComponent implements OnInit{
   public!: any;
   isValide = false;
   dateRdv: string;
+  centre: ChoixCentre = {gid: 0, nom: "", comnom: "", numAdresse: "", adresse: "", horairesDimanche: "", horairesJeudi: "", horairesLundi: "", horairesMardi: "", horairesMercredi: "", horairesSamedi: "", horairesVendredi: "", cp: 0};
+  currentUser: any;
+  personne: User = {identifiant: 0, nom: "", prenom: "", username: "", password: "", role: Role.Medecin};
+
 
   constructor(public modalRef: MdbModalRef<ModalMedecinPlanningComponent>,
     private router : Router,
     private service: PersonneService,
     private medecinService: MedecinsService,
-    private datePipe: DatePipe,
+    private token: TokenStorageService,
+    private professionnelsService: ProfessionnelsService/*,
+    private datePipe: DatePipe*/
     ) {}
 
     ngOnInit() :void{ 
+      this.currentUser = this.token.getUser();
+      this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
+        this.personne = resultPersonne;
+        console.log("id personne : "+ this.personne.identifiant);
+        this.medecinService.getMedecinByPersonneIdentifiant(this.personne.identifiant).subscribe((resultMedecin) => {
+          this.centre = resultMedecin.centre;
+          console.log(this.centre);
+        })
+      });
       this.service._nomPersonneSubject.subscribe((nomPersonne) => {
         this.service.getReservationsByNom(nomPersonne).subscribe(resultReservations=>{
         this.reservations=resultReservations;
@@ -51,10 +70,10 @@ export class ModalMedecinPlanningComponent implements OnInit{
 
     }
 
-    getReservationByDate(date: string){
+    /*getReservationByDate(date: string){
       this.dateRdv = this.datePipe.transform(date,"yyyy-MM-dd")
       this.medecinService.getReservationByDate(this.dateRdv)
-    }
+    }*/
 
     /**convertDate(date) { // convertion date en format yyyy-mm-dd
       var yyyy = date.getFullYear().toString();

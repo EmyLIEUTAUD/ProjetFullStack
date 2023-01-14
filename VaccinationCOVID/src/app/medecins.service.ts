@@ -40,7 +40,7 @@ export class MedecinsService {
 
   getReservationByDate(date: string){
     let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    return this.httpClient.get<Reservation[]>("admin/reservations/centre/"+date, {headers: headers});
+    return this.httpClient.get<Reservation[]>("http://localhost:8080/admin/reservations/centre/"+date, {headers: headers});
   }
 
 }
