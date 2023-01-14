@@ -58,7 +58,7 @@ export class EnvoiFormulaireService {
     if(this.etag != null){
       ifMatch = new HttpHeaders({'Cache-Control': 'no-cache', "If-Match": this.etag});
     }
-    this.httpClient.post<Observable<string>>('/public/inscription/', inscription, {observe: 'response', headers: ifMatch})
+    this.httpClient.post<Observable<string>>('http://localhost:8080/public/inscription/', inscription, {observe: 'response', headers: ifMatch})
     .subscribe({
       next: (resp) => {
       console.log("succès");

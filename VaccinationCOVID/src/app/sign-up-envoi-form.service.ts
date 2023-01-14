@@ -25,7 +25,7 @@ export class SignUpEnvoiFormService {
     let ifMatch = new HttpHeaders({'Cache-Control': 'no-cache', "If-Match": this.etag})
     let flag2;
     let flagPromise: Promise<void> = new Promise((flag => flag2 = flag));
-    this.httpClient.post<string>("login/nouveau",compte, {observe: "response", headers: ifMatch}).subscribe({
+    this.httpClient.post<string>("http://localhost:8080/login/nouveau",compte, {observe: "response", headers: ifMatch}).subscribe({
       next: (data) => {
         console.log("succès");
         console.log("data body : "+data.body);

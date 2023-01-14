@@ -18,7 +18,7 @@ export class PersonneService {
 
   getReservationsByNom(nom: string): Observable<Reservation[]>{
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    return this.httpClient.get<Reservation[]>("admin/personnes/"+nom, {headers: headers});
+    return this.httpClient.get<Reservation[]>("http://localhost:8080/admin/personnes/"+nom, {headers: headers});
   }
 
   setNomPersonne(nomPersonne: string){
@@ -31,7 +31,7 @@ export class PersonneService {
 
   validerReservation(id: any){
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    return this.httpClient.put("admin/personnes/validerVaccination/"+id, {headers: headers});
+    return this.httpClient.put("http://localhost:8080/admin/personnes/validerVaccination/"+id, {headers: headers});
   }
 
 }
