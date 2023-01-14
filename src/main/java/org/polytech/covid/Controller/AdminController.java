@@ -1,5 +1,6 @@
 package org.polytech.covid.Controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +21,7 @@ import org.polytech.covid.Service.MedecinServices;
 import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -270,28 +272,30 @@ public class AdminController {
         return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
                 .body(adminServices.voirReservations());
     }
-
-    @GetMapping("/reservations/centre")
-    public ResponseEntity<List<Reservation>> voirReservationsByCentre() {
+    @Autowired
+    private ReservationRepository reservationRepository;
+    @GetMapping("/reservations/centre/{date}")
+    public ResponseEntity<List<Reservation>> voirReservationsByCentre(@PathVariable("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Personne personne = personneRepository.findByMail(authentication.getName()).get();
-            Admin admin = adminRepository.findByIdentifiant(personne.getIdentifiant()).get();
-            Centre centre = centreRepository.findById(admin.getCentre().getGid()).get();
-            Reservation reservation = reservationRepository.findById(id).get();
-            if (reservation.getCentre().getGid() == centre.getGid()) {
-                reservationRepository.deleteById(id);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            Medecin medecin = medecinRepository.findByIdentifiant(personne.getIdentifiant()).get();
+            Centre centre = centreRepository.findById(medecin.getCentre().getGid()).get();
+            List<Reservation> reservation = reservationRepository.findByDateAndCentre(date,centre.getGid());
+            if (reservation!=null) {
+
+                return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                        .body(reservation);
             } else {
-                return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-        } catch (Exception e) {
+    }catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @Autowired
-    private ReservationRepository reservationRepository;
+
+
 
     @DeleteMapping("reservations/supprimer/{id}")
     public ResponseEntity<HttpStatus> deleteReservation(@PathVariable("id") Integer id) {

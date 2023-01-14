@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import liquibase.pro.packaged.P;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -31,6 +32,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     List<Reservation> findByGid(@Param("gid") Integer gid);
 
     @Query("SELECT r FROM Reservation r WHERE r.centre.gid = :gid AND r.date_reservation = :date")
-    List<Reservation> findByDateAndCentre(@Param("date") String date, @Param("gid") Integer gid);
+    List<Reservation> findByDateAndCentre(@Param("date") LocalDate date, @Param("gid") Integer gid);
 
 }
