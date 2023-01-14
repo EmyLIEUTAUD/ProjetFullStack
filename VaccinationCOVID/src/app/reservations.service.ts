@@ -12,17 +12,17 @@ export class ReservationsService {
 
   getAllReservationsFromCenter(){
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    return this.httpClient.get<Reservation[]>("admin/reservations", {headers: headers});
+    return this.httpClient.get<Reservation[]>("http://localhost:8080/admin/reservations", {headers: headers});
   }
 
   getReservationById(id_reservation: number) : Observable<Reservation>{
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
     console.log("id_reservation dans le service : ",id_reservation);
-    return this.httpClient.get<Reservation>("admin/reservations/id/"+id_reservation, {headers: headers});
+    return this.httpClient.get<Reservation>("http://localhost:8080/admin/reservations/id/"+id_reservation, {headers: headers});
   }
 
   deleteReservation(idReservation: number){
-    return this.httpClient.delete<Reservation>("admin/reservations/supprimer/"+idReservation);
+    return this.httpClient.delete<Reservation>("http://localhost:8080/admin/reservations/supprimer/"+idReservation);
   }
 
 }

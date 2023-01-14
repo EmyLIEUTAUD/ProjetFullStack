@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ChoixMedecin } from '../choix-medecin/choix-medecin';
 import { MedecinsService } from '../medecins.service';
 import { ModalListMedecinsComponent } from '../modal-list-medecins/modal-list-medecins.component';
+import { ProfessionnelsService } from '../professionnels.service';
+import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
 import { Reservation } from '../_models/reservation';
+import { Role } from '../_models/role';
+import { User } from '../_models/user';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
@@ -23,14 +28,28 @@ export class ListeMedecinsComponent implements OnInit {
   isAdmin = false;
   isSuccessful = false;
   medecins: any = [];
+  centre: ChoixCentre = {gid: 0, nom: "", comnom: "", numAdresse: "", adresse: "", horairesDimanche: "", horairesJeudi: "", horairesLundi: "", horairesMardi: "", horairesMercredi: "", horairesSamedi: "", horairesVendredi: "", cp: 0};
+  currentUser: any;
+  personne: User = {identifiant: 0, nom: "", prenom: "", username: "", password: "", role: Role.Admin};
 
   constructor(private router : Router,
     public modalRef: MdbModalRef<ListeMedecinsComponent>,
     private medecinsService: MedecinsService,
     private route: ActivatedRoute,
-    private tokenStorageService: TokenStorageService,) { }
+    private token: TokenStorageService,
+    private professionnelsService: ProfessionnelsService,
+    private adminService: VaccinationAdminServiceService) { }
 
     ngOnInit() {
+      this.currentUser = this.token.getUser();
+      this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
+        this.personne = resultPersonne;
+        console.log("id personne : "+ this.personne.identifiant);
+        this.adminService.getVaccinationAdminByPersonneIdentifiant(this.personne.identifiant).subscribe((resultAdmin) => {
+          this.centre = resultAdmin.centre;
+          console.log(this.centre);
+        })
+      });
       this.loadMedecins();
     }
   

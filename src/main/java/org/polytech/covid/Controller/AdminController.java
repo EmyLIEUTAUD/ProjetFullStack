@@ -289,29 +289,26 @@ public class AdminController {
     @Autowired
     private ReservationRepository reservationRepository;
 
-
     @GetMapping("/reservations/centre/{date}")
-    public ResponseEntity<List<Reservation>> voirReservationsByCentre(@PathVariable("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<List<Reservation>> voirReservationsByCentre(
+            @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Personne personne = personneRepository.findByMail(authentication.getName()).get();
             Medecin medecin = medecinRepository.findByIdentifiant(personne.getIdentifiant()).get();
             Centre centre = centreRepository.findById(medecin.getCentre().getGid()).get();
-            List<Reservation> reservation = reservationRepository.findByDateAndCentre(date,centre.getGid());
-            if (reservation!=null) {
+            List<Reservation> reservation = reservationRepository.findByDateAndCentre(date, centre.getGid());
+            if (reservation != null) {
 
                 return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
                         .body(reservation);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-    }catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
 
     @DeleteMapping("reservations/supprimer/{id}")
     public ResponseEntity<HttpStatus> deleteReservation(@PathVariable("id") Integer id) {
@@ -330,6 +327,7 @@ public class AdminController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @Autowired

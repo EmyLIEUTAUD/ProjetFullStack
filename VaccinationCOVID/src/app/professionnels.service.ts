@@ -16,14 +16,14 @@ export class ProfessionnelsService {
   getAllProfessionnels(){
     console.log("Je veux get tous les professionnels");
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    return this.httpClient.get<User[]>("admin/professionnels", {headers: headers});
+    return this.httpClient.get<User[]>("http://localhost:8080/admin/professionnels", {headers: headers});
   }
 
   getProfessionnelByEmail(email: String): Promise<User>{
     let flag2
     let flagPromise: Promise<User> = new Promise((flag => flag2 = flag))
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    this.httpClient.get<User>("admin/professionnels/email/"+email, {observe: 'body', headers: headers}).subscribe({
+    this.httpClient.get<User>("http://localhost:8080/admin/professionnels/email/"+email, {observe: 'body', headers: headers}).subscribe({
       next: (resultPersonne) => {
         this.personne = resultPersonne;
         console.log(this.personne);
@@ -46,7 +46,7 @@ export class ProfessionnelsService {
       personne: Personne
     }
 
-    return this.httpClient.post<User>("admin/medecins/nouveau", Ajout, {observe: "response", headers: headers});
+    return this.httpClient.post<User>("http://localhost:8080/admin/medecins/nouveau", Ajout, {observe: "response", headers: headers});
   }
 
   addAdminById(professionnel: any,gidCentre:any, etag: Array<string>): Observable<HttpResponse<User>>{
@@ -65,7 +65,7 @@ export class ProfessionnelsService {
       centre : ChoixCentre
     }
 
-    return this.httpClient.post<User>("admin/administrateurs/nouveau", Ajout, {observe: "response", headers: headers});
+    return this.httpClient.post<User>("http://localhost:8080/admin/administrateurs/nouveau", Ajout, {observe: "response", headers: headers});
   }
 
 
