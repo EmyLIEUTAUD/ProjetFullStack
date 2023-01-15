@@ -1,6 +1,6 @@
 # ProjetFullStack - Vaccination COVID
 Application permettant de prendre un rendez-vous pour une vaccination COVID dans un centre de vaccination en France. <br>
-*Créée par Emy LIEUTAUD (31818604), Yunqiao ZHANG () et Romain PERRELLE (32024667)*
+*Créée par Emy LIEUTAUD (31818604), Yunqiao ZHANG (31733827) et Romain PERRELLE (32024667)*
 
 Données sur les lieux de vaccination : https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/
 
@@ -120,7 +120,7 @@ mail : medecin2@gmail.com<br>
 mdp : medecin2<br>
 Appartient au centre numéro 188<br>
 <br>
-Une réservation est également pré-crée dans le centre numéro 3157.
+Une réservation est également pré-crée dans le centre numéro 3157. Elle date du 1er février 2023 et est associé à la personne ayant pour nom Public1.
 
 ## Métriques
 Pour accéder aux métriques, il est nécessaire d'avoir appelé au moins une fois l'endpoint lié. 
