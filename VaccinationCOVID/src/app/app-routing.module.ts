@@ -19,16 +19,20 @@ import { CentreAdminComponent } from './centre-admin/centre-admin.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AddCentreComponent } from './add-centre/add-centre.component';
+import { AuthGuardSuperAdminService } from './auth-guard-super-admin.service';
+import { AuthGuardAdminService } from './auth-guard-admin.service';
+import { AuthGuardProfessionnelService } from './auth-guard-professionnel.service';
+import { AuthGuardMedecinService } from './auth-guard-medecin.service';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent },
   {path: 'register', component: RegisterComponent, canDeactivate: [AuthGuardService]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
-  {path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuardService]},
-  {path: 'medecin', component: BoardMedecinComponent, canActivate: [AuthGuardService]},
-  {path: 'superAdmin', component: BoardSuperadminComponent, canActivate: [AuthGuardService]},
-  {path: 'professionnel', component: BoardProfessionnelComponent, canActivate: [AuthGuardService]},
+  {path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuardAdminService]},
+  {path: 'medecin', component: BoardMedecinComponent, canActivate: [AuthGuardMedecinService]},
+  {path: 'superAdmin', component: BoardSuperadminComponent, canActivate: [AuthGuardSuperAdminService]},
+  {path: 'professionnel', component: BoardProfessionnelComponent, canActivate: [AuthGuardProfessionnelService]},
   {path: '', redirectTo: 'home',pathMatch: 'full'  },
   {path: "villes", component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Page de rendez-vous', component: RendezVousComponent,canDeactivate: [AuthGuardService]},
@@ -36,14 +40,14 @@ const routes: Routes = [
   {path: "public",title: 'Accueil', component: ChoixVilleComponent},
   {path: "rdv/:gid", title: 'Inscription', component: RendezVousComponent, canDeactivate: [AuthGuardService]},
   {path: '', redirectTo: '/public', pathMatch: 'full'},
-  {path: 'editCentre/:gid', component: ChangeCentreComponent, canActivate: [AuthGuardService]},
+  {path: 'editCentre/:gid', component: ChangeCentreComponent, canActivate: [AuthGuardSuperAdminService]},
   {path: 'queue/:temps', component: QueueComponent},
-  {path: 'editMedecin/:idMedecin', component: ChangeMedecinComponent, canActivate: [AuthGuardService]},
-  {path: 'editAdmin/:idAdmin', component: ChangeAdminComponent, canActivate: [AuthGuardService]},
-  {path: 'addMedecin', component: AddMedecinComponent, canActivate: [AuthGuardService]},
-  {path: 'admins/centre/:gid', component: CentreAdminComponent, canActivate: [AuthGuardService]},
-  {path: 'addAdmin/:gid', component: AddAdminComponent, canActivate: [AuthGuardService]},
-  {path: 'addCentre', component: AddCentreComponent, canActivate: [AuthGuardService], canDeactivate: [AuthGuardService]}
+  {path: 'editMedecin/:idMedecin', component: ChangeMedecinComponent, canActivate: [AuthGuardAdminService]},
+  {path: 'editAdmin/:idAdmin', component: ChangeAdminComponent, canActivate: [AuthGuardSuperAdminService]},
+  {path: 'addMedecin', component: AddMedecinComponent, canActivate: [AuthGuardAdminService]},
+  {path: 'admins/centre/:gid', component: CentreAdminComponent, canActivate: [AuthGuardSuperAdminService]},
+  {path: 'addAdmin/:gid', component: AddAdminComponent, canActivate: [AuthGuardSuperAdminService]},
+  {path: 'addCentre', component: AddCentreComponent, canActivate: [AuthGuardSuperAdminService], canDeactivate: [AuthGuardService]}
 
 ]
 

@@ -19,7 +19,7 @@ export class AuthGuardService implements CanActivate, CanDeactivate<IDeactivate>
     if (!this.authenticationService.isUserLoggedIn()) {
       alert('You are not allowed to view this page. You are redirected to login Page');
       
-      this.router.navigate(["/login"],{ queryParams: { retUrl: route.url} });
+      this.router.navigate(["/login"]);
       return false;
     } 
     

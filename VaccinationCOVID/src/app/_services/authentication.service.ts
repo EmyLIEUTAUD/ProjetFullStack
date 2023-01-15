@@ -40,6 +40,50 @@ export class AuthenticationService {
       return false;
     }
 
+    isProfessionnelLoggedIn(): boolean {
+      if(this.tokenStorageService.getAuthToken() != null ){
+        if(this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
+          if(this.tokenStorageService.getUser().authorities == ""){
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    isMedecinLoggedIn(): boolean {
+      if(this.tokenStorageService.getAuthToken() != null ){
+        if(this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
+          if(this.tokenStorageService.getUser().authorities == "MEDECIN"){
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    isAdminLoggedIn(): boolean {
+      if(this.tokenStorageService.getAuthToken() != null ){
+        if(this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
+          if(this.tokenStorageService.getUser().authorities == "ADMIN"){
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    isSuperAdminLoggedIn(): boolean {
+      if(this.tokenStorageService.getAuthToken() != null ){
+        if(this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
+          if(this.tokenStorageService.getUser().authorities == "SUPER_ADMIN"){
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
     register(nom : string, prenom: string,username: string , password: string): Observable<any> {
         return this.http.post('http://localhost:8080/login/nouveau', {
           nom,
