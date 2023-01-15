@@ -120,7 +120,7 @@ mail : medecin2@gmail.com<br>
 mdp : medecin2<br>
 Appartient au centre numéro 188<br>
 <br>
-Une réservation est également pré-crée dans le centre numéro 3157.
+Une réservation est également pré-crée dans le centre numéro 3157. Elle date du 1er février 2023 et est associé à la personne ayant pour nom Public1.
 
 ## Métriques
 Pour accéder aux métriques, il est nécessaire d'avoir appelé au moins une fois l'endpoint lié. 
