@@ -9,6 +9,12 @@ import { HttpHeaders  } from '@angular/common/http';
 })
 export class VaccinationCenterService {
 
+  isSuccessful = false;
+  isSignupFailed = false;
+  errorMessage = '';
+  etag: Array<string> = [];
+  flag: boolean = false;
+
 /*CENTERS: ChoixCentre[] = [
     {gid:1, name:"hopital central", city: "nancy", numAdresse: "2 rue", adresse: "3", cp: 5, horairesLundi: "a", horairesMardi: "a", horairesMercredi: "a", horairesJeudi: "a", horairesVendredi: "a", horairesSamedi: "a", horairesDimanche: "a"},
     {gid:2, name:"truc central", city: "nancy", numAdresse: "2 rue", adresse: "3", cp: 5, horairesLundi: "a", horairesMardi: "a", horairesMercredi: "a", horairesJeudi: "a", horairesVendredi: "a", horairesSamedi: "a", horairesDimanche: "a"},
@@ -31,4 +37,43 @@ export class VaccinationCenterService {
 
     return this.httpClient.put<ChoixCentre>("http://localhost:8080/admin/centres/modifier/"+gid, JSON.stringify(editCentre), {observe: "response", headers: headers});
   }
+
+  async saveCentre(nom: string, numAdresse: string, adresse: string, cp: number, comnom: string): Promise<void>{
+    const centre = {
+      nom: nom,
+      numAdresse: numAdresse,
+      adresse: adresse,
+      cp: cp,
+      comnom: comnom
+    };
+
+    let ifMatch = new HttpHeaders({'Cache-Control': 'no-cache', "If-Match": this.etag})
+    let flag2;
+    let flagPromise: Promise<void> = new Promise((flag => flag2 = flag));
+    this.httpClient.post<string>("http://localhost:8080/admin/centres/nouveau",centre, {observe: "response", headers: ifMatch}).subscribe({
+      next: (data) => {
+        console.log("succès");
+        console.log("data body : "+data.body);
+        this.isSuccessful = true;
+        this.isSignupFailed = false;
+        this.etag = [data.headers.get("ETag")];
+        this.flag = true;
+        flag2(this.flag)
+      },
+      error: (err) => {
+        this.errorMessage = err.error.message;
+        this.isSignupFailed = true;
+        this.isSuccessful = false;
+        this.flag = false;
+        flag2(this.flag)
+      }
+  });/*
+      data => {
+         console.log("succès")
+         console.log(data)
+      }
+   );*/
+   return flagPromise;
+  }
+
 }

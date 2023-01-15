@@ -1,0 +1,139 @@
+<section class="vh-100" >
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+  
+              <h3 class="mb-5">Ajouter un centre</h3>
+                <form
+                  *ngIf="!isSuccessful"
+                  name="form"
+                  (ngSubmit)="f.form.valid && onSubmit()"
+                  #f="ngForm"
+                  novalidate
+                >
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="typePasswordX-2">Nom</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg"
+                      name="nom"
+                      [(ngModel)]="form.nom"
+                      required
+                      minlength="3"
+                      maxlength="40"
+                      #nom="ngModel"
+                    />
+                    
+                    <div class="alert-danger" *ngIf="nom.errors && f.submitted">
+                      <div *ngIf="nom.errors.required">Veuillez saisir le nom du centre</div>
+                      <div *ngIf="nom.errors.minlength">
+                        Au moins 3 caractères sont necessaires !
+                      </div>
+                      <div *ngIf="nom.errors.maxlength">
+                        Au maximum 40 caractères!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="typePasswordX-2">NumAdresse</label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        name="numAdresse"
+                        [(ngModel)]="form.numAdresse"
+                        required
+                        minlength="1"
+                        maxlength="3"
+                        #numAdresse="ngModel"
+                      />
+                      <div class="alert-danger" *ngIf="numAdresse.errors && f.submitted">
+                        <div *ngIf="numAdresse.errors.required">Veuillez saisir le numéro de l'adresse du centre</div>
+                        <div *ngIf="numAdresse.errors.minlength">
+                          Au moins 1 chiffre est necessaire !
+                        </div>
+                        <div *ngIf="numAdresse.errors.maxlength">
+                          Au maximum 3 chiffres !
+                        </div>
+                      </div>
+                    </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="typePasswordX-2">Adresse</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg"
+                      name="adresse"
+                      [(ngModel)]="form.adresse"
+                      required
+                      adresse
+                      #adresse="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="adresse.errors && f.submitted">
+                      <div *ngIf="adresse.errors.required">Veuillez saisir l'adresse du centre</div>
+                      <div *ngIf="adresse.errors.username">
+                        L'adresse est invalide
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="typePasswordX-2">Code postal</label>
+                    <input
+                      type="number"
+                      class="form-control form-control-lg"
+                      name="cp"
+                      [(ngModel)]="form.cp"
+                      required
+                      pattern="\d{5}"
+                      placeholder="00000"
+                      #cp="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="cp.errors && f.submitted">
+                      <div *ngIf="cp.errors.required">Un code postal est requis</div>
+                      <div *ngIf="cp.errors.pattern">
+                        5 chiffres sont requis
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="typePasswordX-2">Ville</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg"
+                      name="comnom"
+                      [(ngModel)]="form.comnom"
+                      required
+                      minlength="2"
+                      maxlength="20"
+                      #comnom="ngModel"
+                    />
+                    
+                    <div class="alert-danger" *ngIf="comnom.errors && f.submitted">
+                      <div *ngIf="comnom.errors.required">Veuillez saisir le nom du centre</div>
+                      <div *ngIf="comnom.errors.minlength">
+                        Au moins 2 caractères sont necessaires !
+                      </div>
+                      <div *ngIf="comnom.errors.maxlength">
+                        Au maximum 20 caractères!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <button class="btn btn-primary btn-block">Ajouter le centre</button>
+                  </div>
+    
+                  <div class="alert alert-warning" *ngIf="isSignUpFailed">
+                    Erreur lors de l'ajout du centre !
+                  </div>
+                  </form>
+    
+        <div class="alert alert-success" *ngIf="isSuccessful">
+          Le centre a bien été ajouté !
+        </div>
+  
+      </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </section>

@@ -75,6 +75,7 @@
                     name="username"
                     [(ngModel)]="form.username"
                     required
+                    pattern=".*@.*\..*"
                     username
                     #username="ngModel"
                     placeholder="name@example.com"
@@ -82,6 +83,9 @@
                   <div class="alert-danger" *ngIf="username.errors && f.submitted">
                     <div *ngIf="username.errors.required">Veuillez saisir votre adresse mail</div>
                     <div *ngIf="username.errors.username">
+                      L'adresse mail est invalide
+                    </div>
+                    <div *ngIf="username.errors.pattern">
                       L'adresse mail est invalide
                     </div>
                   </div>
