@@ -5,6 +5,8 @@
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
             <h3 class="mb-5">Log in</h3>
+            <mat-progress-bar mode="indeterminate" *ngIf="isLoggedIn"></mat-progress-bar>
+
       <form
         *ngIf="!isLoggedIn"
         name="form"
