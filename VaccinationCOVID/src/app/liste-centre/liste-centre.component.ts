@@ -19,6 +19,9 @@ export class ListeCentreComponent implements OnInit {
   isLoginFailed = false;
   roles: string;
   isSuperAdmin = false;
+  isDeletedfailed = false;
+  error = '';
+  errorMessage = '';
 
   constructor(private router : Router,
     private service: VaccinationCenterService, 
@@ -63,9 +66,14 @@ export class ListeCentreComponent implements OnInit {
   }
   deleteCentre(center: ChoixCentre){
     if (window.confirm('Are you sure, you want to delete this center?')) {
-      this.service.deleteVaccinationCentre(center.gid).subscribe((data) => {
+      this.service.deleteVaccinationCentre(center.gid).subscribe({next:(data) => {
         this.reloadPage();
-      });
+      },
+      error: (err)=>{
+        this.isDeletedfailed = true;
+        
+        }
+  });
     }
   }
 

@@ -1,4 +1,10 @@
 <div class="divMain">
+    <div
+    class="alert alert-danger"
+    role="alert"
+    *ngIf="isDeletedfailed">
+    Can't delete this center
+  </div>
     <div *ngFor="let aCenter of centers">
         <div class="centre">
             <div>
@@ -6,6 +12,7 @@
                 <br>
                 {{aCenter.numAdresse}} {{aCenter.adresse}}, {{aCenter.cp}} {{aCenter.comnom}} 
             </div>
+           
             <button class="choisirBtn" (click)="selectCenter(aCenter)" *ngIf="!isLoggedIn">
                 Choisir
             </button>
