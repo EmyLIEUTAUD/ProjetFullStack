@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable,  } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { TokenStorageService } from './token-storage.service';
 const HEADERS = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  
+
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-
     token: string;
 
-    constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {
+    constructor(private http: HttpClient, 
+      private tokenStorageService: TokenStorageService,) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -32,9 +32,12 @@ export class AuthenticationService {
       }
 
     isUserLoggedIn(): boolean {
-      if(this.tokenStorageService.getAuthToken() != null){
-        console.log("Je suis loggué");
+      if(this.tokenStorageService.getAuthToken() != null ){
+        if(!this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
+          console.log("Je suis loggué");
         return true;
+        }
+        
       }
       console.log("je ne suis pas connecté");
       return false;

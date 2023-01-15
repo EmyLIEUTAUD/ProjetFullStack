@@ -42,6 +42,12 @@ export class TokenStorageService {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
+
+  public isTokenExpired(token: string) {
+  const expiry = (JSON.parse(window.atob(token.split('.')[1]))).exp;
+  console.log("exp token : "+expiry);
+  return expiry * 1000 > Date.now();
+}
  
 
   public getUser(): any {

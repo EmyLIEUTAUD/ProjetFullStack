@@ -31,4 +31,8 @@ export class VaccinationCenterService {
 
     return this.httpClient.put<ChoixCentre>("http://localhost:8080/admin/centres/modifier/"+gid, JSON.stringify(editCentre), {observe: "response", headers: headers});
   }
+  deleteVaccinationCentre(id: any){
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
+    return this.httpClient.delete<ChoixCentre>("http://localhost:8080/admin/centres/supprimer/"+id, {headers: headers});
+  }
 }

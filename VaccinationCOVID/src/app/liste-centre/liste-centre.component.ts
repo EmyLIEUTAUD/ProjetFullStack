@@ -65,6 +65,13 @@ export class ListeCentreComponent implements OnInit {
     console.log(center);
     this.router.navigate(['editCentre',center.gid]);
   }
+  deleteCentre(center: ChoixCentre){
+    if (window.confirm('Are you sure, you want to delete this center?')) {
+      this.service.deleteVaccinationCentre(center.gid).subscribe((data) => {
+        this.reloadPage();
+      });
+    }
+  }
 
   centreAdmins(center: ChoixCentre){
     this.selected = center;
@@ -75,4 +82,8 @@ export class ListeCentreComponent implements OnInit {
     delete this.selected;
     this.centers.splice(this.centers.indexOf(center),1);
   }
+  reloadPage(): void {
+    window.location.reload();
+  }
+
 }
