@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { BehaviorSubject, Observable,  } from 'rxjs';
 import { User } from '../_models/user';
 import { TokenStorageService } from './token-storage.service';
+
 const HEADERS = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 
@@ -32,14 +33,10 @@ export class AuthenticationService {
 
     isUserLoggedIn(): boolean {
       if(this.tokenStorageService.getAuthToken() != null ){
-        console.log("Je suis loggué");
         if(this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
-          console.log("token non expiré");
-        return true;
+          return true;
         }
-        
       }
-      console.log("je ne suis pas connecté");
       return false;
     }
 

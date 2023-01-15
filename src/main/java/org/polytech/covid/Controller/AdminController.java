@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import javax.persistence.Cache;
-
 import org.polytech.covid.Entity.*;
 import org.polytech.covid.Helper.CSVHelper;
 import org.polytech.covid.Message.ResponseMessage;
@@ -20,14 +18,12 @@ import org.polytech.covid.Service.AdminServices;
 import org.polytech.covid.Service.CSVService;
 import org.polytech.covid.Service.CentreServices;
 import org.polytech.covid.Service.MedecinServices;
-import org.polytech.covid.Service.PersonneService;
 import org.polytech.covid.Service.SuperAdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +34,22 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
 
+    /***
+     * Endpoint privé : nécessite une authentification pour y accéder
+     * /centres/ : gestion des centres par le superAdmin
+     * /administrateurs/ : gestion des administrateurs par le superAdmin
+     * /medecins/ : gestion des médecins par les admins
+     * /reservations/ : gestion des réservations par les admins
+     * /personnes/ : rechercher des personnes dans le centre du médecin et valider
+     * la vaccination par le médecin
+     * /professionnels/ : lister les professionnels en attente d'affectation pour
+     * devenir admin ou médecin dans un centre
+     ***/
+
     @Autowired
     CSVService fileService;
 
+    // Ancien endpoint pour ajouter les centres en important le fichier .csv
     @PostMapping("csv/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
@@ -141,9 +150,6 @@ public class AdminController {
     public List<Admin> voirAdminsByCentre(@PathVariable("gid") Integer gid) {
         return adminRepository.findByGid(gid);
     }
-
-    @Autowired
-    private PersonneService personneService;
 
     @PostMapping("/administrateurs/nouveau")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
@@ -355,15 +361,6 @@ public class AdminController {
     @PutMapping("/personnes/validerVaccination/{id}")
     public ResponseEntity<Public> updateVaccination(@PathVariable("id") Integer id) {
         Optional<Public> publicData = publicRepository.findByIdentifiant(id);
-        // TODO : voir si besoin de vérifier que la personne a bien eu son rendez-vous
-        // Authentication authentication =
-        // SecurityContextHolder.getContext().getAuthentication();
-        // Personne personne =
-        // personneRepository.findByMail(authentication.getName()).get();
-        // Medecin medecin =
-        // medecinRepository.findById(personne.getIdentifiant()).get();
-        // Centre centre =
-        // centreRepository.findById(medecin.getCentre().getGid()).get();
         if (publicData.isPresent()) {
             Public _public;
             _public = medecinServices.modifierPublic(publicData);

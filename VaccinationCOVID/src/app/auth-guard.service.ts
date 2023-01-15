@@ -21,9 +21,6 @@ export class AuthGuardService implements CanActivate, CanDeactivate<IDeactivate>
       
       this.router.navigate(["/login"],{ queryParams: { retUrl: route.url} });
       return false;
-    
-      //var urlTree = this.router.createUrlTree(['login']);
-      //return urlTree;
     } 
     
   return true;

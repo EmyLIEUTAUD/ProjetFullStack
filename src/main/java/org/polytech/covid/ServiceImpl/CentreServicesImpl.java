@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CentreServicesImpl implements CentreServices {
 
+    /***
+     * Description des services pour les Centres
+     ***/
+
     @Autowired
     private CentreRepository centreRepository;
 

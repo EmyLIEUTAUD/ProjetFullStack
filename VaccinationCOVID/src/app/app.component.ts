@@ -36,8 +36,6 @@ title = 'VaccinationCOVID';
       if(this.roles.length == 0){
         this.showProfessionnalBoard = true;
       }
-      console.log("professionnel : "+this.showProfessionnalBoard);
-      console.log("role = ", this.roles);
       this.showMedecinBoard = this.roles.includes('MEDECIN');
 
       this.username = user.sub;

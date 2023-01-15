@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
-import { EnvoiFormulaireService } from '../envoi-formulaire.service';
-import { GeneralHttpInterceptorService } from '../general-http-interceptor.service';
-import { VaccinationCenterService } from '../vaccination-center.service';
 
 @Component({
   selector: 'app-queue',
@@ -21,7 +18,6 @@ export class QueueComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,  private readonly router: Router) { 
     this.temps = this.route.snapshot.params['temps'];
-    console.log("param : ", this.temps);
   }  
 
   ngOnInit(): void {
@@ -37,7 +33,6 @@ export class QueueComponent implements OnInit, OnDestroy {
   updateTime(){
     this.tempsRestant = this.temps - this.difference;
     this.difference = this.difference + 1;
-    console.log("temps restant = ", this.tempsRestant);
     if(this.tempsRestant == 0){
       this.ngOnDestroy();
     }

@@ -9,26 +9,17 @@ import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Repository.PublicRepository;
 import org.polytech.covid.Repository.ReservationRepository;
 import org.polytech.covid.Service.CentreServices;
-import org.polytech.covid.Service.PersonneService;
-import org.polytech.covid.Service.ReservationService;
-import org.polytech.covid.model.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.SecurityConfig;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import io.github.bucket4j.*;
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
 
-import java.net.URI;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
@@ -39,10 +30,13 @@ import java.util.concurrent.TimeUnit;
 @CrossOrigin(origins = "http://localhost:4200")
 public class PublicController {
 
+    /***
+     * Endpoint public destiné aux patients pour prendre rendez-vous dans un centre
+     * pour une vaccination
+     ***/
+
     @Autowired
     private CentreServices centreServices;
-    @Autowired
-    private ReservationService reservationService;
     @Autowired
     private PersonneRepository personneRepository;
     @Autowired
@@ -105,7 +99,6 @@ public class PublicController {
                 reservationRepository.save(reservationRequest);
                 Public publicSave = new Public(personneSave, 0);
                 publicRepository.save(publicSave);
-                // return new ResponseEntity<>(reservationRequest, HttpStatus.CREATED);
                 return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
                         .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
                         .body(reservationRequest);
@@ -115,70 +108,14 @@ public class PublicController {
 
                     return reservationRepository.save(reservationRequest);
                 });
-
-                // return new ResponseEntity<>(reservation.get(), HttpStatus.CREATED);
                 return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
                         .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
                         .body(reservation.get());
             }
         }
-        // return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
         long delaiEnSeconde = probe.getNanosToWaitForRefill() / 1_000_000_000;
         headers.add("X-Rate-Limit-Retry-After-Seconds", String.valueOf(delaiEnSeconde));
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).headers(headers).build();
-    }
-
-    /*
-     * final String remaining = "X-Rate-Limit-Remaining";
-     * final String retryAfter = "X-Rate-Limit-Retry-After-Seconds";
-     *
-     * @CrossOrigin(exposedHeaders = { remaining, retryAfter })
-     *
-     * @GetMapping(value = "/inscription/infos")
-     * public ResponseEntity<Data> infos() {
-     * HttpHeaders headers = new HttpHeaders();
-     * ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
-     * if (probe.isConsumed()) {
-     * headers.add("X-Rate-Limit-Remaining",
-     * Long.toString(probe.getRemainingTokens()));
-     * return ResponseEntity.ok()
-     * .headers(headers)
-     * .body(new Data("infos"));
-     * }
-     * long delaiEnSeconde = probe.getNanosToWaitForRefill() / 1_000_000_000;
-     * headers.add("X-Rate-Limit-Retry-After-Seconds",
-     * String.valueOf(delaiEnSeconde));
-     * return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-     * .headers(headers)
-     * .build();
-     * }
-     */
-
-    @Autowired
-    private PersonneService personneService;
-
-    @PutMapping("/personne/modifier/{id}")
-    public ResponseEntity<Personne> updatePersonne(@PathVariable("id") Integer id, @RequestBody Personne personne) {
-        Optional<Personne> personneData = personneRepository.findById(id);
-
-        if (personneData.isPresent()) {
-            Personne _personne;
-            _personne = personneService.modifierPublic(personneData, personne);
-            return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
-                    .body(personneRepository.save(_personne));
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/personne/supprimer/{id}")
-    public ResponseEntity<HttpStatus> deleteMedecin(@PathVariable("id") Integer id) {
-        try {
-            personneRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
 }

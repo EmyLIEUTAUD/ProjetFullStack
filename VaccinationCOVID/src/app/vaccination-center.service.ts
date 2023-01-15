@@ -48,8 +48,6 @@ export class VaccinationCenterService {
     let flagPromise: Promise<void> = new Promise((flag => flag2 = flag));
     this.httpClient.post<string>("http://localhost:8080/admin/centres/nouveau",centre, {observe: "response", headers: ifMatch}).subscribe({
       next: (data) => {
-        console.log("succès");
-        console.log("data body : "+data.body);
         this.isSuccessful = true;
         this.isSignupFailed = false;
         this.etag = [data.headers.get("ETag")];

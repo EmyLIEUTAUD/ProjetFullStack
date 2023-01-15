@@ -12,7 +12,10 @@ export class JwtInterceptor implements HttpInterceptor {
         ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let tokentest = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlckFkbWluQGdtYWlsLmNvbSIsImV4cCI6MTY3MzMxMDQzNCwiaWF0IjoxNjczMjkyNDM0LCJhdXRob3JpdGllcyI6WyJTVVBFUl9BRE1JTiJdfQ.hX0GyND5sOpM2dry1VGphfDlQrAgU-EWMo1rUq4UuaK_LisWGZDCMRWnI_ichFRpgK4h5H-XoN4k368YQjPusg'
+
+        /***
+         * Intercepter les requêtes pour injecter le token
+         */
 
         // add authorization header with jwt token if available
         const currentUser = this.authenticationService.currentUserValue;
@@ -21,13 +24,10 @@ export class JwtInterceptor implements HttpInterceptor {
        
             let jwtToken = request.clone({
                 setHeaders: {
-                    //Authorization: `Bearer ${currentUser.token}`
                     Authorization: `Bearer `+ token
                     
                 }
-            });
-            console.log("token : "+token)
-            
+            });            
 
         return next.handle(jwtToken);
     }

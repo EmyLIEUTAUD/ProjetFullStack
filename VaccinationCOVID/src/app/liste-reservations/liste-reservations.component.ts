@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ProfessionnelsService } from '../professionnels.service';
@@ -31,10 +30,8 @@ export class ListeReservationsComponent {
       this.currentUser = this.token.getUser();
       this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
         this.personne = resultPersonne;
-        console.log("id personne : "+ this.personne.identifiant);
         this.adminService.getVaccinationAdminByPersonneIdentifiant(this.personne.identifiant).subscribe((resultAdmin) => {
           this.centre = resultAdmin.centre;
-          console.log(this.centre);
         })
       });
       this.loadReservations();

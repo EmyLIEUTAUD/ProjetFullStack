@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MedecinServices {
-    List<Reservation> rechercherPersonne(String nom, Integer idCentre);
 
+    /***
+     * Liste des services pour les Medecins
+     ***/
+
+    List<Reservation> rechercherPersonne(String nom, Integer idCentre);
 
     Public modifierPublic(Optional<Public> publicData);
 

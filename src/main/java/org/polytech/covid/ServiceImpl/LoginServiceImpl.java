@@ -1,28 +1,18 @@
 package org.polytech.covid.ServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
 import org.polytech.covid.Entity.Personne;
 import org.polytech.covid.Entity.Superadmin;
-import org.polytech.covid.Repository.AdminRepository;
-import org.polytech.covid.Repository.MedecinRepository;
 import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.Repository.SuperadminRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LoginServiceImpl {
@@ -57,7 +47,5 @@ public class LoginServiceImpl {
         sa.setPersonne(superAdmin);
         superadminRepository.save(sa);
     }
-
-
 
 }

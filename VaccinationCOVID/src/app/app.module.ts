@@ -116,7 +116,6 @@ import { AddCentreComponent } from './add-centre/add-centre.component';
   TokenStorageService,
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   
-  //authInterceptorProviders
 ],
   bootstrap: [AppComponent]
 

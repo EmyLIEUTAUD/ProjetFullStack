@@ -1,7 +1,6 @@
 package org.polytech.covid.Config;
 
 import lombok.RequiredArgsConstructor;
-import org.polytech.covid.Repository.PersonneRepository;
 import org.polytech.covid.security.JwtAuthenticationEntryPoint;
 import org.polytech.covid.security.JwtRequestFilter;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
@@ -26,7 +25,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,14 +32,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -58,9 +52,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 public class SecurityConfig implements WebMvcConfigurer {
 
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    /***
+     * Gestion de la sécurité des endpoints
+     ***/
 
-    private final UserDetailsService userDetailsService;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     private final JwtRequestFilter jwtRequestFilter;
 

@@ -21,15 +21,12 @@ export class GeneralHttpInterceptorService implements HttpInterceptor {
   constructor(public router: Router, private modalService: MdbModalService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    console.log("J'intercepte les erreurs http");
     req = req.clone();
     return next.handle(req).pipe(
     catchError((error) => {
 
         let handled: boolean = false;
         console.error(error);
-            console.log("j'ai une erreur");
-            console.log(`error status : ${error.status} ${error.statusText}`);
             switch (error.status) {
               case 401:    //unauthorized
                 console.log("erreur 401 : non authorisé")

@@ -1,25 +1,19 @@
 package org.polytech.covid.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Entity
 public class Personne {
+
+    /***
+     * Table contenant les Personnes (professionnels, patients, admins, médecins et
+     * superAdmin)
+     ***/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +25,8 @@ public class Personne {
     @Column(nullable = false)
     private String mail;
     @Column
-    // @JsonIgnore
     private String mdp;
 
-    // @Fetch(FetchMode.JOIN)
     @ElementCollection(fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     private List<String> roles;

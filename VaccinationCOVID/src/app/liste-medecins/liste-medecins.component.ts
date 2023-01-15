@@ -41,10 +41,8 @@ export class ListeMedecinsComponent implements OnInit {
       this.currentUser = this.token.getUser();
       this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
         this.personne = resultPersonne;
-        console.log("id personne : "+ this.personne.identifiant);
         this.adminService.getVaccinationAdminByPersonneIdentifiant(this.personne.identifiant).subscribe((resultAdmin) => {
           this.centre = resultAdmin.centre;
-          console.log(this.centre);
         })
       });
       this.loadMedecins();
@@ -57,13 +55,10 @@ export class ListeMedecinsComponent implements OnInit {
     }
 
     modifierMedecin(medecin: ChoixMedecin){
-      console.log("Je veux modifier le médecin ",medecin);
-      console.log("idMedecin : ",medecin.id_medecin);
       this.router.navigate(['editMedecin',medecin.id_medecin]);
     }
 
     ajouterMedecin(){
-      console.log("Je veux ajouter le médecin");
       this.router.navigate(['addMedecin']);
     }
 

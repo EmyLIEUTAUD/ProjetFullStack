@@ -16,6 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CSVHelper {
 
+    /***
+     * Ancien fichier permettant de parser le fichier csv importé pour ajouter les
+     * centres dans la base de données
+     ***/
+
     public static String TYPE = "text/csv";
 
     public static boolean hasCSVFormat(MultipartFile file) {

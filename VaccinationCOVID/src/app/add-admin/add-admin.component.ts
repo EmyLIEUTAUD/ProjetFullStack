@@ -27,12 +27,9 @@ export class AddAdminComponent {
     })   
   }
   ajouterAdmin(professionnel: User){
-    console.log("Je veux ajouter un admin")
     if(window.confirm('Are you sure, you want to add?')){
-      console.log("admin ajouté : "+professionnel);
       this.route.params.subscribe((params: Params) =>this.professionnelService.addAdminById(professionnel, params['gid'],this.etag).subscribe(data => {
         this.etag = [data.headers.get("ETag")];
-        console.log(data.body);
         this.reloadPage();
       }))
     }

@@ -9,6 +9,7 @@ import { ModalListReservationsComponent } from '../modal-list-reservations/modal
     selector: 'app-board-admin',
     templateUrl: './board-admin.component.html' })
 export class BoardAdminComponent implements OnInit {
+  
   modalRefReservations: MdbModalRef<ModalListReservationsComponent> | null = null;
   modalRefMedecins: MdbModalRef<ModalListMedecinsComponent> | null = null;
 

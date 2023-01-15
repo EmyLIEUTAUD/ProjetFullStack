@@ -1,7 +1,9 @@
 package org.polytech.covid.Service;
 
-import org.polytech.covid.Entity.Reservation;
-
 public interface ReservationService {
+
+    /***
+     * Liste des services pour les Réservations
+     ***/
 
 }

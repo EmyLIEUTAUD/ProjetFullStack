@@ -1,13 +1,5 @@
 package org.polytech.covid.model;
 
-import org.polytech.covid.Entity.Personne;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class UserDTO {
     private String username;
     private String password;
@@ -45,6 +37,5 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
 }

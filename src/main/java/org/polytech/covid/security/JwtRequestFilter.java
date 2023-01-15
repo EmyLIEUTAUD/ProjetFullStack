@@ -9,16 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.SecurityConfig;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -26,13 +22,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.SignatureException;
-import java.util.Arrays;
-import java.util.List;
 
-import static org.aspectj.util.LangUtil.isEmpty;
 @Component
-public class JwtRequestFilter extends OncePerRequestFilter  {
+public class JwtRequestFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
@@ -43,30 +35,27 @@ public class JwtRequestFilter extends OncePerRequestFilter  {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
-
-
 
         String username = null;
         String jwtToken = null;
         // JWT Token is in the form "Bearer token". Remove Bearer word and get
         // only the Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            jwtToken = requestTokenHeader.replace(TOKEN_PREFIX,"");
+            jwtToken = requestTokenHeader.replace(TOKEN_PREFIX, "");
 
             log.info("Verification du token {}", jwtToken);
 
-            try{
+            try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
                 System.out.println("JWT Token has expired");
-            }catch (MalformedJwtException | UnsupportedJwtException e) {
+            } catch (MalformedJwtException | UnsupportedJwtException e) {
                 SecurityContextHolder.getContext().setAuthentication(null);
             }
         } else {
@@ -81,16 +70,9 @@ public class JwtRequestFilter extends OncePerRequestFilter  {
             // if token is valid configure Spring Security to manually set
             // authentication
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-              UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(jwtToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
+                UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(jwtToken,
+                        SecurityContextHolder.getContext().getAuthentication(), userDetails);
 
-           /** String role ="";
-
-            role = userDetails.getAuthorities().toString();
-
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, Arrays.asList(new SimpleGrantedAuthority (role)));
-**/
-                //UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 // After setting the Authentication in the context, we specify

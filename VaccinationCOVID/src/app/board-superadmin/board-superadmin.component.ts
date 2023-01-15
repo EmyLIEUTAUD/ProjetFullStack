@@ -10,6 +10,7 @@ import { ModalSuperConfigComponent } from '../modal-super-config/modal-super-con
   
 })
 export class BoardSuperadminComponent  implements OnInit  {
+  
   modalRef: MdbModalRef<ModalSuperAdminComponent> | null = null;
 
 

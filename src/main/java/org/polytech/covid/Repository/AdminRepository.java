@@ -12,6 +12,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
+    /***
+     * Requêtes SQL afin de récupérer des données dans la table Admin
+     ***/
+
     List<Admin> findAll();
 
     @Query("SELECT a FROM Admin a WHERE a.personne.identifiant = :identifiant")

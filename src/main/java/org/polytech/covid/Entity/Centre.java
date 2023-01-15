@@ -5,6 +5,10 @@ import javax.persistence.*;
 @Entity
 public class Centre {
 
+    /***
+     * Table contenant les centres
+     ***/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer gid;

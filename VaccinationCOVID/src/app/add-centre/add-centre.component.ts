@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { IDeactivate } from '../i-deactivate';
 import { VaccinationCenterService } from '../vaccination-center.service';
 
@@ -46,11 +45,9 @@ export class AddCentreComponent implements OnInit, IDeactivate{
         this.isSignUpFailed = false;
       }
       else if(this.centreService.flag == false){
-        console.log("J'ai flag == false");
         this.isSuccessful = false;
         this.isSignUpFailed = true;
       }
-      console.log("isSignUpFailed : "+this.isSignUpFailed)
     });
   }
 

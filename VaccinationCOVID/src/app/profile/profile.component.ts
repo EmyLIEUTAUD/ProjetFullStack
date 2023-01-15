@@ -32,10 +32,8 @@ export class ProfileComponent implements OnInit {
       this.hasRole = true;
       this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
         this.personne = resultPersonne;
-        console.log("id personne : "+ this.personne.identifiant);
         this.adminService.getVaccinationAdminByPersonneIdentifiant(this.personne.identifiant).subscribe((resultAdmin) => {
           this.centre = resultAdmin.centre;
-          console.log(this.centre);
         })
       });
     }
@@ -44,10 +42,8 @@ export class ProfileComponent implements OnInit {
       this.hasRole = true;
       this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
         this.personne = resultPersonne;
-        console.log("id personne : "+ this.personne.identifiant);
         this.medecinService.getMedecinByPersonneIdentifiant(this.personne.identifiant).subscribe((resultMedecin) => {
           this.centre = resultMedecin.centre;
-          console.log(this.centre);
         })
       });
     }
@@ -56,7 +52,6 @@ export class ProfileComponent implements OnInit {
       this.hasRole = true;
       this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
         this.personne = resultPersonne;
-        console.log("id personne : "+ this.personne.identifiant);
       });
     }
   }

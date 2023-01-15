@@ -13,9 +13,6 @@ import { IDeactivate } from '../i-deactivate';
 export class RendezVousComponent implements OnInit, IDeactivate {
 
   centre: ChoixCentre;
-  #prenom: string;
-  #nom: string;
-  #email: string;
   dateRdv: string;
   isSuccessful = false;
   day: number;
@@ -38,7 +35,6 @@ export class RendezVousComponent implements OnInit, IDeactivate {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.service.getVaccinationCenterById(params['gid']).subscribe(resultCenters=> {
       this.centre = resultCenters;
-      console.log("test centre"+this.centre.gid);
     }));
   }
 
@@ -53,30 +49,21 @@ export class RendezVousComponent implements OnInit, IDeactivate {
   }
 
   onSubmit(): void {
-    console.log("je submit le form");
     const {nom, prenom, username, dateRdv} = this.form;
-    console.log(this.form);
     this.EnvoyerForm(this.centre, prenom, nom, username, dateRdv);
 
   }
 
   EnvoyerForm(centre: ChoixCentre,prenom: string,nom: string,email: string,date: Date){
-    console.log("J'envoie le form");
-    /*this.dateRdv = this.convertDate(date);
-    this.jour = this.GetDayOfDate(this.dateRdv);
-    console.log(this.jour);
-    if(this.horaires != 'fermé'){*/
     this.centreIsOpen(date);
     if(this.ferme == false){
       this.service2.saveRdv(centre, prenom, nom, email, this.dateRdv).then(() => {
         if(this.service2.flag == true){
-          console.log("c'est true");
           this.isSuccessful = true;
           this.isNotSuccessful = false;
           this.wait = false;
         }
         else if(this.service2.flag == false){
-          console.log("c'est false");
           this.isSuccessful = false;
           this.isNotSuccessful = false;
           this.infos = this.service2.infos;
@@ -88,7 +75,6 @@ export class RendezVousComponent implements OnInit, IDeactivate {
       this.isSuccessful = false;
       this.isNotSuccessful = true;
       this.wait = false;
-      console.log("le centre est fermé")
     }
     return this.isSuccessful
   }
@@ -141,11 +127,9 @@ export class RendezVousComponent implements OnInit, IDeactivate {
     this.dateRdv = this.convertDate(date);
     this.jour = this.GetDayOfDate(this.dateRdv);
     if(this.horaires == "fermé"){
-      console.log("le centre est fermé dans centreIsOpen");
       this.ferme = true;
     }
     else{
-      console.log("le centre est ouvert");
       this.ferme = false;
     }
   }

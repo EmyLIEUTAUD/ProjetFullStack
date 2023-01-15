@@ -117,9 +117,6 @@
                 <div class="form-outline mb-4">
                   <button class="btn btn-primary btn-block">S'inscrire</button>
                 </div>
-                <!--<div class="alert alert-warning" *ngIf="wait">
-                  {{infos}}<br />{{ errorMessage }}
-                </div>-->
                 </form>
   
       <div class="alert alert-success" *ngIf="isSuccessful">
@@ -134,54 +131,3 @@
   </div>
   </div>
 </section>
-
-<!--
-<div *ngIf="centre" class="centre">
-  <div>
-      {{this.centre.nom}}
-      <br>
-      {{this.centre.numAdresse}} {{this.centre.adresse}}, {{this.centre.cp}} {{this.centre.comnom}} 
-  </div>
-</div>
-<div class="formulaire">
-  <div class="nomprenom">
-    <div class="prenom">
-      Prénom
-      <input id="prenom" placeholder="Entrez votre prénom" [(ngModel)]="prenom"/>
-
-    </div>
-    <div class="nom">
-      Nom
-      <input id="nom" placeholder="Entrez votre Nom" [(ngModel)]="nom"/>
-    </div>
-  </div>
-  <div class="email">
-    Email
-    <input id="email" placeholder="Entrez votre mail" [(ngModel)]="email"/>
-  </div>
-  <div class="date_rdv">
-    Date du rendez-vous
-    <mat-form-field appearance="fill">
-      <mat-label>Choisissez une date</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="dateRdv">
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  <button (click)="EnvoyerForm(centre,prenom,nom,email,dateRdv)">
-    Envoyer formulaire
-  </button>
-  </div>
-</div>
-<div class="alert alert-success" *ngIf="isSuccessful">
-  Votre rendez-vous a bien été pris en compte !<br>
-  Voici les horaires d'ouverture du centre le {{jour}} : <br>
-  {{horaires}}
-</div>
-<div class="alert alert-danger" *ngIf="isNotSuccessful">
-Le centre est fermé le {{jour}}.<br>
-Veuillez choisir un autre jour.
-</div>
-<div class="alert alert-warning" *ngIf="wait">
-{{infos}}
-</div>
--->

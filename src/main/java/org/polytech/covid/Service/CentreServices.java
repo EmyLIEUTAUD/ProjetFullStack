@@ -7,6 +7,10 @@ import org.polytech.covid.Entity.Centre;
 
 public interface CentreServices {
 
+    /***
+     * Liste des services pour les Centres
+     ***/
+
     Centre creerCentre(Centre centre);
 
     Centre modifierCentre(Optional<Centre> centreData, Centre centre);

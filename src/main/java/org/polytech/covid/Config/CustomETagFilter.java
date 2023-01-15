@@ -16,6 +16,12 @@ import java.util.*;
 
 public class CustomETagFilter extends ShallowEtagHeaderFilter {
 
+    /***
+     * Gérer les Etag :
+     * header if-match pour les requêtes GET
+     * header if-none-match pour les requêtes POST, PUT et PATCH
+     ***/
+
     private static final String DIRECTIVE_NO_STORE = "no-store";
     private static Set<String> cache = new HashSet<>();
     private static final List<String> modifyMethod = Arrays.asList(

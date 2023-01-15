@@ -23,6 +23,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminServicesImpl implements AdminServices {
 
+    /***
+     * Description des services pour les Admins
+     ***/
+
     @Autowired
     private MedecinRepository medecinRepository;
 

@@ -36,19 +36,7 @@ export class RegisterComponent implements OnInit, IDeactivate {
   }
 
   onSubmit(): void{
-    /*const {nom,prenom,username,password} = this.form;
 
-    this.authService.register(nom,prenom,username,password).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.isSuccessful = true;
-        this.isSignupFailed = false;
-      },
-      error: (err) => {
-        this.errorMessage = err.error.message;
-        this.isSignupFailed = true;
-      }
-  });*/
     const {nom, prenom, username, pwd} = this.form;
 
     this.service.saveCompte(username, pwd, nom, prenom).then(() => {
@@ -57,17 +45,11 @@ export class RegisterComponent implements OnInit, IDeactivate {
         this.isSignUpFailed = false;
       }
       else if(this.service.flag == false){
-        console.log("J'ai flag == false");
         this.isSuccessful = false;
         this.isSignUpFailed = true;
         this.errorMessage = "Mail déjà utilisé";
       }
-      //this.isSignUpFailed = this.service.isSignupFailed;
-      //this.isSuccessful = this.service.isSuccessful;
-      console.log("isSignUpFailed : "+this.isSignUpFailed)
     });
-
-    //this.isSuccessful = true;
 
   }
 }

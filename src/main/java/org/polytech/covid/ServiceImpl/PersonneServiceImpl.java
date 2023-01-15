@@ -2,13 +2,10 @@ package org.polytech.covid.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.Entity.Personne;
-import org.polytech.covid.Entity.Public;
 import org.polytech.covid.Repository.PersonneRepository;
-import org.polytech.covid.Repository.PublicRepository;
 import org.polytech.covid.Service.PersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,12 +16,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Service
 public class PersonneServiceImpl implements PersonneService {
 
+    /***
+     * Description des services pour les personnes
+     ***/
+
     @Autowired
     private PersonneRepository personneRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private PublicRepository publicRepository;
 
     @Autowired
     public PersonneServiceImpl(final PersonneRepository personneRepository, PasswordEncoder passwordEncoder) {
@@ -33,11 +31,8 @@ public class PersonneServiceImpl implements PersonneService {
     }
 
     public Personne creerPublic(Personne personne) {
-        // TODO : si la personne n'existe pas : faire ça
         Personne _personne = personneRepository
                 .save(new Personne(personne.getNom(), personne.getPrenom(), personne.getMail()));
-        Public _public = publicRepository.save(new Public(_personne, 0));
-        // sinon : pré-remplir le formulaire avec les infos de la personne
         return _personne;
     }
 
@@ -66,11 +61,6 @@ public class PersonneServiceImpl implements PersonneService {
         _personne.setRoles(personne.getRoles());
         System.out.println("Professionnel modifié");
         return _personne;
-    }
-
-    public List<Personne> getProfessionnels() {
-        //List<Personne> professionnelsList = personneRepository.findProfessionnels();
-        return null;
     }
 
     private Collection<? extends GrantedAuthority> authorities;

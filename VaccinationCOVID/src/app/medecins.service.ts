@@ -18,7 +18,6 @@ export class MedecinsService {
 
   getMedecinById(id_medecin: number) : Observable<ChoixMedecin>{
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'})
-    console.log("id_medecin dans le service : ",id_medecin);
     return this.httpClient.get<ChoixMedecin>("http://localhost:8080/admin/medecins/id/"+id_medecin, {headers: headers});
   }
 
@@ -30,7 +29,6 @@ export class MedecinsService {
 
   editMedecinById(idMedecin: number, editMedecin: any, etag: Array<string>): Observable<HttpResponse<ChoixMedecin>>{
     let headers = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'If-Match': etag});
-    console.log("editMedecin : ",editMedecin);
     return this.httpClient.put<ChoixMedecin>("http://localhost:8080/admin/medecins/modifier/"+idMedecin, JSON.stringify(editMedecin), {observe: "response", headers: headers});
   }
 

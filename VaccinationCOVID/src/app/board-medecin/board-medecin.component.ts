@@ -9,6 +9,7 @@ import { ModalMedecinPlanningComponent } from '../modal-medecin-planning/modal-m
   styleUrls: ['./board-medecin.component.scss']
 })
 export class BoardMedecinComponent implements OnInit {
+  
   content?: string;
   modalRef: MdbModalRef<ModalMedecinPlanningComponent> | null = null;
 

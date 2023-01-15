@@ -3,7 +3,6 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
 import { Admin } from '../_models/admin';
 import { Router } from '@angular/router';
-import { AdminChoixServiceService } from '../admin-choix-service.service';
 
 @Component({
   selector: 'app-modal-super-config',
@@ -38,7 +37,6 @@ export class ModalSuperConfigComponent implements OnInit{
   }
   editAdmin(adminSelected : Admin){
       this.selected = adminSelected;
-      //this.service.admin = adminSelected;
       this.router.navigate(['editAdmin',adminSelected.id_admin]);
       
     }

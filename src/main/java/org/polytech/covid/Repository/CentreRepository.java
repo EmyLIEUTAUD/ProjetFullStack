@@ -12,16 +12,14 @@ import java.util.Optional;
 @Repository
 public interface CentreRepository extends JpaRepository<Centre, Integer> {
 
+    /***
+     * Requêtes SQL afin de récupérer des données dans la table Centre
+     ***/
+
     @Query("SELECT c FROM Centre c WHERE c.comnom LIKE %:ville%")
-    // @Query("SELECT c FROM Centre c WHERE c.comnom = :ville")
     List<Centre> findByComnom(@Param("ville") String ville);
 
     List<Centre> findAll();
-
-    // @Query("SELECT c.gid, c.nom, c.comnom, c.numAdresse, c.adresse, c.cp,
-    // c.horairesLundi, c.horairesMardi, c.horairesMercredi, c.horairesJeudi,
-    // c.horairesVendredi, c.horairesSamedi, c.horairesDimanche FROM Centre c")
-    // List<Centre> findCentres();
 
     @Query("SELECT c FROM Centre c WHERE c.gid = :gid")
     Optional<Centre> findById(@Param("gid") Integer gid);

@@ -44,15 +44,9 @@ const routes: Routes = [
   {path: 'admins/centre/:gid', component: CentreAdminComponent, canActivate: [AuthGuardService]},
   {path: 'addAdmin/:gid', component: AddAdminComponent, canActivate: [AuthGuardService]},
   {path: 'addCentre', component: AddCentreComponent, canActivate: [AuthGuardService], canDeactivate: [AuthGuardService]}
-  //{path: '', redirectTo: '/public', pathMatch: 'full'},
-
-
-
-  //{path: '**', title: 'Page erreur', component: PageNotFoundComponent }, //renvoie à une page d'erreur si pas bon url
 
 ]
 
-// export const AppRoutingModule = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

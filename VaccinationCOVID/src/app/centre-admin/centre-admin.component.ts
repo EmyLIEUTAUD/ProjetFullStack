@@ -25,7 +25,6 @@ export class CentreAdminComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.service.getVaccinationCenterById(params['gid']).subscribe(resultCenters=> {
       this.centre = resultCenters;
-      console.log("test centre"+this.centre.gid);
     }));
 
     this.route.params.subscribe((params: Params) => this.adminservice.getVaccinationAdminByCentre(params['gid']).subscribe(resultAdmins=> {

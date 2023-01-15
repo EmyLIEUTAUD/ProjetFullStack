@@ -9,6 +9,7 @@ import { ChoixCentre } from '../choix-centre/choix-centre';
 import { Role } from '../_models/role';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ProfessionnelsService } from '../professionnels.service';
+
 @Component({
   selector: 'app-modal-medecin-planning',
   templateUrl: './modal-medecin-planning.component.html',
@@ -21,10 +22,6 @@ export class ModalMedecinPlanningComponent implements OnInit{
   public!: any;
   isValide = false;
 
-  
-  #prenom: string;
-  #nom: string;
-  #email: string;
   dateRdv: string;
   isSuccessful = false;
   day: number;
@@ -43,7 +40,6 @@ export class ModalMedecinPlanningComponent implements OnInit{
   personne: User = {identifiant: 0, nom: "", prenom: "", username: "", password: "", role: Role.Medecin};
 
   constructor(public modalRef: MdbModalRef<ModalMedecinPlanningComponent>,
-    private router : Router,
     private service: PersonneService,
     private medecinService: MedecinsService,
     private token: TokenStorageService,
@@ -54,10 +50,8 @@ export class ModalMedecinPlanningComponent implements OnInit{
       this.currentUser = this.token.getUser();
       this.professionnelsService.getProfessionnelByEmail(this.currentUser.sub).then((resultPersonne) => {
         this.personne = resultPersonne;
-        console.log("id personne : "+ this.personne.identifiant);
         this.medecinService.getMedecinByPersonneIdentifiant(this.personne.identifiant).subscribe((resultMedecin) => {
           this.centre = resultMedecin.centre;
-          console.log(this.centre);
         })
       });
       this.service._nomPersonneSubject.subscribe((nomPersonne) => {
@@ -70,9 +64,7 @@ export class ModalMedecinPlanningComponent implements OnInit{
     }
     
     onSubmit(): void {
-      console.log("je submit le form");
       const {dateRdv} = this.form;
-      console.log(this.form);
       this.getReservationByDate(dateRdv);
   
     }

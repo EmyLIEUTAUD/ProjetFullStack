@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'token';
 const USER_KEY = 'auth-user';
 const AUTHTOKEN_KEY = 'authtoken';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,7 +45,6 @@ export class TokenStorageService {
 
   public isTokenExpired(token: string) {
   const expiry = (JSON.parse(window.atob(token.split('.')[1]))).exp;
-  console.log("exp token : "+expiry);
   return expiry * 1000 > Date.now();
 }
  

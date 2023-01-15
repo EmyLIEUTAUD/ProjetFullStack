@@ -1,34 +1,23 @@
 package org.polytech.covid.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import liquibase.pro.packaged.ho;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
 public class Reservation {
 
+    /***
+     * Table contenant les réservations
+     ***/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_reservation;
     private LocalDate date_reservation;
 
-    // @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    // @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ManyToOne
     @JoinColumn(name = "identifiant", referencedColumnName = "identifiant")
-    // @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Personne personne;
 
     @ManyToOne

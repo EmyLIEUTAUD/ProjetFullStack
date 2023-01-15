@@ -26,12 +26,9 @@ export class AddMedecinComponent implements OnInit {
   }
 
   ajouterMedecin(professionnel: User){
-    console.log("Je veux ajouter un médecin")
     if(window.confirm('Are you sure, you want to add?')){
-      console.log("médecin ajouté : "+professionnel);
       this.professionnelService.addMedecinById(professionnel, this.etag).subscribe(data => {
         this.etag = [data.headers.get("ETag")];
-        console.log(data.body);
         this.reloadPage();
       })
     }
