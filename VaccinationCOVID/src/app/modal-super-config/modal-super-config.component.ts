@@ -1,9 +1,7 @@
-import { Component, Input, OnInit  } from '@angular/core';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { HttpClient} from '@angular/common/http';
+import { Component, OnInit  } from '@angular/core';
+import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
 import { Admin } from '../_models/admin';
-import { ModalListMedecinsComponent } from '../modal-list-medecins/modal-list-medecins.component';
 import { Router } from '@angular/router';
 import { AdminChoixServiceService } from '../admin-choix-service.service';
 
@@ -18,7 +16,6 @@ export class ModalSuperConfigComponent implements OnInit{
   constructor(public modalRef: MdbModalRef<ModalSuperConfigComponent>,
     private adminservice: VaccinationAdminServiceService,
     private router : Router,
-    private service: AdminChoixServiceService
     ) {}
 
   ngOnInit() {

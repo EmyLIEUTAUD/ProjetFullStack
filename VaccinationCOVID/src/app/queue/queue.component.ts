@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { interval, Observable, Subscription, timer } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 import { EnvoiFormulaireService } from '../envoi-formulaire.service';
 import { GeneralHttpInterceptorService } from '../general-http-interceptor.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
@@ -19,7 +19,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private service: VaccinationCenterService,private service2: EnvoiFormulaireService, private readonly router: Router, private interceptor: GeneralHttpInterceptorService) { 
+  constructor(private route: ActivatedRoute,  private readonly router: Router) { 
     this.temps = this.route.snapshot.params['temps'];
     console.log("param : ", this.temps);
   }  

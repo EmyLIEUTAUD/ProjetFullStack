@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { textSpanContainsPosition } from 'typescript';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { EnvoiFormulaireService } from '../envoi-formulaire.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
-import { HttpClient, HttpHeaders, HttpHeaderResponse, HttpResponse } from '@angular/common/http';
 import { IDeactivate } from '../i-deactivate';
 
 @Component({
@@ -35,7 +33,7 @@ export class RendezVousComponent implements OnInit, IDeactivate {
     dateRdv:null
   };
 
-  constructor(private route: ActivatedRoute, private service: VaccinationCenterService,private service2: EnvoiFormulaireService, private readonly http: HttpClient, private readonly router: Router) { }
+  constructor(private route: ActivatedRoute, private service: VaccinationCenterService,private service2: EnvoiFormulaireService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => this.service.getVaccinationCenterById(params['gid']).subscribe(resultCenters=> {

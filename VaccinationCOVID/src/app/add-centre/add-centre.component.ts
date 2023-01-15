@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChoixCentre } from '../choix-centre/choix-centre';
 import { IDeactivate } from '../i-deactivate';
 import { VaccinationCenterService } from '../vaccination-center.service';
 
@@ -22,9 +21,7 @@ export class AddCentreComponent implements OnInit, IDeactivate{
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private centreService: VaccinationCenterService,
-    private route: ActivatedRoute,
-    private router : Router){}
+  constructor(private centreService: VaccinationCenterService){}
 
   ngOnInit(): void {
       

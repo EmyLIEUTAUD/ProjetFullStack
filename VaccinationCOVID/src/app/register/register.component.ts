@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDeactivate } from '../i-deactivate';
 import { SignUpEnvoiFormService } from '../sign-up-envoi-form.service';
-import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +20,7 @@ export class RegisterComponent implements OnInit, IDeactivate {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthenticationService, private service: SignUpEnvoiFormService, private router: Router) { }
+  constructor( private service: SignUpEnvoiFormService, private router: Router) { }
 
   ngOnInit(): void {
   }

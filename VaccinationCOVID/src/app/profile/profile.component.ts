@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../_services/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../_services/authentication.service';
-import { first } from 'rxjs/operators';
 import { TokenStorageService } from '../_services/token-storage.service';
-import { AdminChoixServiceService } from '../admin-choix-service.service';
 import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
 import { ProfessionnelsService } from '../professionnels.service';
 import { User } from '../_models/user';

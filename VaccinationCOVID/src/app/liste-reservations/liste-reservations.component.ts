@@ -3,10 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ProfessionnelsService } from '../professionnels.service';
-import { ProfileComponent } from '../profile/profile.component';
 import { ReservationsService } from '../reservations.service';
 import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
-import { Reservation } from '../_models/reservation';
 import { Role } from '../_models/role';
 import { User } from '../_models/user';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -23,10 +21,8 @@ export class ListeReservationsComponent {
   currentUser: any;
   personne: User = {identifiant: 0, nom: "", prenom: "", username: "", password: "", role: Role.Admin};
 
-  constructor(private router : Router,
-    public modalRef: MdbModalRef<ListeReservationsComponent>,
+  constructor(public modalRef: MdbModalRef<ListeReservationsComponent>,
     private reservationsService: ReservationsService,
-    private route: ActivatedRoute,
     private token: TokenStorageService,
     private professionnelsService: ProfessionnelsService,
     private adminService: VaccinationAdminServiceService) { }

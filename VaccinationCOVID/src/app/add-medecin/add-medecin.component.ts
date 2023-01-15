@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProfessionnelsService } from '../professionnels.service';
 import { User } from '../_models/user';
 
@@ -14,9 +13,7 @@ export class AddMedecinComponent implements OnInit {
   etag: Array<string> = [];
 
   constructor(
-    private professionnelService: ProfessionnelsService,
-    private route: ActivatedRoute,
-    private router : Router,){}
+    private professionnelService: ProfessionnelsService){}
   
   ngOnInit(): void {
     this.loadProfessionnels();

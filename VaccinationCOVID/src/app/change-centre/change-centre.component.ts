@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import {VaccinationCenterService} from '../vaccination-center.service'
-import { HttpHeaders } from '@angular/common/http';
 
 
 
@@ -20,8 +19,7 @@ etag: Array<string> = [];
 
 constructor(
   private centreService: VaccinationCenterService,
-  private route: ActivatedRoute,
-  private router : Router,){}
+  private route: ActivatedRoute,){}
 
 ngOnInit(): void {
   this.route.params.subscribe((params: Params) => this.centreService.getVaccinationCenterById(params['gid']).subscribe(resultCenters=> {

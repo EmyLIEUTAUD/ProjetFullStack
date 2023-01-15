@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { VaccinationCenterService } from '../vaccination-center.service';
-import { HttpClient } from '@angular/common/http';
 import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
 import { Admin } from '../_models/admin';
 
@@ -19,7 +18,6 @@ export class CentreAdminComponent implements OnInit{
 
   constructor(private route: ActivatedRoute, 
     private service: VaccinationCenterService, 
-    private readonly http: HttpClient, 
     private readonly router: Router,
     private adminservice: VaccinationAdminServiceService,
     ) { }
@@ -46,7 +44,6 @@ export class CentreAdminComponent implements OnInit{
   }
   editAdmin(adminSelected : Admin){
       this.selected = adminSelected;
-      //this.service.admin = adminSelected;
       this.router.navigate(['editAdmin',adminSelected.id_admin]);
       
     }

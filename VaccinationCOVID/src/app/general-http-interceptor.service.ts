@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalComponent } from './modal/modal.component';
 import { ModalErrorLoginComponent } from './modal-error-login/modal-error-login.component';
@@ -23,8 +22,6 @@ export class GeneralHttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
     console.log("J'intercepte les erreurs http");
-    const token: string = 'invalid token';
-    //req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     req = req.clone();
     return next.handle(req).pipe(
     catchError((error) => {

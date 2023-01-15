@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { CentreChoisieService } from '../centre-choix-service.service';
 import { ChoixCentre } from '../choix-centre/choix-centre';
-import { ChoixVilleComponent } from '../choix-ville/choix-ville.component';
 import { ChoixdelavilleService } from '../choixdelaville.service';
 import { VaccinationCenterService } from '../vaccination-center.service';
 import { TokenStorageService } from '../_services/token-storage.service';

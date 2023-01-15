@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProfessionnelsService } from '../professionnels.service';
 import { User } from '../_models/user';
@@ -15,7 +15,7 @@ export class AddAdminComponent {
   constructor(
     private professionnelService: ProfessionnelsService,
     private route: ActivatedRoute,
-    private router : Router,){}
+    ){}
   
   ngOnInit(): void {
     this.loadProfessionnels();

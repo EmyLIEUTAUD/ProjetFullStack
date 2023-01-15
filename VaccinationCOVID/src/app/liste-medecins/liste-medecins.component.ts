@@ -4,11 +4,8 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { ChoixCentre } from '../choix-centre/choix-centre';
 import { ChoixMedecin } from '../choix-medecin/choix-medecin';
 import { MedecinsService } from '../medecins.service';
-import { ModalListMedecinsComponent } from '../modal-list-medecins/modal-list-medecins.component';
 import { ProfessionnelsService } from '../professionnels.service';
 import { VaccinationAdminServiceService } from '../vaccination-admin-service.service';
-import { VaccinationCenterService } from '../vaccination-center.service';
-import { Reservation } from '../_models/reservation';
 import { Role } from '../_models/role';
 import { User } from '../_models/user';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -20,7 +17,7 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class ListeMedecinsComponent implements OnInit {
 
-  //medecins!: ChoixMedecin[];
+  
   selected?: ChoixMedecin;
   isLoggedIn = false;
   isLoginFailed = false;
