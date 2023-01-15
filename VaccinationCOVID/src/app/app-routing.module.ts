@@ -21,6 +21,7 @@ import { AddMedecinComponent } from './add-medecin/add-medecin.component';
 import { CentreAdminComponent } from './centre-admin/centre-admin.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { AuthGuardService } from './auth-guard.service';
+import { AddCentreComponent } from './add-centre/add-centre.component';
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
@@ -45,7 +46,7 @@ const routes: Routes = [
   {path: 'addMedecin', component: AddMedecinComponent, canActivate: [AuthGuardService]},
   {path: 'admins/centre/:gid', component: CentreAdminComponent, canActivate: [AuthGuardService]},
   {path: 'addAdmin/:gid', component: AddAdminComponent, canActivate: [AuthGuardService]},
-
+  {path: 'addCentre', component: AddCentreComponent, canActivate: [AuthGuardService], canDeactivate: [AuthGuardService]}
   //{path: '', redirectTo: '/public', pathMatch: 'full'},
 
 

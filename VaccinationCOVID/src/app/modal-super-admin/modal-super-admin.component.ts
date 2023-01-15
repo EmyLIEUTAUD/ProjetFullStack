@@ -1,4 +1,5 @@
 import { Component, Input, OnInit  } from '@angular/core';
+import { Router } from '@angular/router';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 
 @Component({
@@ -6,7 +7,11 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
   templateUrl: './modal-super-admin.component.html'
 })
 export class ModalSuperAdminComponent implements OnInit{
-  constructor(public modalRef: MdbModalRef<ModalSuperAdminComponent>) {}
+  constructor(public router: Router, public modalRef: MdbModalRef<ModalSuperAdminComponent>) {}
   ngOnInit(): void {
+  }
+
+  ajouterCentre(){
+    this.router.navigate(['addCentre']);
   }
 }

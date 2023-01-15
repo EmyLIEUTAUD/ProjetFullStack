@@ -1,6 +1,6 @@
 # ProjetFullStack - Vaccination COVID
 Application permettant de prendre un rendez-vous pour une vaccination COVID dans un centre de vaccination en France. <br>
-*Créée par Emy LIEUTAUD (31818604), Yunqiao ZHANG () et Romain PERRELLE ()*
+*Créée par Emy LIEUTAUD (31818604), Yunqiao ZHANG () et Romain PERRELLE (32024667)*
 
 Données sur les lieux de vaccination : https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/
 
@@ -43,10 +43,12 @@ Technologies implémentées :<br>
 - Bootstrap
 - File d'attente
 - Formulaire BasicAuth
+- Guard : canActivate, canDeactivate
 - Interceptors
-- Material
+- Material : core, input, form-field, datepicker, card, button, progress-bar
 - Modales
-- Promises <br>
+- Promises
+- Regex <br>
 
 Pour lancer le front, il faut tout d'abord **aller dans le dossier VaccinationCOVID**.<br>
 Ensuite, il suffit d'exécuter la commande suivante : ```ng serve```.<br>
@@ -85,13 +87,14 @@ Il peut :
   - modifier un médecin (**PUT /admin/medecins/modifier/{id}**)
   - supprimer un médecin (**DELETE /admin/medecins/supprimer/{id}**)
 - gérer les réservations de son centre (**/admin/reservations/**) : 
-  - afficher les réservations (**GET /admin/reservations** et **GET /admin/reservations/centre**)
+  - afficher les réservations (**GET /admin/reservations** et **GET /admin/reservations/centre/{date}**)
   - supprimer une réservation (**DELETE /admin/reservations/supprimer/{id}**)
 
 ### Medecin
 Il est lié à un centre.<br>
 Il peut :
 - rechercher une personne dans son centre par son nom (**GET /admin/personnes/{nom}**)
+- rechercher une personne dans son centre par sa date de réservation (**GET /admin/reservations/centre/{date}**)
 - valider la vaccination d'une personne (**PUT /admin/personnes/validerVaccination/{id}**)
 
 ## Comptes pré-créés
