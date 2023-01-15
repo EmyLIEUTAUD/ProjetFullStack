@@ -33,8 +33,9 @@ export class AuthenticationService {
 
     isUserLoggedIn(): boolean {
       if(this.tokenStorageService.getAuthToken() != null ){
-        if(!this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
-          console.log("Je suis loggué");
+        console.log("Je suis loggué");
+        if(this.tokenStorageService.isTokenExpired(this.tokenStorageService.getAuthToken())){
+          console.log("token non expiré");
         return true;
         }
         
